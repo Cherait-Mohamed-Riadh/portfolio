@@ -119,6 +119,20 @@ function openDinaVideoModal() {
     openVideoLightbox(videoSrc);
 }
 
+// Global function for Abd Erahmane video
+function openAbdErahmaneVideoModal() {
+    console.log("Opening Abd Erahmane video modal...");
+    const videoSrc = "image/Abd erahmane.mp4";
+    
+    // Check if elements exist
+    if (!videoLightbox || !videoLightboxVideo) {
+        console.error("Video modal elements not found!");
+        return;
+    }
+    
+    openVideoLightbox(videoSrc);
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Initializing video modal...");
@@ -167,6 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Check which button was clicked and call appropriate function
             if (this.onclick && this.onclick.toString().includes('openDinaVideoModal')) {
                 openDinaVideoModal();
+            } else if (this.onclick && this.onclick.toString().includes('openAbdErahmaneVideoModal')) {
+                openAbdErahmaneVideoModal();
             } else {
                 openCarVideoModal();
             }
