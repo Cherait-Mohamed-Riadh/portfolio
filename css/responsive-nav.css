@@ -20,6 +20,7 @@
     background: transparent;
     cursor: pointer;
     display: block;
+    top: -4px; /* lift slightly more upwards */
   }
 
   .burger input {
@@ -36,6 +37,7 @@
     opacity: 1;
     left: 0;
     transform: rotate(0deg);
+    top: 1px; /* shift lines slightly to visually center after lift */
     transition: .25s ease-in-out;
   }
 

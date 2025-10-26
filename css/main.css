@@ -245,15 +245,22 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.85);
+    /* Enhance glass effect */
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    /* Slightly rounded bottom corners */
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    /* Ensure children respect the radius */
+    overflow: hidden;
     border-bottom: 1px solid var(--border-color);
     z-index: var(--z-sticky);
     transition: all var(--transition-normal);
 }
 
 [data-theme="dark"] .navbar {
-    background: rgba(26, 26, 26, 0.95);
+    background: rgba(26, 26, 26, 0.85);
 }
 
 .nav-container {
@@ -699,14 +706,17 @@ body {
     display: none;
     flex-direction: column;
     gap: 6px; /* Increased gap for better visibility */
-    background: none;
-    border: none;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
     cursor: pointer;
     padding: var(--space-md); /* Increased padding for larger touch area */
-    min-width: 48px; /* Ensure minimum touch area */
-    min-height: 48px; /* Ensure minimum touch area */
+    min-width: 42px; /* Slightly smaller touch area */
+    min-height: 42px; /* Slightly smaller touch area */
     justify-content: center;
     align-items: center;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .mobile-menu-toggle span {
@@ -715,6 +725,24 @@ body {
     background: var(--text-primary);
     transition: all var(--transition-normal);
     border-radius: 2px; /* Added rounded corners */
+}
+
+/* Hover/active states for better feedback */
+.mobile-menu-toggle:hover {
+    background: var(--primary-blue);
+    border-color: var(--primary-blue);
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+}
+
+.mobile-menu-toggle:hover span { background: var(--white); }
+
+.mobile-menu-toggle:active { transform: scale(0.98); }
+
+/* Dark theme adjustments */
+[data-theme="dark"] .mobile-menu-toggle {
+    background: var(--bg-secondary);
+    border-color: var(--gray-700);
 }
 
 /* Mobile menu active state animations */
@@ -3921,16 +3949,20 @@ body {
         left: 0;
         right: 0;
         z-index: var(--z-fixed);
-        backdrop-filter: blur(20px);
-        background: rgba(255, 255, 255, 0.95);
+        -webkit-backdrop-filter: blur(28px);
+        backdrop-filter: blur(28px);
+        background: rgba(255, 255, 255, 0.85);
         border-bottom: 1px solid var(--border-color);
         box-shadow: var(--shadow-lg);
         transition: all var(--transition-normal);
         height: 60px; /* Fixed height for mobile */
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+        overflow: hidden;
     }
     
     [data-theme="dark"] .navbar {
-        background: rgba(10, 10, 10, 0.95);
+        background: rgba(10, 10, 10, 0.85);
         border-bottom: 1px solid var(--gray-700);
     }
     
@@ -5763,8 +5795,17 @@ body {
     /* شريط التنقل */
     .nav-container {
       padding: 0 var(--space-lg);
-      height: 64px;
+      height: 64px; /* base mobile */
     }
+
+    /* Make toggle visible on mobile */
+    .mobile-menu-toggle {
+        display: inline-flex;
+        min-width: 40px;
+        min-height: 40px;
+        padding: var(--space-sm);
+    }
+    .mobile-menu-toggle span { width: 22px; height: 2.5px; }
   
     .brand-text { 
         font-size: 1.05rem; 
@@ -6784,6 +6825,18 @@ body {
         border-color: #60a5fa !important;
         box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2) !important;
     }
+}
+
+/* Tablets (769px–1024px): slightly larger navbar and toggle */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .nav-container { height: 72px; }
+    .mobile-menu-toggle {
+        display: inline-flex;
+        min-width: 42px; min-height: 42px;
+        padding: var(--space-sm);
+    }
+    .mobile-menu-toggle span { width: 22px; height: 2.5px; }
+    .nav-menu { inset: 72px 0 0 0; }
 }
 
 /* Extra small devices */

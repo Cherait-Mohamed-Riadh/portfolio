@@ -808,16 +808,20 @@
 .project-tech {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-sm);
+    gap: var(--space-md);
 }
 
 .tech-tag {
     background: var(--bg-secondary);
     color: var(--text-primary);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    font-weight: 500;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-lg);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 .projects-cta {
@@ -1363,8 +1367,9 @@
     }
     
     .tech-tag {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         padding: var(--space-xs) var(--space-sm);
+        border-radius: var(--radius-md);
     }
     
     /* Improve expertise cards on mobile */
@@ -2419,10 +2424,10 @@
     .tech-tag {
         background: var(--bg-secondary);
         color: var(--text-secondary);
-        padding: var(--space-xs) var(--space-sm);
-        border-radius: var(--radius-md);
-        font-size: 0.75rem;
-        font-weight: 500;
+        padding: calc(var(--space-xs) + 2px) calc(var(--space-sm) + 2px);
+        border-radius: var(--radius-lg);
+        font-size: 0.8rem;
+        font-weight: 600;
         border: 1px solid var(--border-color);
         transition: all var(--transition-fast);
     }
@@ -2987,11 +2992,12 @@
     .mobile-menu-toggle {
         width: 40px;
         height: 40px;
+        border-radius: 10px;
     }
     
     .mobile-menu-toggle span {
         width: 18px;
-        height: 2px;
+        height: 2.25px;
     }
     
     /* Enhanced mobile menu for very small screens */
@@ -3036,8 +3042,9 @@
     
     /* Enhanced mobile project tech tags for very small screens */
     .tech-tag {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         padding: var(--space-xs) var(--space-sm);
+        border-radius: var(--radius-md);
     }
     
     /* Enhanced mobile social links for very small screens */

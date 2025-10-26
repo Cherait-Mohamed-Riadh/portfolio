@@ -68,13 +68,10 @@ function openImageLightbox(imgElement) {
     lightboxImg.src = imgElement.src;
     lightboxImg.alt = imgElement.alt;
     
-    // Check for secondary image
-    const secondaryImageSrc = imgElement.getAttribute('data-secondary-image');
-    if (secondaryImageSrc && lightboxSecondaryImg) {
-        lightboxSecondaryImg.src = secondaryImageSrc;
-        lightboxSecondaryImg.style.display = 'block';
-    } else if (lightboxSecondaryImg) {
+    // Always show only the primary image (hide any secondary image)
+    if (lightboxSecondaryImg) {
         lightboxSecondaryImg.style.display = 'none';
+        lightboxSecondaryImg.src = '';
     }
     
     // Show lightbox
@@ -205,22 +202,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize project images
-    const projectImages = document.querySelectorAll(".project-img");
-    projectImages.forEach(function(img) {
-        img.addEventListener("click", function(e) {
-            e.preventDefault();
-            
-            if (img.tagName.toLowerCase() === "video") {
-                const videoSrc = img.getAttribute("data-video-src") || img.getAttribute("src");
-                if (videoSrc) {
-                    openVideoLightbox(videoSrc);
+    // Initialize project images (skip on sites page to avoid duplicate handlers)
+    const isSitesPage = (typeof window !== 'undefined') && (window.location.pathname.endsWith('sites.html') || document.querySelector('.sites-section'));
+    if (!isSitesPage) {
+        const projectImages = document.querySelectorAll(".project-img");
+        projectImages.forEach(function(img) {
+            img.addEventListener("click", function(e) {
+                e.preventDefault();
+                
+                if (img.tagName.toLowerCase() === "video") {
+                    const videoSrc = img.getAttribute("data-video-src") || img.getAttribute("src");
+                    if (videoSrc) {
+                        openVideoLightbox(videoSrc);
+                    }
+                } else if (img.tagName.toLowerCase() === "img") {
+                    openImageLightbox(img);
                 }
-            } else if (img.tagName.toLowerCase() === "img") {
-                openImageLightbox(img);
-            }
+            });
         });
-    });
+    }
     
     console.log("Video modal initialized successfully!");
 });

@@ -62,6 +62,7 @@
     <link rel="stylesheet" href="css/video-modal.css">
     <!-- Responsive Navigation CSS -->
     <link rel="stylesheet" href="css/responsive-nav.css">
+    <link rel="stylesheet" href="css/rtl.css">
     
     <!-- Non-critical CSS with async loading -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -314,29 +315,6 @@
             }
         }
 
-        /* Footer Styles */
-        .main-footer {
-            background: linear-gradient(135deg, #0A1C2B 0%, #1a2a3a 100%);
-            color: #ffffff;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .main-footer p {
-            margin: 0;
-            font-size: 1rem;
-            font-weight: 400;
-            opacity: 0.9;
-        }
-
         /* Video styles moved to video-modal.css */
     </style>
 </head>
@@ -355,9 +333,7 @@
         </div>
     </div>
 
-    <!-- Cursor Follower -->
-    <div class="cursor-follower"></div>
-    <div class="cursor-dot"></div>
+    
 
     <!-- Progress Bar -->
     <div id="progressBar" class="progress-bar"></div>
@@ -373,23 +349,19 @@
             </div>
             
             <div class="nav-menu" id="navMenu">
-                <a href="index.html#home" class="nav-link" data-section="home" data-keyboard-shortcut="1">
+                <a href="index.html" class="nav-link" data-section="home" data-keyboard-shortcut="1">
                     <i class="fas fa-home"></i>
                     <span>Home</span>
                 </a>
-                <a href="index.html#about" class="nav-link" data-section="about" data-keyboard-shortcut="2">
-                    <i class="fas fa-user"></i>
-                    <span>About</span>
-                </a>
-                <a href="index.html#expertise" class="nav-link" data-section="expertise" data-keyboard-shortcut="3">
-                    <i class="fas fa-cogs"></i>
-                    <span>Expertise</span>
-                </a>
-                <a href="index.html#projects" class="nav-link active" data-section="projects" data-keyboard-shortcut="4">
+                <a href="#projects" class="nav-link active" data-section="projects" data-keyboard-shortcut="4">
                     <i class="fas fa-briefcase"></i>
                     <span>Projects</span>
                 </a>
-                <a href="contact.html" class="nav-link" data-section="contact" data-keyboard-shortcut="5">
+                <a href="#about" class="nav-link" data-section="about" data-keyboard-shortcut="2">
+                    <i class="fas fa-user"></i>
+                    <span>About</span>
+                </a>
+                <a href="#contact" class="nav-link" data-section="contact" data-keyboard-shortcut="5">
                     <i class="fas fa-envelope"></i>
                     <span>Contact</span>
                 </a>
@@ -451,7 +423,7 @@
         </div>
     </nav>
 
-    <main class="main-content">
+    <main class="main-content" role="main">
         <!-- Professional Introduction Section -->
         <section class="professional-intro container in-view">
             <div class="intro-content">
@@ -487,15 +459,18 @@
             </div>
         </section>
 
+        
+
         <!-- Projects Showcase Section -->
-        <section class="sites-section container in-view">
+        <section id="projects" class="sites-section container in-view">
             <div class="sites-grid">
-                <div class="site-card">
+                <div class="site-card featured" data-category="ecommerce" aria-labelledby="project-ecommerce">
+                    <div class="card-badge"><i class="fas fa-star" aria-hidden="true"></i><span>Featured</span></div>
                     <div class="projects-gallery">
-                        <img src="image/renohdz.png" alt="E-commerce Platform Development Screenshot" loading="lazy" width="600" height="400" class="project-img" data-secondary-image="image/renohdz33.png">
+                        <img src="image/renohdz.png" alt="E-commerce Platform Development Screenshot" loading="lazy" decoding="async" width="600" height="400" class="project-img" data-secondary-image="image/renohdz33.png">
                     </div>
                     <div class="site-content">
-                        <h3 data-translate="site1Title">Enterprise E-commerce Platform</h3>
+                        <h3 id="project-ecommerce" data-translate="site1Title">Enterprise E-commerce Platform</h3>
                         <p data-translate="site1Desc">Get a professional e-commerce website with all the modern and professional features to become a successful e-commerce merchant and increase your sales.</p>
                         <div class="project-features">
                             <span class="feature-tag">User Authentication</span>
@@ -512,23 +487,23 @@
                         </div>
                     </div>
                     <div class="site-links">
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewLiveSite" class="primary-link">
+                        <a href="https://abd-rahman-portfolio.vercel.app/" target="_blank" rel="noopener" class="primary-link">
                             <i class="fas fa-external-link-alt"></i>
-                            <span>View Live Site</span>
+                            <span data-translate="viewLiveSite">View Live Site</span>
                         </a>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span data-translate="viewCode">All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card" data-category="healthcare" aria-labelledby="project-healthcare">
                     <div class="projects-gallery">
-                        <img src="image/Dental clinic.png" alt="Dental Clinic Website Screenshot" loading="lazy" width="600" height="400" class="project-img">
+                        <img src="image/Dental clinic.png" alt="Dental Clinic Website Screenshot" loading="lazy" decoding="async" width="600" height="400" class="project-img">
                     </div>
                     <div class="site-content">
-                        <h3>Dental Clinic Website</h3>
+                        <h3 id="project-healthcare">Dental Clinic Website</h3>
                         <p>We offer a comprehensive service for designing and developing professional websites specifically designed for dental clinics. Our goal is to build a website that is not just a storefront, but an effective marketing tool that attracts new patients and builds the trust of existing clients.</p>
                         <div class="project-features">
                             <span class="feature-tag">Patient Appointments</span>
@@ -544,23 +519,23 @@
                         </div>
                     </div>
                     <div class="site-links">
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewLiveSite" class="primary-link">
+                        <a href="https://abd-rahman-portfolio.vercel.app/" target="_blank" rel="noopener" class="primary-link">
                             <i class="fas fa-external-link-alt"></i>
-                            <span>View Live Site</span>
+                            <span data-translate="viewLiveSite">View Live Site</span>
                         </a>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span data-translate="viewCode">All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card" data-category="education" aria-labelledby="project-education">
                     <div class="projects-gallery">
-                        <img src="image/riaacademy.png" alt="Educational Platform Screenshot" loading="lazy" width="600" height="400" class="project-img" data-secondary-image="image/riaacademy22.png">
+                        <img src="image/riaacademy.png" alt="Educational Platform Screenshot" loading="lazy" decoding="async" width="600" height="400" class="project-img" data-secondary-image="image/riaacademy22.png">
                     </div>
                     <div class="site-content">
-                        <h3 data-translate="site3Title">Educational Learning Platform</h3>
+                        <h3 id="project-education" data-translate="site3Title">Educational Learning Platform</h3>
                         <p data-translate="site3Desc">Created a comprehensive educational platform with interactive learning modules, progress tracking, and comprehensive course management. Features adaptive learning paths and performance analytics.</p>
                         <div class="project-features">
                             <span class="feature-tag">Interactive Learning</span>
@@ -575,23 +550,23 @@
                         </div>
                     </div>
                     <div class="site-links">
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewLiveSite" class="primary-link">
+                        <a href="https://abd-rahman-portfolio.vercel.app/" target="_blank" rel="noopener" class="primary-link">
                             <i class="fas fa-external-link-alt"></i>
-                            <span>View Live Site</span>
+                            <span data-translate="viewLiveSite">View Live Site</span>
                         </a>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span data-translate="viewCode">All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card" data-category="services" aria-labelledby="project-services">
                     <div class="projects-gallery">
-                        <img src="image/Services company.png" alt="Services Company Website Screenshot" loading="lazy" width="600" height="400" class="project-img">
+                        <img src="image/Services company.png" alt="Services Company Website Screenshot" loading="lazy" decoding="async" width="600" height="400" class="project-img">
                     </div>
                     <div class="site-content">
-                        <h3 data-translate="site4Title">Services Company Website</h3>
+                        <h3 id="project-services" data-translate="site4Title">Services Company Website</h3>
                         <p data-translate="site4Desc">Developed a professional services company website with modern design, client testimonials, service showcase, and contact forms. Features responsive design and SEO optimization.</p>
                         <div class="project-features">
                             <span class="feature-tag">Service Showcase</span>
@@ -607,23 +582,23 @@
                         </div>
                     </div>
                     <div class="site-links">
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewLiveSite" class="primary-link">
+                        <a href="https://abd-rahman-portfolio.vercel.app/" target="_blank" rel="noopener" class="primary-link">
                             <i class="fas fa-external-link-alt"></i>
-                            <span>View Live Site</span>
+                            <span data-translate="viewLiveSite">View Live Site</span>
                         </a>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span data-translate="viewCode">All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card" data-category="portfolio" aria-labelledby="project-portfolio-1">
                     <div class="projects-gallery">
-                        <img src="image/salimportfilio.png" alt="Professional Portfolio Website Screenshot" loading="lazy" width="600" height="400" class="project-img" data-secondary-image="image/salimportfiliofull.png">
+                        <img src="image/salimportfilio.png" alt="Professional Portfolio Website Screenshot" loading="lazy" decoding="async" width="600" height="400" class="project-img" data-secondary-image="image/salimportfiliofull.png">
                     </div>
                     <div class="site-content">
-                        <h3 data-translate="site5Title">Professional Portfolio Website</h3>
+                        <h3 id="project-portfolio-1" data-translate="site5Title">Professional Portfolio Website</h3>
                         <p data-translate="site5Desc">Designed and developed a modern portfolio website with advanced animations, optimal performance, and professional presentation. Features smooth transitions and interactive elements.</p>
                         <div class="project-features">
                             <span class="feature-tag">Modern Design</span>
@@ -644,17 +619,18 @@
                         </a>
                         <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span>All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card featured" data-category="portfolio" aria-labelledby="project-portfolio-2">
+                    <div class="card-badge"><i class="fas fa-star" aria-hidden="true"></i><span>Featured</span></div>
                     <div class="projects-gallery">
-                        <img src="image/riadhportfolio.png" alt="Mohammed Riadh Portfolio Screenshot" loading="lazy" width="600" height="400" class="project-img" data-secondary-image="image/riadhportfolio22.png">
+                        <img src="image/riadhportfolio.png" alt="Mohammed Riadh Portfolio Screenshot" loading="lazy" decoding="async" width="600" height="400" class="project-img" data-secondary-image="image/riadhportfolio22.png">
                     </div>
                     <div class="site-content">
-                        <h3 data-translate="site6Title">Mohamed Riadh Portfolio</h3>
+                        <h3 id="project-portfolio-2" data-translate="site6Title">Mohamed Riadh Portfolio</h3>
                         <p data-translate="site6Desc">Of course 😅 As a programmer, I am the one who programmed and developed my portfolio website</p>
                         <div class="project-features">
                             <span class="feature-tag">Personal Portfolio</span>
@@ -675,19 +651,19 @@
                         </a>
                         <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span>All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card" data-category="automotive" aria-labelledby="project-automotive">
                     <div class="projects-gallery">
                         <video src="image/zzzz.mp4" autoplay muted loop playsinline width="600" height="400" class="project-img" style="object-fit: cover; width: 100%; height: 100%; cursor: pointer;" title="Click to view video in fullscreen" data-video-src="image/zzzz.mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="site-content">
-                        <h3>Car Sales Company Website</h3>
+                        <h3 id="project-automotive">Car Sales Company Website</h3>
                         <p>A professional website for a company that sells sports and classic cars. The website is responsive, smooth and integrated, providing an excellent user experience for car enthusiasts and potential buyers.</p>
                         <div class="project-features">
                             <span class="feature-tag">Car Showcase</span>
@@ -707,23 +683,23 @@
                             <i class="fas fa-play"></i>
                             <span>Watch the Video</span>
                         </button>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewLiveSite" class="primary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="primary-link">
                             <i class="fas fa-external-link-alt"></i>
-                            <span>View Live Site</span>
+                            <span data-translate="viewLiveSite">View Live Site</span>
                         </a>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span data-translate="viewCode">All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card" data-category="media" aria-labelledby="project-media">
                     <div class="projects-gallery">
-                        <img src="image/سيسيسي54.png" alt="Voice Over Artist Portfolio Screenshot" loading="lazy" width="600" height="400" class="project-img" data-secondary-image="image/dina.png">
+                        <img src="image/سيسيسي54.png" alt="Voice Over Artist Portfolio Screenshot" loading="lazy" decoding="async" width="600" height="400" class="project-img" data-secondary-image="image/dina.png">
                     </div>
                     <div class="site-content">
-                        <h3>Voice Over Artist Portfolio – Dina V.</h3>
+                        <h3 id="project-media">Voice Over Artist Portfolio – Dina V.</h3>
                         <p>A professional website for a professional voiceover artist. Features a modern design with voice samples, professional bio, and contact information for potential clients.</p>
                         <div class="project-features">
                             <span class="feature-tag">Voice Samples</span>
@@ -743,25 +719,25 @@
                             <i class="fas fa-play"></i>
                             <span>Watch the Video</span>
                         </button>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewLiveSite" class="primary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="primary-link">
                             <i class="fas fa-external-link-alt"></i>
-                            <span>View Live Site</span>
+                            <span data-translate="viewLiveSite">View Live Site</span>
                         </a>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span data-translate="viewCode">All site</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="site-card">
+                <div class="site-card" data-category="portfolio" aria-labelledby="project-portfolio-3">
                     <div class="projects-gallery">
                         <video src="image/Abd erahmane.mp4" autoplay muted loop playsinline width="600" height="400" class="project-img" style="object-fit: cover; width: 100%; height: 100%; cursor: pointer;" title="Click to view video in fullscreen" data-video-src="image/Abd erahmane.mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
                     <div class="site-content">
-                        <h3>Portfolio website for a freelance graphic designer</h3>
+                        <h3 id="project-portfolio-3">Portfolio website for a freelance graphic designer</h3>
                         <p>A professional portfolio website for a freelance graphic designer showcasing creative work, design projects, and professional services. Features a modern and artistic design that highlights the designer's creativity and expertise.</p>
                         <div class="project-features">
                             <span class="feature-tag">Portfolio Showcase</span>
@@ -777,17 +753,49 @@
                         </div>
                     </div>
                     <div class="site-links">
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewLiveSite" class="primary-link">
+                        <a href="https://abd-rahman-portfolio.vercel.app/" target="_blank" rel="noopener" class="primary-link">
                             <i class="fas fa-external-link-alt"></i>
-                            <span>View Live Site</span>
+                            <span data-translate="viewLiveSite">View Live Site</span>
                         </a>
-                        <a href="#!" target="_blank" rel="noopener" data-translate="viewCode" class="secondary-link">
+                        <a href="#!" target="_blank" rel="noopener" class="secondary-link">
                             <i class="fab fa-github"></i>
-                            <span>View Code</span>
+                            <span data-translate="viewCode">All site</span>
                         </a>
                     </div>
                 </div>
             </div>
+
+            <!-- About Section -->
+            <section id="about" class="about-section container in-view" style="margin-top: 60px;">
+                <div class="professional-cta" style="margin-top: 0;">
+                    <div class="cta-content">
+                        <h3>About the Developer</h3>
+                        <p>Mohamed Riadh is a professional web developer and cybersecurity expert with extensive experience in creating high-quality web applications. With a passion for clean code and modern technologies, I deliver projects that exceed expectations.</p>
+                        <div class="cta-buttons">
+                            <a href="index.html#about" class="btn btn-primary">
+                                <i class="fas fa-user"></i>
+                                <span>Learn More</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section container in-view" style="margin-top: 60px;">
+                <div class="professional-cta" style="margin-top: 0;">
+                    <div class="cta-content">
+                        <h3>Get in Touch</h3>
+                        <p>Have a project in mind? Let's work together to bring your vision to life.</p>
+                        <div class="cta-buttons">
+                            <a href="contact.html" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Contact Me</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- Professional Call-to-Action -->
             <div class="professional-cta">
@@ -806,18 +814,101 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Professional Results & Brand Trust Section -->
+            <section class="results-section">
+                <div class="results-container">
+                    <div class="metrics-grid">
+                        <div class="metric-item">
+                            <div class="metric-number" data-target="50" data-suffix="+">0</div>
+                            <div class="metric-label">Websites Delivered</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number" data-target="7" data-suffix=" Days">0</div>
+                            <div class="metric-label">Average Delivery Time</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number" data-target="100" data-suffix="+">0</div>
+                            <div class="metric-label">Security Audits</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-number" data-target="100" data-suffix="%">0</div>
+                            <div class="metric-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
         </section>
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <p data-translate="footerText">&copy; 2025 Mohamed Riadh. All rights reserved.</p>
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Footer Content -->
+            <div class="footer-content">
+                <!-- Brand Information -->
+                <div class="footer-brand">
+                    <h3 data-translate="footer.brand">Mohamed Riadh</h3>
+                    <p data-translate="hero.badge">Cybersecurity Expert, Web Developer & Voiceover Artist</p>
+                    <p class="footer-tagline" data-translate="footer.tagline">Securing digital futures through innovation and expertise</p>
+                </div>
+                
+                <!-- Footer Links -->
+                <div class="footer-links">
+                    <!-- Services Links -->
+                    <div class="footer-section">
+                        <h4 data-translate="footer.services.title">Services</h4>
+                        <ul>
+                            <li><a href="index.html#expertise" data-translate="footer.services.security">Security Consulting</a></li>
+                            <li><a href="index.html#projects" data-translate="footer.services.web">Web Development</a></li>
+                            <li><a href="analysis.html" data-translate="footer.services.analysis">Market Analysis</a></li>
+                            <li><a href="cybersecurity.html" data-translate="footer.services.testing">Penetration Testing</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Resources Links -->
+                    <div class="footer-section">
+                        <h4 data-translate="footer.resources.title">Resources</h4>
+                        <ul>
+                            <li><a href="blog.html" data-translate="footer.resources.blog">Blog</a></li>
+                            <li><a href="index.html#about" data-translate="footer.resources.about">About</a></li>
+                            <li><a href="index.html#contact" data-translate="footer.resources.contact">Contact</a></li>
+                            <li><a href="sites.html" data-translate="footer.resources.portfolio">Portfolio</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Social Media Links -->
+                    <div class="footer-section">
+                        <h4 data-translate="footer.connect.title">Connect</h4>
+                        <ul>
+                            <li><a href="https://dz.linkedin.com/in/cherait-mohamed-riadh-2585b5378" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                            
+                            <li><a href="https://x.com/mohamedria75815?s=21" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><svg class="x-logo" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Twitter</a></li>
+                            <li><a href="https://www.instagram.com/riadh_edit/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>
+                            <li><a href="index.html#contact" aria-label="Email"><i class="fas fa-envelope"></i> Email</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <!-- Copyright Information -->
+                <div class="footer-info">
+                    <p data-translate="footer.copyright">&copy; 2025 Mohamed Riadh. All rights reserved.</p>
+                </div>
+                
+                <!-- Footer Actions -->
+                <div class="footer-actions">
+                    <button id="scrollToTopBtn" class="scroll-top-btn" aria-label="Scroll to top">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </footer>
-
-    <button id="scrollToTopBtn" class="scroll-top-btn" aria-label="Scroll to top">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
-    </button>
 
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
@@ -851,6 +942,7 @@
     </div>
 
     <!-- Defer non-critical JavaScript -->
+    <script src="js/translations.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/sites.js" defer></script>
     <script src="js/video-modal.js" defer></script>

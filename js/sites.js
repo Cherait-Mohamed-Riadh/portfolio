@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
         element.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             // Check if this is a video element
             if (this.tagName === 'VIDEO') {
                 const videoSrc = this.src || this.currentSrc;
@@ -207,10 +207,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 return;
             }
-            
-            // For images, use the existing lightbox functionality
+
+            // If the image has a secondary image, show both in a lightbox stacked
+            const secondary = this.getAttribute('data-secondary-image');
             const imageSrc = this.src;
             const imageAlt = this.alt;
+            if (secondary) {
+                createLightbox(imageSrc, imageAlt, secondary);
+                return;
+            }
+            // Otherwise open lightbox with the same image
             createLightbox(imageSrc, imageAlt);
         });
         
@@ -247,24 +253,152 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ===== IMAGE LIGHTBOX FUNCTIONALITY =====
-    // Function to create and show lightbox for images
-    function createLightbox(imageSrc, imageAlt) {
+    // Function to create and show lightbox for images (single image only)
+    function createLightbox(imageSrc, imageAlt, secondarySrc) {
         // Create lightbox overlay
         const lightboxOverlay = document.createElement('div');
         lightboxOverlay.className = 'lightbox-overlay';
+
+        // Build content with a single image only (ignore any secondary source)
         lightboxOverlay.innerHTML = `
-            <div class="lightbox-content">
+            <div class="lightbox-content" style="flex-direction:column;">
                 <button class="lightbox-close" aria-label="Close lightbox">×</button>
                 <img src="${imageSrc}" alt="${imageAlt}" class="lightbox-image">
             </div>
         `;
-        
+
         // Add lightbox to body
         document.body.appendChild(lightboxOverlay);
-        
+
         // Prevent background scrolling when lightbox is open
         document.body.style.overflow = 'hidden';
-        
+
+        // Ensure the image starts from the top (no initial scroll)
+        const contentEl = lightboxOverlay.querySelector('.lightbox-content');
+        const imgEl = lightboxOverlay.querySelector('.lightbox-image');
+        if (contentEl) {
+            contentEl.scrollTop = 0;
+        }
+        lightboxOverlay.scrollTop = 0;
+
+        // After image loads, re-affirm starting at top
+        if (imgEl) {
+            const ensureTop = () => {
+                if (contentEl) contentEl.scrollTop = 0;
+                lightboxOverlay.scrollTop = 0;
+            };
+            imgEl.addEventListener('load', () => {
+                requestAnimationFrame(ensureTop);
+                setTimeout(ensureTop, 0);
+            }, { once: true });
+        }
+
+        // ===== Zoom & Pan interactions =====
+        (function enableZoomPan(){
+            if (!imgEl) return;
+            let scale = 1;
+            let posX = 0, posY = 0;
+            let isPanning = false;
+            let startX = 0, startY = 0;
+            const minScale = 1;
+            const maxScale = 4;
+
+            function applyTransform() {
+                imgEl.style.transform = `translate3d(${posX}px, ${posY}px, 0) scale(${scale})`;
+            }
+
+            function resetZoom() {
+                scale = 1;
+                posX = 0;
+                posY = 0;
+                imgEl.classList.remove('zoomed');
+                applyTransform();
+            }
+
+            function zoomBy(delta, centerX, centerY) {
+                const prevScale = scale;
+                scale = Math.min(maxScale, Math.max(minScale, scale + delta));
+                if (scale === prevScale) return;
+
+                // Keep zoom centered around cursor if available
+                if (centerX != null && centerY != null) {
+                    const rect = imgEl.getBoundingClientRect();
+                    const offsetX = centerX - (rect.left + rect.width / 2);
+                    const offsetY = centerY - (rect.top + rect.height / 2);
+                    posX -= offsetX * (scale - prevScale) / scale;
+                    posY -= offsetY * (scale - prevScale) / scale;
+                }
+
+                if (scale === 1) {
+                    posX = 0; posY = 0; imgEl.classList.remove('zoomed');
+                } else {
+                    imgEl.classList.add('zoomed');
+                }
+                applyTransform();
+            }
+
+            // Ctrl + wheel to zoom (desktop)
+            (contentEl || lightboxOverlay).addEventListener('wheel', (e) => {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                    const delta = e.deltaY > 0 ? -0.12 : 0.12;
+                    zoomBy(delta, e.clientX, e.clientY);
+                }
+            }, { passive: false });
+
+            // Double click to toggle zoom
+            imgEl.addEventListener('dblclick', (e) => {
+                e.preventDefault();
+                if (scale === 1) {
+                    zoomBy(1, e.clientX, e.clientY);
+                } else {
+                    resetZoom();
+                }
+            });
+
+            // Mouse pan while zoomed
+            imgEl.addEventListener('mousedown', (e) => {
+                if (scale === 1 || e.button !== 0) return;
+                isPanning = true;
+                startX = e.clientX - posX;
+                startY = e.clientY - posY;
+                e.preventDefault();
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!isPanning) return;
+                posX = e.clientX - startX;
+                posY = e.clientY - startY;
+                applyTransform();
+            });
+            window.addEventListener('mouseup', () => { isPanning = false; });
+
+            // Touch: double-tap to toggle zoom
+            let lastTap = 0;
+            imgEl.addEventListener('touchend', (e) => {
+                const now = Date.now();
+                if (now - lastTap < 300) {
+                    if (scale === 1) { zoomBy(1); } else { resetZoom(); }
+                }
+                lastTap = now;
+            });
+            // Touch: one-finger pan
+            imgEl.addEventListener('touchstart', (e) => {
+                if (scale === 1 || e.touches.length !== 1) return;
+                const t = e.touches[0];
+                isPanning = true;
+                startX = t.clientX - posX;
+                startY = t.clientY - posY;
+            }, { passive: true });
+            imgEl.addEventListener('touchmove', (e) => {
+                if (!isPanning || e.touches.length !== 1) return;
+                const t = e.touches[0];
+                posX = t.clientX - startX;
+                posY = t.clientY - startY;
+                applyTransform();
+            }, { passive: true });
+            imgEl.addEventListener('touchend', () => { isPanning = false; });
+        })();
+
         // Function to close lightbox
         function closeLightbox() {
             lightboxOverlay.classList.add('fade-out');
@@ -273,18 +407,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = '';
             }, 300);
         }
-        
+
         // Add close functionality for the × button
         const closeBtn = lightboxOverlay.querySelector('.lightbox-close');
         closeBtn.addEventListener('click', closeLightbox);
-        
+
         // Close lightbox when clicking on dark background
         lightboxOverlay.addEventListener('click', function(e) {
             if (e.target === lightboxOverlay) {
                 closeLightbox();
             }
         });
-        
+
         // Close lightbox with Escape key
         const escapeHandler = function(e) {
             if (e.key === 'Escape') {
@@ -293,13 +427,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         document.addEventListener('keydown', escapeHandler);
-        
+
         // Prevent lightbox content clicks from closing the lightbox
-        const lightboxImage = lightboxOverlay.querySelector('.lightbox-image');
-        lightboxImage.addEventListener('click', function(e) {
+        const lightboxContent = lightboxOverlay.querySelector('.lightbox-content');
+        lightboxContent.addEventListener('click', function(e) {
             e.stopPropagation();
         });
-        
+
         // Add fade-in animation
         setTimeout(() => {
             lightboxOverlay.classList.add('active');
@@ -311,11 +445,54 @@ document.addEventListener('DOMContentLoaded', function() {
     
     siteLinks.forEach(link => {
         link.addEventListener('click', function(e) {
+            // For primary links, allow the browser to handle navigation normally
+            const isPrimary = this.classList.contains('primary-link');
+            const href = this.getAttribute('href');
+            if (isPrimary && href && href !== '#!') {
+                return; // do not preventDefault → native navigation via target="_blank"
+            }
+            
             e.preventDefault();
             
             // Add professional loading state
             const card = this.closest('.site-card');
             if (card) {
+                // Special cases → show designated image on "All site"
+                const isEcommerceProject = !!card.querySelector('h3[data-translate="site1Title"]');
+                const isEducationProject = !!card.querySelector('h3[data-translate="site3Title"]');
+                const isPortfolioProject = !!card.querySelector('h3[data-translate="site5Title"]');
+                const isRiadhPortfolioProject = !!card.querySelector('h3[data-translate="site6Title"]');
+                const titleEl = card.querySelector('h3');
+                const isCarProject = titleEl && titleEl.textContent.trim() === 'Car Sales Company Website';
+                const isDinaProject = titleEl && titleEl.textContent.includes('Dina V.');
+                const isAllSite = this.classList.contains('secondary-link');
+                if (isAllSite) {
+                    if (isEcommerceProject) {
+                        createLightbox('image/renohdz33.png', 'Enterprise E-commerce Platform');
+                        return;
+                    }
+                    if (isEducationProject) {
+                        createLightbox('image/Riaacademyfull.png', 'Educational Learning Platform');
+                        return;
+                    }
+                    if (isPortfolioProject) {
+                        createLightbox('image/salimportfiliofull.png', 'Professional Portfolio Website');
+                        return;
+                    }
+                    if (isRiadhPortfolioProject) {
+                        createLightbox('image/riadhportfolio22.png', 'Mohamed Riadh Portfolio');
+                        return;
+                    }
+                    if (isDinaProject) {
+                        createLightbox('image/سيسيسي54.png', 'Voice Over Artist Portfolio – Dina V.');
+                        return;
+                    }
+                    if (isCarProject) {
+                        createLightbox('image/Car Sales Company Website32.png', 'Car Sales Company Website');
+                        return;
+                    }
+                }
+
                 showLoadingState(card);
                 
                 // Professional analytics tracking
@@ -325,13 +502,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Track user interaction
                 console.log(`Professional interaction: ${action} for ${projectName}`);
                 
-                // Simulate professional loading (replace with actual navigation)
-                setTimeout(() => {
-                    card.classList.remove('loading');
-                    
-                    // Show professional success message
-                    showProfessionalNotification(`${action === 'view_live' ? 'Opening live site' : 'Opening source code'} for ${projectName}`);
-                }, 1500);
+                // Remove artificial delay for links
+                card.classList.remove('loading');
+                showProfessionalNotification(`${action === 'view_live' ? 'Opening live site' : 'Opening source code'} for ${projectName}`);
             }
         });
         
@@ -412,7 +585,27 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
             
-            if (href.startsWith('index.html#')) {
+            // Handle internal links on the same page
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetElement = document.querySelector(`#${targetId}`);
+                
+                if (targetElement) {
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - navHeight - 20,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            }
+            // Handle index.html links
+            else if (href.startsWith('index.html#')) {
                 e.preventDefault();
                 const targetId = href.split('#')[1];
                 const targetElement = document.querySelector(`#${targetId}`);
@@ -427,6 +620,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+    });
+    
+    // Update active nav link on scroll
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id], div[id]');
+        const scrollPos = window.pageYOffset + 150;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+    
+    // Throttle scroll events for performance
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(updateActiveNavLink, 100);
     });
     
     // Back to projects button enhancement
@@ -444,31 +667,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Parallax effect for background
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const sitesSection = document.querySelector('.sites-section');
-        
-        if (sitesSection) {
-            const rate = scrolled * -0.5;
-            sitesSection.style.transform = `translateY(${rate}px)`;
-        }
-    });
-    
-    // Performance optimization: Throttle scroll events
-    let ticking = false;
-    
-    function updateOnScroll() {
-        // Update any scroll-based animations here
-        ticking = false;
+    // Remove parallax transform to prevent layout overlap during scroll
+    const sitesSectionEl = document.querySelector('.sites-section');
+    if (sitesSectionEl) {
+        sitesSectionEl.style.transform = 'none';
     }
-    
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            requestAnimationFrame(updateOnScroll);
-            ticking = true;
-        }
-    });
     
     // Professional notification system
     function showProfessionalNotification(message) {
@@ -606,35 +809,44 @@ document.addEventListener('DOMContentLoaded', function() {
         /* Lightbox content container */
         .lightbox-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 95%;
+            max-height: 90vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 48px 16px 16px;
+            box-sizing: border-box;
         }
         
         /* Lightbox image styling */
         .lightbox-image {
+            width: auto;
             max-width: 100%;
-            max-height: 90vh;
+            max-height: 80vh;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            transform: scale(0.9) translateY(-20px);
             opacity: 0;
-            transition: all 0.4s ease-out;
+            transition: opacity 0.3s ease-out;
+            display: block;
+            user-select: none;
+            -webkit-user-drag: none;
+            touch-action: none;
+            cursor: zoom-in;
         }
         
-        .lightbox-overlay.active .lightbox-image {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
+        .lightbox-overlay.active .lightbox-image { opacity: 1; }
+
+        .lightbox-image.zoomed { cursor: grab; }
+        .lightbox-image.zoomed:active { cursor: grabbing; }
         
         /* Close button styling */
         .lightbox-close {
             position: absolute;
-            top: -40px;
-            right: -40px;
+            top: 10px;
+            right: 10px;
             background: rgba(255, 255, 255, 0.9);
             color: #333;
             border: none;
@@ -697,14 +909,13 @@ document.addEventListener('DOMContentLoaded', function() {
             display: flex !important;
             justify-content: center !important;
             align-items: center !important;
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: scale(0.95);
             transition: all 0.3s ease;
-            left: 50%;
-            top: 50%;
+            margin: 0 auto;
         }
 
         #video-lightbox.active .video-lightbox-content {
-            transform: translate(-50%, -50%) scale(1) !important;
+            transform: scale(1) !important;
         }
 
         .video-lightbox-content video {
@@ -841,16 +1052,16 @@ document.addEventListener('DOMContentLoaded', function() {
         @media (max-width: 768px) {
             .lightbox-content {
                 max-width: 95%;
-                max-height: 85%;
+                max-height: 85vh;
             }
             
             .lightbox-image {
-                max-height: 80vh;
+                max-height: 75vh;
             }
             
             .lightbox-close {
-                top: -30px;
-                right: -30px;
+                top: 8px;
+                right: 8px;
                 width: 35px;
                 height: 35px;
                 font-size: 20px;
@@ -861,16 +1072,16 @@ document.addEventListener('DOMContentLoaded', function() {
         @media (max-width: 480px) {
             .lightbox-content {
                 max-width: 98%;
-                max-height: 90%;
+                max-height: 90vh;
             }
             
             .lightbox-image {
-                max-height: 75vh;
+                max-height: 70vh;
             }
             
             .lightbox-close {
-                top: -25px;
-                right: -25px;
+                top: 6px;
+                right: 6px;
                 width: 30px;
                 height: 30px;
                 font-size: 18px;
@@ -1074,4 +1285,244 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('Professional Sites JavaScript loaded successfully!');
+
+    // Animate metrics counters when in view
+    (function initMetricsCounters(){
+        const counters = document.querySelectorAll('.metric-number');
+        if (!counters.length) return;
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = parseInt(el.getAttribute('data-target') || '0', 10);
+                const suffix = el.getAttribute('data-suffix') || '';
+                const duration = 1200;
+                const start = performance.now();
+                function step(now){
+                    const p = Math.min(1, (now - start) / duration);
+                    const value = Math.floor(target * p);
+                    el.textContent = value + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+                obs.unobserve(el);
+            });
+        }, { threshold: 0.3 });
+        counters.forEach(c => observer.observe(c));
+    })();
+
+    // Re-initialize interactions after dynamic projects render
+    document.addEventListener('projects:rendered', function() {
+        // Rebind site cards to observer & hover
+        const newSiteCards = document.querySelectorAll('.site-card');
+        newSiteCards.forEach(card => {
+            if (!card.dataset.init) {
+                observer.observe(card);
+                card.addEventListener('mouseenter', function() { this.style.transform = 'translateY(-8px)'; });
+                card.addEventListener('mouseleave', function() { this.style.transform = 'translateY(0)'; });
+                card.dataset.init = '1';
+            }
+        });
+
+        // Rebind media click handlers
+        const newMedia = document.querySelectorAll('.project-img');
+        newMedia.forEach(element => {
+            if (!element.dataset.init) {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (this.tagName === 'VIDEO') {
+                        const videoSrc = this.src || this.currentSrc || this.getAttribute('data-video-src');
+                        if (videoSrc) { openVideoLightbox(videoSrc); }
+                        return;
+                    }
+                    // Show both images in a lightbox if secondary is available
+                    const secondary = this.getAttribute('data-secondary-image');
+                    const imageSrc = this.src;
+                    const imageAlt = this.alt || '';
+                    if (secondary) {
+                        createLightbox(imageSrc, imageAlt, secondary);
+                        return;
+                    }
+                    createLightbox(imageSrc, imageAlt);
+                });
+                element.style.cursor = 'pointer';
+                element.title = element.tagName === 'VIDEO' ? 'Click to view video in fullscreen' : 'Click to view larger image';
+                element.dataset.init = '1';
+            }
+        });
+
+        // Rebind tech icon tooltips
+        const newIcons = document.querySelectorAll('.site-tag-icon');
+        newIcons.forEach(icon => {
+            if (!icon.dataset.init) {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.15) rotate(8deg)';
+                    this.style.boxShadow = '0 8px 20px rgba(49, 130, 206, 0.3)';
+                    const techName = this.getAttribute('title') || this.textContent || '';
+                    showTechnologyTooltip(this, techName);
+                });
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                    this.style.boxShadow = 'none';
+                    hideTechnologyTooltip();
+                });
+                icon.dataset.init = '1';
+            }
+        });
+
+        // Rebind site links (ripple/loading)
+        const links = document.querySelectorAll('.site-links a');
+        links.forEach(link => {
+            if (!link.dataset.init) {
+                link.addEventListener('click', function(e) {
+                    // Allow native navigation for primary links with valid href
+                    const isPrimary = this.classList.contains('primary-link');
+                    const href = this.getAttribute('href');
+                    if (isPrimary && href && href !== '#!') {
+                        return;
+                    }
+                    e.preventDefault();
+                    const card = this.closest('.site-card');
+                    if (card) {
+                        // Special cases → show designated image on "All site"
+                        const isEcommerceProject = !!card.querySelector('h3[data-translate="site1Title"]');
+                        const isEducationProject = !!card.querySelector('h3[data-translate="site3Title"]');
+                        const isPortfolioProject = !!card.querySelector('h3[data-translate="site5Title"]');
+                        const isRiadhPortfolioProject = !!card.querySelector('h3[data-translate="site6Title"]');
+                        const titleEl = card.querySelector('h3');
+                        const isCarProject = titleEl && titleEl.textContent.trim() === 'Car Sales Company Website';
+                        const isDinaProject = titleEl && titleEl.textContent.includes('Dina V.');
+                        const isAllSite = this.classList.contains('secondary-link');
+                        if (isAllSite) {
+                            if (isEcommerceProject) {
+                                createLightbox('image/renohdz33.png', 'Enterprise E-commerce Platform');
+                                return;
+                            }
+                            if (isEducationProject) {
+                                createLightbox('image/Riaacademyfull.png', 'Educational Learning Platform');
+                                return;
+                            }
+                            if (isPortfolioProject) {
+                                createLightbox('image/salimportfiliofull.png', 'Professional Portfolio Website');
+                                return;
+                            }
+                            if (isRiadhPortfolioProject) {
+                                createLightbox('image/riadhportfolio22.png', 'Mohamed Riadh Portfolio');
+                                return;
+                            }
+                            if (isDinaProject) {
+                                createLightbox('image/سيسيسي54.png', 'Voice Over Artist Portfolio – Dina V.');
+                                return;
+                            }
+                            if (isCarProject) {
+                                createLightbox('image/Car Sales Company Website32.png', 'Car Sales Company Website');
+                                return;
+                            }
+                        }
+
+                        showLoadingState(card);
+                        const projectName = (card.querySelector('h3')?.textContent) || '';
+                        const action = this.classList.contains('primary-link') ? 'view_live' : 'view_code';
+                        setTimeout(() => { card.classList.remove('loading'); }, 1200);
+                        trackProfessionalInteraction(action, projectName);
+                        const _href = this.getAttribute('href');
+                        if (_href && _href !== '#!') window.open(_href, '_blank');
+                    }
+                });
+                link.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+                link.dataset.init = '1';
+            }
+        });
+    });
+
+    // ===== Toolbar: Search, Filters, Sort =====
+    (function initProjectsToolbar(){
+        const grid = document.querySelector('.sites-grid');
+        if (!grid) return;
+        const allCards = Array.from(grid.children).filter(el => el.classList.contains('site-card'));
+        allCards.forEach((card, idx) => { card.dataset.initialIndex = String(idx); });
+
+        const searchInput = document.getElementById('projectsSearch');
+        const filterButtons = document.querySelectorAll('.toolbar-filters .filter-btn');
+        const sortSelect = document.getElementById('projectsSort');
+        const countEl = document.getElementById('projectsCount');
+
+        let activeFilter = 'all';
+        let searchQuery = '';
+
+        function updateCount(){
+            const visible = allCards.filter(c => !c.classList.contains('is-hidden')).length;
+            if (countEl) countEl.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+        }
+
+        function applyFilters(){
+            const q = searchQuery.trim().toLowerCase();
+            allCards.forEach(card => {
+                const category = (card.getAttribute('data-category') || '').toLowerCase();
+                const title = (card.querySelector('h3')?.textContent || '').toLowerCase();
+                const desc = (card.querySelector('p')?.textContent || '').toLowerCase();
+                const matchCategory = activeFilter === 'all' || category.split(/[\s,]+/).includes(activeFilter);
+                const matchQuery = !q || title.includes(q) || desc.includes(q);
+                const shouldShow = matchCategory && matchQuery;
+                card.classList.toggle('is-hidden', !shouldShow);
+            });
+            sortCards();
+            updateCount();
+        }
+
+        function sortCards(){
+            const mode = (sortSelect?.value) || 'default';
+            const visibleCards = allCards.filter(c => !c.classList.contains('is-hidden'));
+            const hiddenCards = allCards.filter(c => c.classList.contains('is-hidden'));
+            let orderedVisible = visibleCards;
+            if (mode === 'title') {
+                orderedVisible = [...visibleCards].sort((a, b) => {
+                    const ta = (a.querySelector('h3')?.textContent || '').toLocaleLowerCase();
+                    const tb = (b.querySelector('h3')?.textContent || '').toLocaleLowerCase();
+                    return ta.localeCompare(tb);
+                });
+            } else {
+                orderedVisible = [...visibleCards].sort((a, b) => Number(a.dataset.initialIndex) - Number(b.dataset.initialIndex));
+            }
+            // Re-append in order: visible first, then hidden (keeps layout tidy)
+            const fragment = document.createDocumentFragment();
+            orderedVisible.forEach(el => fragment.appendChild(el));
+            hiddenCards.forEach(el => fragment.appendChild(el));
+            grid.appendChild(fragment);
+        }
+
+        // Events
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+                activeFilter = (btn.getAttribute('data-filter') || 'all').toLowerCase();
+                applyFilters();
+            });
+        });
+        searchInput?.addEventListener('input', () => {
+            searchQuery = searchInput.value || '';
+            applyFilters();
+        });
+        sortSelect?.addEventListener('change', () => {
+            sortCards();
+        });
+
+        // Initial render
+        updateCount();
+    })();
 });

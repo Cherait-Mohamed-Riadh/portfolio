@@ -60,12 +60,7 @@ class EnhancedChatbot {
                     outcome: 'Reduced security incidents by 78% and achieved 100% compliance audit success',
                     technologies: ['React', 'Node.js', 'MongoDB', 'AWS']
                 },
-                tradingSystem: {
-                    title: 'Algorithmic Trading System',
-                    description: 'Advanced trading algorithms with machine learning integration',
-                    outcome: 'Generated 42% higher returns than manual trading with 65% reduced risk exposure',
-                    technologies: ['Python', 'TensorFlow', 'Pandas', 'NumPy']
-                },
+                
                 penetrationTesting: {
                     title: 'Professional Penetration Testing Framework',
                     description: 'Automated security testing platform with comprehensive vulnerability scanning',

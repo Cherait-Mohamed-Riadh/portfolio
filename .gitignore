@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+dev.db
+public/uploads/*
+!public/uploads/.gitkeep
+node_modules
+dist
+.env
+dev.db
+public/uploads/*
+!public/uploads/.gitkeep

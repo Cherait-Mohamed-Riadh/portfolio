@@ -1,0 +1,153 @@
+/* RTL Support for Arabic Language */
+body.rtl {
+    text-align: right;
+    direction: rtl;
+}
+
+/* Navigation RTL */
+body.rtl .nav-container {
+    flex-direction: row-reverse;
+}
+
+body.rtl .nav-menu {
+    flex-direction: row-reverse;
+}
+
+body.rtl .nav-link i {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+body.rtl .language-selector {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* Hero Section RTL */
+body.rtl .hero-content {
+    text-align: right;
+}
+
+body.rtl .hero-actions {
+    flex-direction: row-reverse;
+}
+
+body.rtl .btn i {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+/* About Section RTL */
+body.rtl .about-content {
+    flex-direction: row-reverse;
+}
+
+body.rtl .about-text {
+    text-align: right;
+}
+
+/* Projects Section RTL */
+body.rtl .project-content {
+    text-align: right;
+}
+
+body.rtl .project-tech {
+    flex-direction: row-reverse;
+}
+
+/* Footer RTL */
+body.rtl .footer-content {
+    flex-direction: row-reverse;
+}
+
+body.rtl .footer-links {
+    flex-direction: row-reverse;
+}
+
+body.rtl .footer-section ul {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/* Sites Page RTL */
+body.rtl .sites-grid {
+    direction: rtl;
+}
+
+body.rtl .site-card {
+    text-align: right;
+}
+
+body.rtl .site-tags {
+    flex-direction: row-reverse;
+}
+
+body.rtl .site-links {
+    flex-direction: row-reverse;
+}
+
+/* Contact Form RTL */
+body.rtl .contact-form {
+    text-align: right;
+}
+
+body.rtl .form-group label {
+    right: auto;
+    left: 12px;
+}
+
+body.rtl .form-group input,
+body.rtl .form-group textarea {
+    text-align: right;
+}
+
+/* Language Selector RTL */
+body.rtl .language-dropdown {
+    right: auto;
+    left: 0;
+}
+
+body.rtl .language-option {
+    flex-direction: row-reverse;
+}
+
+body.rtl .flag-icon {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+/* Expertise Cards RTL */
+body.rtl .expertise-card {
+    text-align: right;
+}
+
+body.rtl .skill-list {
+    text-align: right;
+}
+
+/* Social Links RTL */
+body.rtl .social-links {
+    flex-direction: row-reverse;
+}
+
+/* Floating Cards RTL */
+body.rtl .floating-card {
+    text-align: right;
+}
+
+/* Stats Counter RTL */
+body.rtl .metrics-grid {
+    direction: rtl;
+}
+
+/* Mobile Menu RTL */
+@media (max-width: 768px) {
+    body.rtl .nav-menu {
+        text-align: right;
+    }
+    
+    body.rtl .nav-link {
+        justify-content: flex-end;
+    }
+}
+

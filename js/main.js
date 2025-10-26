@@ -112,6 +112,7 @@
             this.setupFormHandling();
             this.setupChatbot();
             this.setupNavigationHelp();
+            this.setupImageLightbox();
         }
 
         // Loading Screen
@@ -126,6 +127,52 @@
                     }, 500);
                 }, 2000);
             }
+        }
+
+        // Image Lightbox for project thumbnails
+        setupImageLightbox() {
+            const lightbox = utils.safeQuerySelector('#lightbox');
+            const overlay = utils.safeQuerySelector('#lightboxOverlay');
+            const closeBtn = utils.safeQuerySelector('#lightboxClose');
+            const lightboxImage = utils.safeQuerySelector('#lightboxImage');
+
+            if (!lightbox || !overlay || !closeBtn || !lightboxImage) {
+                return;
+            }
+
+            const openLightbox = (src, alt = 'Project Image') => {
+                lightboxImage.src = src;
+                lightboxImage.alt = alt;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeLightbox = () => {
+                lightbox.classList.remove('active');
+                lightboxImage.src = '';
+                lightboxImage.alt = '';
+                document.body.style.overflow = '';
+            };
+
+            // Attach click handlers to project images
+            const projectImages = document.querySelectorAll('.project-image-clickable');
+            projectImages.forEach(img => {
+                utils.safeAddEventListener(img, 'click', (e) => {
+                    e.preventDefault();
+                    const src = img.getAttribute('src');
+                    const alt = img.getAttribute('alt') || 'Project Image';
+                    if (src) openLightbox(src, alt);
+                });
+            });
+
+            // Close interactions
+            utils.safeAddEventListener(overlay, 'click', closeLightbox);
+            utils.safeAddEventListener(closeBtn, 'click', closeLightbox);
+            utils.safeAddEventListener(document, 'keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
         }
 
         // Event Listeners
@@ -291,6 +338,13 @@
             localStorage.setItem('language', lang);
             this.updateLanguageUI(lang);
             this.loadTranslations(lang);
+            
+            // Dispatch custom event for translation system
+            setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('languageChanged', {
+                    detail: { language: lang }
+                }));
+            }, 100);
         }
 
         updateLanguageUI(lang) {
@@ -333,6 +387,11 @@
             const lang = optionElement.getAttribute('data-lang');
             this.setLanguage(lang);
             this.closeLanguageDropdown();
+            
+            // Dispatch custom event for translation system
+            window.dispatchEvent(new CustomEvent('languageChanged', {
+                detail: { language: lang }
+            }));
         }
 
         loadTranslations(lang) {
@@ -357,7 +416,7 @@
                 'nav.language.french': 'Français',
                     
                     // Hero Section
-                    'hero.badge': 'Cybersecurity & Financial Expert',
+                    'hero.badge': 'Programmer & Cybersecurity Specialist',
                     'hero.title.line1': 'Hello, I\'m',
                     'hero.title.line2': 'Mohamed Riadh',
                     'hero.title.line3': 'Building Secure Digital Futures',
@@ -411,9 +470,7 @@
                     'projects.web.category': 'Web Development',
                     'projects.web.title': 'Website Development',
                     'projects.web.description': 'A comprehensive platform for managing and developing websites for individuals and companies.',
-                    'projects.financial.category': 'Financial Analysis',
-                    'projects.financial.title': 'Algorithmic Trading System',
-                    'projects.financial.description': 'Advanced trading algorithms with machine learning integration for forex and cryptocurrency markets.',
+                    
                     'projects.security.category': 'Cybersecurity',
                     'projects.security.title': 'Penetration Testing Framework',
                     'projects.security.description': 'Automated security testing platform with comprehensive vulnerability scanning and reporting tools.',
@@ -552,9 +609,7 @@
                     'projects.web.category': 'تطوير الويب',
                     'projects.web.title': 'بوابة الأمان المؤسسي',
                     'projects.web.description': 'منصة شاملة لإدارة الأمان مع مراقبة التهديدات في الوقت الفعلي والاستجابة للحوادث وإعداد تقارير الامتثال.',
-                    'projects.financial.category': 'التحليل المالي',
-                    'projects.financial.title': 'نظام التداول الخوارزمي',
-                    'projects.financial.description': 'خوارزميات تداول متقدمة مع تكامل التعلم الآلي للفوركس والعملات المشفرة.',
+                    
                     'projects.security.category': 'الأمن السيبراني',
                     'projects.security.title': 'إطار اختبار الاختراق',
                     'projects.security.description': 'منصة اختبار أمان آلية مع أدوات فحص الثغرات وإعداد التقارير الشاملة.',
@@ -693,9 +748,7 @@
                     'projects.web.category': 'Développement web',
                     'projects.web.title': 'Portail de sécurité d\'entreprise',
                     'projects.web.description': 'Une plateforme de gestion de sécurité complète avec surveillance des menaces en temps réel, réponse aux incidents et capacités de rapport de conformité.',
-                    'projects.financial.category': 'Analyse financière',
-                    'projects.financial.title': 'Système de trading algorithmique',
-                    'projects.financial.description': 'Algorithmes de trading avancés avec intégration d\'apprentissage automatique pour les marchés forex et crypto.',
+                    
                     'projects.security.category': 'Cybersécurité',
                     'projects.security.title': 'Framework de tests de pénétration',
                     'projects.security.description': 'Plateforme de tests de sécurité automatisée avec outils de scan de vulnérabilités et de génération de rapports complets.',
@@ -780,8 +833,7 @@
                 }
             });
             
-            // Apply translations to language selector
-            this.translateElement('#currentLang', translations['nav.language.english']);
+            // Apply translations to language selector (options only; current shown via updateLanguageUI)
             this.translateElement('.language-option[data-lang="en"] span', translations['nav.language.english']);
             this.translateElement('.language-option[data-lang="ar"] span', translations['nav.language.arabic']);
             this.translateElement('.language-option[data-lang="fr"] span', translations['nav.language.french']);
@@ -798,7 +850,7 @@
 
             // Apply translations to hero social links
             this.translateElement('.social-links a[data-translate="hero.social.linkedin"]', translations['hero.social.linkedin']);
-            this.translateElement('.social-links a[data-translate="hero.social.github"]', translations['hero.social.github']);
+            /* GitHub icon removed from social links */
             this.translateElement('.social-links a[data-translate="hero.social.twitter"]', translations['hero.social.twitter']);
             this.translateElement('.social-links a[data-translate="hero.social.instagram"]', translations['hero.social.instagram']);
             this.translateElement('.social-links a[data-translate="hero.social.email"]', translations['hero.social.email']);
@@ -843,9 +895,7 @@
             this.translateElement('.project-card:nth-child(1) .project-category', translations['projects.web.category']);
             this.translateElement('.project-card:nth-child(1) .project-title', translations['projects.web.title']);
             this.translateElement('.project-card:nth-child(1) .project-description', translations['projects.web.description']);
-            this.translateElement('.project-card:nth-child(2) .project-category', translations['projects.financial.category']);
-            this.translateElement('.project-card:nth-child(2) .project-title', translations['projects.financial.title']);
-            this.translateElement('.project-card:nth-child(2) .project-description', translations['projects.financial.description']);
+            /* Financial project removed from homepage */
             this.translateElement('.project-card:nth-child(3) .project-category', translations['projects.security.category']);
             this.translateElement('.project-card:nth-child(3) .project-title', translations['projects.security.title']);
             this.translateElement('.project-card:nth-child(3) .project-description', translations['projects.security.description']);
@@ -887,7 +937,7 @@
             this.translateElement('.footer-section:nth-child(2) li:nth-child(5) a', translations['footer.resources.instagram']);
             this.translateElement('.footer-section:nth-child(3) h4', translations['footer.connect.title']);
             this.translateElement('.footer-section:nth-child(3) li:nth-child(1) a', translations['footer.connect.linkedin']);
-            this.translateElement('.footer-section:nth-child(3) li:nth-child(2) a', translations['footer.connect.github']);
+            /* GitHub link removed from footer connect */
             this.translateElement('.footer-section:nth-child(3) li:nth-child(3) a', translations['footer.connect.twitter']);
             this.translateElement('.footer-section:nth-child(3) li:nth-child(4) a', translations['footer.connect.instagram']);
             this.translateElement('.footer-info p:first-child', translations['footer.copyright']);
