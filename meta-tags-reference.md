@@ -24,7 +24,7 @@ This document provides a comprehensive reference for all SEO meta tags, structur
 #### Structured Data
 - **Type**: Person
 - **Name**: Mohamed Riadh
-- **Job Title**: Cybersecurity Expert, Web Developer & Voiceover Artist
+- **Job Title**: Cybersecurity Expert, Web Developer
 - **Services**: Cybersecurity Consulting, Web Development, Financial Analysis, Voiceover Services
 
 ### 2. Cybersecurity Page (cybersecurity.html)

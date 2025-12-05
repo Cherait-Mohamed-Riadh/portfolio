@@ -22,7 +22,7 @@
             'hero.badge': 'Programmer & Cybersecurity Specialist',
             'hero.title.line1': 'Hello, I\'m',
             'hero.title.line2': 'Mohamed Riadh',
-            'hero.title.line3': 'Cybersecurity Expert, Web Developer & Voiceover Artist',
+            'hero.title.line3': 'Cybersecurity Expert, Web Developer',
             'hero.description': 'Mohamed Riadh is a leading cybersecurity expert specializing in penetration testing, cloud security architecture, and professional web development. Building secure digital solutions and delivering high-impact websites in just 7 days. Expert in ethical hacking, security consulting, financial market analysis, and professional voiceover services.',
             'hero.cta.work': 'View My Work',
             'hero.cta.contact': 'Get Your Professional Website in 7 Days',
@@ -43,7 +43,7 @@
             // About Section
             'about.title': 'About Me',
             'about.subtitle': 'Passionate about securing digital assets and optimizing financial strategies',
-            'about.intro.title': 'Mohamed Riadh - Cybersecurity Expert, Professional Web Developer & Voiceover Artist',
+            'about.intro.title': 'Mohamed Riadh - Cybersecurity Expert, Professional Web Developer',
             'about.intro.text': 'My name is Mohamed Riadh, and I am a certified cybersecurity expert, professional web developer, and voiceover artist with over 6 years of experience in penetration testing, ethical hacking, secure web development, and audio production.',
             'about.experience.title': 'Professional Experience',
             'about.experience.text': 'Over 6 years of experience in cybersecurity consulting, penetration testing, and professional web development. Successfully delivered 50+ secure websites and web applications, conducted 100+ security assessments.',

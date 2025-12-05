@@ -680,9 +680,12 @@ body {
 }
 
 .language-dropdown {
-    position: fixed; /* prevent clipping inside navbar */
-    top: 0; /* will be positioned dynamically via JS */
-    right: 0; /* will be positioned dynamically via JS */
+    position: fixed;
+    /* prevent clipping inside navbar */
+    top: 0;
+    /* will be positioned dynamically via JS */
+    right: 0;
+    /* will be positioned dynamically via JS */
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
@@ -692,7 +695,8 @@ body {
     visibility: hidden;
     transform: translateY(-10px);
     transition: all var(--transition-normal);
-    z-index: var(--z-tooltip); /* above navbar */
+    z-index: var(--z-tooltip);
+    /* above navbar */
 }
 
 .language-dropdown.active {
@@ -703,13 +707,15 @@ body {
 
 /* Force dropdown above everything when open */
 body .language-dropdown.active {
-    z-index: 2147483647; /* max practical z-index */
+    z-index: 2147483647;
+    /* max practical z-index */
     pointer-events: auto;
 }
 
 /* Allow overflow only while language dropdown is open */
 html.lang-open .navbar {
-    overflow: visible; /* temporarily disable clipping of rounded corners */
+    overflow: visible;
+    /* temporarily disable clipping of rounded corners */
 }
 
 .language-option {
@@ -7629,4 +7635,113 @@ html.lang-open .navbar {
             border-color: #3b82f6 !important;
         }
     }
+}
+
+/* ===== CHATBOT WIDGET ===== */
+.chatbot-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 0;
+}
+
+.chatbot-widget:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+}
+
+.chatbot-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.6;
+    z-index: 1;
+    animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    70% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.chatbot-tooltip {
+    position: absolute;
+    right: 75px;
+    top: 50%;
+    transform: translateY(-50%) translateX(10px);
+    background: white;
+    color: var(--gray-900);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.chatbot-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 6px 0 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent white;
+}
+
+.chatbot-widget:hover .chatbot-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+}
+
+[data-theme="dark"] .chatbot-tooltip {
+    background: var(--gray-800);
+    color: white;
+}
+
+[data-theme="dark"] .chatbot-tooltip::after {
+    border-color: transparent transparent transparent var(--gray-800);
 }
