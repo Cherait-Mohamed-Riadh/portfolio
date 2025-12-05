@@ -207,6 +207,21 @@
                 }
             });
 
+            // Keep dropdown correctly positioned on scroll/resize
+            const repositionIfOpen = utils.debounce(() => {
+                const dropdown = utils.safeQuerySelector('#languageDropdown');
+                if (dropdown && dropdown.classList.contains('active')) {
+                    this.positionLanguageDropdown();
+                }
+            }, 10);
+            utils.safeAddEventListener(window, 'scroll', repositionIfOpen);
+            utils.safeAddEventListener(window, 'resize', repositionIfOpen);
+
+            // Close dropdown on Escape
+            utils.safeAddEventListener(document, 'keydown', (e) => {
+                if (e.key === 'Escape') this.closeLanguageDropdown();
+            });
+
             // Navigation links with enhanced fast scrolling
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -371,8 +386,91 @@
 
         toggleLanguageDropdown() {
             const dropdown = utils.safeQuerySelector('#languageDropdown');
-            if (dropdown) {
-                dropdown.classList.toggle('active');
+            const btn = utils.safeQuerySelector('#languageBtn');
+            if (!dropdown || !btn) return;
+
+            // Toggle visibility
+            const willOpen = !dropdown.classList.contains('active');
+            dropdown.classList.toggle('active');
+
+            // When opening, portal the dropdown to <body> to avoid clipping by navbar (backdrop-filter/overflow)
+            if (willOpen) {
+                this.portalLanguageDropdownToBody();
+                this.positionLanguageDropdown();
+            } else {
+                this.restoreLanguageDropdownToParent();
+            }
+        }
+
+        portalLanguageDropdownToBody() {
+            const dropdown = utils.safeQuerySelector('#languageDropdown');
+            if (!dropdown || dropdown.parentElement === document.body) return;
+            // Save original parent and placeholder for restoration
+            if (!dropdown.__originalParent) {
+                dropdown.__originalParent = dropdown.parentElement;
+            }
+            if (!dropdown.__placeholder) {
+                dropdown.__placeholder = document.createElement('span');
+                dropdown.__placeholder.style.display = 'none';
+            }
+            dropdown.__originalParent.insertBefore(dropdown.__placeholder, dropdown);
+            document.body.appendChild(dropdown);
+        }
+
+        restoreLanguageDropdownToParent() {
+            const dropdown = utils.safeQuerySelector('#languageDropdown');
+            if (!dropdown || !dropdown.__originalParent || !dropdown.__placeholder) return;
+            dropdown.__originalParent.insertBefore(dropdown, dropdown.__placeholder);
+            dropdown.__placeholder.remove();
+            dropdown.__placeholder = null;
+        }
+
+        positionLanguageDropdown() {
+            const dropdown = utils.safeQuerySelector('#languageDropdown');
+            const btn = utils.safeQuerySelector('#languageBtn');
+            if (!dropdown || !btn) return;
+
+            // Ensure it's measurable
+            const prevVisibility = dropdown.style.visibility;
+            const prevOpacity = dropdown.style.opacity;
+            const wasActive = dropdown.classList.contains('active');
+            if (!wasActive) {
+                dropdown.style.visibility = 'hidden';
+                dropdown.style.opacity = '0';
+                dropdown.classList.add('active');
+            }
+
+            const rect = btn.getBoundingClientRect();
+            // Temporarily show to measure
+            const ddWidth = dropdown.offsetWidth || 180;
+            const ddHeight = dropdown.offsetHeight || 120;
+
+            // Prefer placing below the button; if not enough space, place above
+            const spaceBelow = window.innerHeight - rect.bottom;
+            const spaceAbove = rect.top;
+
+            let top = rect.bottom + 6; // viewport coords (fixed)
+            if (spaceBelow < ddHeight + 12 && spaceAbove > ddHeight + 12) {
+                top = rect.top - ddHeight - 6; // place above
+            }
+
+            // Align the right edge of dropdown with button right edge by default
+            let left = rect.right - ddWidth;
+            // Clamp within viewport
+            const minMargin = 8;
+            left = Math.max(minMargin, Math.min(left, window.innerWidth - ddWidth - minMargin));
+
+            // Apply as fixed positioning relative to viewport
+            dropdown.style.position = 'fixed';
+            dropdown.style.top = `${top}px`;
+            dropdown.style.left = `${left}px`;
+            dropdown.style.right = 'auto';
+
+            // Restore previous transient state if we made it active to measure
+            if (!wasActive) {
+                dropdown.classList.remove('active');
+                dropdown.style.visibility = prevVisibility;
+                dropdown.style.opacity = prevOpacity;
             }
         }
 

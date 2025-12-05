@@ -701,6 +701,17 @@ body {
     transform: translateY(0);
 }
 
+/* Force dropdown above everything when open */
+body .language-dropdown.active {
+    z-index: 2147483647; /* max practical z-index */
+    pointer-events: auto;
+}
+
+/* Allow overflow only while language dropdown is open */
+html.lang-open .navbar {
+    overflow: visible; /* temporarily disable clipping of rounded corners */
+}
+
 .language-option {
     display: flex;
     align-items: center;
