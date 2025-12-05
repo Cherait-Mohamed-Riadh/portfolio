@@ -265,8 +265,8 @@ body {
     /* Slightly rounded bottom corners */
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    /* Ensure children respect the radius */
-    overflow: hidden;
+    /* Allow dropdowns to overflow outside navbar */
+    overflow: visible;
     border-bottom: 1px solid var(--border-color);
     z-index: var(--z-sticky);
     transition: all var(--transition-normal);

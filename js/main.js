@@ -392,6 +392,7 @@
             // Toggle visibility
             const willOpen = !dropdown.classList.contains('active');
             dropdown.classList.toggle('active');
+            document.documentElement.classList.toggle('lang-open', willOpen);
 
             // When opening, portal the dropdown to <body> to avoid clipping by navbar (backdrop-filter/overflow)
             if (willOpen) {

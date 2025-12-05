@@ -1525,4 +1525,44 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initial render
         updateCount();
     })();
+    // ===== Counter Animation =====
+    const counters = document.querySelectorAll('.metric-number');
+    const speed = 50; // Adjust speed as needed
+
+    const animateCounters = () => {
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText.replace(/[^0-9]/g, '');
+                
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 30);
+                } else {
+                    counter.innerText = target;
+                    const suffix = counter.getAttribute('data-suffix');
+                    if (suffix) {
+                        counter.innerText += suffix;
+                    }
+                }
+            };
+            updateCount();
+        });
+    };
+
+    const resultsSection = document.querySelector('.results-section');
+    if (resultsSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+        
+        observer.observe(resultsSection);
+    }
 });
