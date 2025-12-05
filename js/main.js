@@ -1,10 +1,22 @@
-// ===== MAIN JAVASCRIPT - MODERN PORTFOLIO =====
+/**
+ * Main Application Logic
+ * Handles core functionality including navigation, theme management, and UI interactions.
+ * @version 1.0.0
+ */
 (function() {
     'use strict';
 
-    // Utility functions
+    /**
+     * Utility Functions
+     * Helper methods for common operations.
+     */
     const utils = {
-        // Debounce function for performance
+        /**
+         * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed.
+         * @param {Function} func - The function to debounce.
+         * @param {number} wait - The number of milliseconds to delay.
+         * @returns {Function} - The debounced function.
+         */
         debounce: (func, wait) => {
             let timeout;
             return function executedFunction(...args) {
@@ -17,7 +29,12 @@
             };
         },
 
-        // Safe DOM query selector
+        /**
+         * Safely selects a DOM element.
+         * @param {string} selector - The CSS selector.
+         * @param {HTMLElement} parent - The parent element to search within.
+         * @returns {HTMLElement|null} - The found element or null.
+         */
         safeQuerySelector: (selector, parent = document) => {
             try {
                 return parent.querySelector(selector);
@@ -27,7 +44,14 @@
             }
         },
 
-        // Safe addEventListener
+        /**
+         * Safely adds an event listener to an element.
+         * @param {HTMLElement} element - The target element.
+         * @param {string} event - The event name.
+         * @param {Function} handler - The event handler.
+         * @param {Object} options - Event listener options.
+         * @returns {boolean} - True if successful.
+         */
         safeAddEventListener: (element, event, handler, options = {}) => {
             if (element && typeof element.addEventListener === 'function') {
                 try {
@@ -41,7 +65,11 @@
             return false;
         },
 
-        // Check if element is in viewport
+        /**
+         * Checks if an element is currently in the viewport.
+         * @param {HTMLElement} element - The element to check.
+         * @returns {boolean} - True if in viewport.
+         */
         isInViewport: (element) => {
             const rect = element.getBoundingClientRect();
             return (
@@ -52,7 +80,11 @@
             );
         },
 
-        // Smooth scroll to element with faster, more responsive navigation
+        /**
+         * Smoothly scrolls to a target element.
+         * @param {HTMLElement} element - The target element.
+         * @param {number} duration - Scroll duration in ms.
+         */
         smoothScrollTo: (element, duration = 600) => {
             const targetPosition = element.offsetTop - 80; // Reduced offset for faster feel
             const startPosition = window.pageYOffset;
@@ -67,7 +99,9 @@
                 if (timeElapsed < duration) requestAnimationFrame(animation);
             }
 
-            // Enhanced easing function for faster, more responsive feel
+            /**
+             * Easing function for smooth animation.
+             */
             function ease(t, b, c, d) {
                 t /= d / 2;
                 if (t < 1) return c / 2 * t * t + b;
@@ -78,7 +112,10 @@
             requestAnimationFrame(animation);
         },
 
-        // Quick scroll for immediate navigation
+        /**
+         * Immediately scrolls to an element with standard smooth behavior.
+         * @param {HTMLElement} element - The target element.
+         */
         quickScrollTo: (element) => {
             const targetPosition = element.offsetTop - 80;
             window.scrollTo({
@@ -88,7 +125,10 @@
         }
     };
 
-    // Main application class
+    /**
+     * Core Application Class
+     * Manages the lifecycle and state of the portfolio application.
+     */
     class PortfolioApp {
         constructor() {
             this.currentTheme = 'light';
@@ -115,7 +155,9 @@
             this.setupImageLightbox();
         }
 
-        // Loading Screen
+        /**
+         * Initializes the loading screen and handles transition to main content.
+         */
         setupLoadingScreen() {
             const loadingScreen = utils.safeQuerySelector('#loadingScreen');
             if (loadingScreen) {
@@ -129,7 +171,9 @@
             }
         }
 
-        // Image Lightbox for project thumbnails
+        /**
+         * Sets up the image lightbox for viewing project details.
+         */
         setupImageLightbox() {
             const lightbox = utils.safeQuerySelector('#lightbox');
             const overlay = utils.safeQuerySelector('#lightboxOverlay');
@@ -175,7 +219,9 @@
             });
         }
 
-        // Event Listeners
+        /**
+         * Initializes global event listeners.
+         */
         setupEventListeners() {
             // Theme toggle
             const themeToggleInput = utils.safeQuerySelector('#theme');
@@ -319,7 +365,9 @@
             });
         }
 
-        // Theme Management
+        /**
+         * Manages application theme (light/dark mode).
+         */
         initializeTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             this.setTheme(savedTheme);
@@ -342,7 +390,9 @@
             this.setTheme(newTheme);
         }
 
-        // Language Management
+        /**
+         * Manages application language and translations.
+         */
         initializeLanguage() {
             const savedLanguage = localStorage.getItem('language') || 'en';
             this.setLanguage(savedLanguage);

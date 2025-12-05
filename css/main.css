@@ -1,4 +1,7 @@
-/* ===== GLOBAL RESET & BASE STYLES ===== */
+/**
+ * Global Reset & Base Styles
+ * Establishes the foundation for consistent rendering across all browsers.
+ */
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +9,7 @@
 }
 
 :root {
-    /* Color Palette - Modern & Professional */
+    /* Design System: Color Palette */
     --primary-blue: #2563eb;
     --primary-dark: #1d4ed8;
     --secondary-blue: #3b82f6;
@@ -17,7 +20,7 @@
     --warning-orange: #f59e0b;
     --error-red: #ef4444;
 
-    /* Neutral Colors */
+    /* Design System: Neutral Scale */
     --white: #ffffff;
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
@@ -30,18 +33,18 @@
     --gray-800: #1f2937;
     --gray-900: #111827;
 
-    /* Dark Mode Colors */
+    /* Design System: Dark Mode Tokens */
     --dark-bg: #0a0a0a;
     --dark-surface: #1a1a1a;
     --dark-surface-2: #2a2a2a;
     --dark-text: #e5e7eb;
     --dark-text-secondary: #9ca3af;
 
-    /* Typography */
+    /* Design System: Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 
-    /* Spacing */
+    /* Design System: Spacing Scale */
     --space-xs: 0.25rem;
     --space-sm: 0.5rem;
     --space-md: 1rem;
@@ -50,25 +53,25 @@
     --space-2xl: 3rem;
     --space-3xl: 4rem;
 
-    /* Border Radius */
+    /* Design System: Border Radius */
     --radius-sm: 0.375rem;
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
     --radius-2xl: 1.5rem;
 
-    /* Shadows */
+    /* Design System: Shadow Depth */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-    /* Transitions */
+    /* Design System: Animation Timing */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.3s ease;
     --transition-slow: 0.5s ease;
 
-    /* Z-Index */
+    /* Layer Management (Z-Index) */
     --z-dropdown: 1000;
     --z-sticky: 1020;
     --z-fixed: 1030;
@@ -76,14 +79,14 @@
     --z-popover: 1050;
     --z-tooltip: 1060;
 
-    /* Theme Toggle Variables */
+    /* Component: Theme Toggle Configuration */
     --bg: #ffffff;
     --primary: #2563eb;
     --primaryT: rgba(37, 99, 235, 0.2);
     --transDur: 0.3s;
 }
 
-/* Dark Mode Variables */
+/* Theme: Dark Mode Overrides */
 [data-theme="dark"] {
     --bg-primary: var(--dark-bg);
     --bg-secondary: var(--dark-surface);
@@ -94,7 +97,7 @@
     --bg: #0a0a0a;
 }
 
-/* Light Mode Variables */
+/* Theme: Light Mode Defaults */
 [data-theme="light"] {
     --bg-primary: var(--white);
     --bg-secondary: var(--gray-50);
@@ -104,7 +107,10 @@
     --border-color: var(--gray-200);
 }
 
-/* Base Styles */
+/**
+ * Base Styles
+ * Root element configuration and body defaults.
+ */
 html {
     scroll-behavior: smooth;
     font-size: 16px;
@@ -122,7 +128,10 @@ body {
     transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-/* ===== LOADING SCREEN ===== */
+/**
+ * Component: Loading Screen
+ * Initial application loading state and animations.
+ */
 .loading-screen {
     position: fixed;
     top: 0;
@@ -216,7 +225,10 @@ body {
     }
 }
 
-/* ===== CURSOR EFFECTS ===== */
+/**
+ * Component: Custom Cursor
+ * Interactive cursor elements for enhanced UX.
+ */
 .cursor-follower {
     position: fixed;
     width: 20px;
@@ -240,7 +252,10 @@ body {
     transition: transform var(--transition-fast);
 }
 
-/* ===== PROGRESS BAR ===== */
+/**
+ * Component: Reading Progress Bar
+ * Visual indicator of scroll position.
+ */
 .progress-bar {
     position: fixed;
     top: 0;
@@ -252,20 +267,23 @@ body {
     transition: width var(--transition-fast);
 }
 
-/* ===== NAVIGATION ===== */
+/**
+ * Layout: Navigation Bar
+ * Main navigation header with glassmorphism effect.
+ */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     background: rgba(255, 255, 255, 0.85);
-    /* Enhance glass effect */
+    /* Visual Effect: Glassmorphism Backdrop */
     -webkit-backdrop-filter: blur(18px);
     backdrop-filter: blur(18px);
-    /* Slightly rounded bottom corners */
+    /* Shape: Bottom Corner Radius */
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    /* Allow dropdowns to overflow outside navbar */
+    /* Layout: Overflow Handling */
     overflow: visible;
     border-bottom: 1px solid var(--border-color);
     z-index: var(--z-sticky);
@@ -319,7 +337,7 @@ body {
     transition: color var(--transition-fast);
 }
 
-/* Brand link hover and active states */
+/* Interaction: Brand Link States */
 .brand-link:hover {
     color: var(--primary-blue);
 }
@@ -395,7 +413,7 @@ body {
     width: 100%;
 }
 
-/* Enhanced navigation feedback */
+/* Interaction: Navigation Feedback */
 .nav-link:active {
     transform: scale(0.95);
     z-index: 20;
@@ -407,7 +425,7 @@ body {
     z-index: 25;
 }
 
-/* Keyboard navigation indicator */
+/* Accessibility: Keyboard Shortcuts */
 .nav-link[data-keyboard-shortcut]::before {
     content: attr(data-keyboard-shortcut);
     position: absolute;
@@ -435,7 +453,7 @@ body {
     pointer-events: auto;
 }
 
-/* Theme Toggle - New Design */
+/* Component: Theme Toggle Switch */
 .theme {
     display: flex;
     align-items: center;
@@ -572,7 +590,7 @@ body {
     outline: transparent;
 }
 
-/* Checked */
+/* State: Checked (Dark Mode) */
 .theme__toggle:checked {
     background-color: hsl(198, 90%, 15%);
 }
@@ -586,7 +604,7 @@ body {
     background-color: hsl(198, 90%, 55%);
 }
 
-/* Remove complex fill animation */
+/* Animation: Simplified Transitions */
 
 .theme__toggle:checked~.theme__icon .theme__icon-part:nth-child(1) {
     box-shadow: 0.15em -0.15em 0 0.15em hsl(0, 0%, 100%) inset;
@@ -645,7 +663,7 @@ body {
     }
 }
 
-/* Language Selector */
+/* Component: Language Selector */
 .language-selector {
     position: relative;
 }
@@ -705,14 +723,14 @@ body {
     transform: translateY(0);
 }
 
-/* Force dropdown above everything when open */
+/* Layout: Dropdown Z-Index Stacking */
 body .language-dropdown.active {
     z-index: 2147483647;
     /* max practical z-index */
     pointer-events: auto;
 }
 
-/* Allow overflow only while language dropdown is open */
+/* State: Dropdown Open Overflow */
 html.lang-open .navbar {
     overflow: visible;
     /* temporarily disable clipping of rounded corners */
@@ -731,21 +749,21 @@ html.lang-open .navbar {
     background: var(--bg-secondary);
 }
 
-/* Mobile Menu Toggle */
+/* Component: Mobile Menu Toggle */
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
     gap: 6px;
-    /* Increased gap for better visibility */
+    /* Accessibility: Touch Target Spacing */
     background: var(--bg-secondary);
     border: 2px solid var(--border-color);
     cursor: pointer;
     padding: var(--space-md);
-    /* Increased padding for larger touch area */
+    /* Accessibility: Touch Target Size */
     min-width: 42px;
-    /* Slightly smaller touch area */
+    /* Layout: Toggle Dimensions */
     min-height: 42px;
-    /* Slightly smaller touch area */
+    /* Layout: Toggle Dimensions */
     justify-content: center;
     align-items: center;
     border-radius: var(--radius-lg);
@@ -764,7 +782,7 @@ html.lang-open .navbar {
     /* Added rounded corners */
 }
 
-/* Hover/active states for better feedback */
+/* Interaction: Toggle States */
 .mobile-menu-toggle:hover {
     background: var(--primary-blue);
     border-color: var(--primary-blue);
@@ -780,13 +798,13 @@ html.lang-open .navbar {
     transform: scale(0.98);
 }
 
-/* Dark theme adjustments */
+/* Theme: Dark Mode Adjustments */
 [data-theme="dark"] .mobile-menu-toggle {
     background: var(--bg-secondary);
     border-color: var(--gray-700);
 }
 
-/* Mobile menu active state animations */
+/* Animation: Menu Toggle Activation */
 .mobile-menu-toggle.active span:nth-child(1) {
     transform: rotate(45deg) translate(8px, 8px);
 }
@@ -6867,14 +6885,14 @@ html.lang-open .navbar {
         position: absolute;
     }
 
-    .mobile-menu-toggle span:nth-child(2) {}
+
 
     .mobile-menu-toggle span:nth-child(3) {
         top: 7px;
         position: absolute;
     }
 
-    /* شكل الـ X عند الفتح */
+    /* Animation: Transform to X shape */
     .mobile-menu-toggle.active span:nth-child(2) {
         opacity: 0;
     }
@@ -6887,12 +6905,12 @@ html.lang-open .navbar {
         transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* نلغي أي أنماط قديمة للـnav-menu على الهاتف */
+    /* Reset: Mobile Navigation Styles */
     .nav-menu {
         display: flex !important;
     }
 
-    /* Drawer من اليمين */
+    /* Layout: Right-side Drawer */
     #navMenu {
         position: fixed !important;
         top: 64px;
@@ -6919,13 +6937,13 @@ html.lang-open .navbar {
         pointer-events: auto;
     }
 
-    /* إخفاء عناصر غير أساسية داخل الدرج */
+    /* Visibility: Hide non-essential elements */
     #navMenu .theme,
     #navMenu .language-selector {
         display: none !important;
     }
 
-    /* شكل الروابط داخل الدرج */
+    /* Component: Drawer Link Styles */
     #navMenu .nav-link {
         width: 100%;
         padding: var(--space-md) var(--space-lg);
@@ -6941,9 +6959,9 @@ html.lang-open .navbar {
         display: none;
     }
 
-    /* لا نحتاج الخط السفلي هنا */
+    /* Style: Remove underline */
 
-    /* خلفية تعتيم */
+    /* Component: Modal Overlay */
     #navOverlay {
         position: fixed;
         inset: 0;
@@ -6959,7 +6977,7 @@ html.lang-open .navbar {
         pointer-events: auto;
     }
 
-    /* قفل تمرير الصفحة عند فتح المنيو */
+    /* Interaction: Prevent Body Scroll */
     body.no-scroll {
         overflow: hidden;
         height: 100dvh;
@@ -6968,11 +6986,11 @@ html.lang-open .navbar {
 }
 
 /* ================================
-   MOBILE MENU - Center Modal
+   MOBILE MENU - Configuration
 ================================== */
 @media (max-width: 768px) {
 
-    /* الزر */
+    /* Component: Toggle Button */
     .mobile-menu-toggle {
         position: absolute;
         right: var(--space-lg);
@@ -7003,7 +7021,7 @@ html.lang-open .navbar {
         position: absolute;
     }
 
-    .mobile-menu-toggle span:nth-child(2) {}
+
 
     .mobile-menu-toggle span:nth-child(3) {
         top: 7px;
