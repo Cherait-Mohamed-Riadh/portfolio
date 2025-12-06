@@ -91,7 +91,7 @@ function closeImageLightbox() {
 // Global function for car video
 function openCarVideoModal() {
     console.log("Opening car video modal...");
-    const videoSrc = "image/zzzz.mp4";
+    const videoSrc = "image/Zzzz.mp4";
     
     // Check if elements exist
     if (!videoLightbox || !videoLightboxVideo) {

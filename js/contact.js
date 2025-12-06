@@ -13,6 +13,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     const formMessage = document.getElementById('formMessage');
     const statusEl = document.getElementById('form-status');
+    const contactSection = document.querySelector('.contact-section.enhanced') || document.querySelector('.contact-section');
+
+    // Elements for UX states
+    const submitBtn = contactForm ? contactForm.querySelector('button[type="submit"]') : null;
+    const defaultStateEl = submitBtn ? submitBtn.querySelector('.state--default') : null;
+    const sentStateEl = submitBtn ? submitBtn.querySelector('.state--sent') : null;
+
+    function setSubmitting(isSubmitting){
+        if (!contactForm || !submitBtn) return;
+        // aria busy on button
+        submitBtn.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
+        // disable fields except submit button
+        const controls = contactForm.querySelectorAll('input, textarea, select, button:not([type="submit"])');
+        controls.forEach(el => { el.disabled = !!isSubmitting; });
+    }
+
+    function showToast(message){
+        let toast = document.getElementById('contactToast');
+        if (!toast){
+            toast = document.createElement('div');
+            toast.id = 'contactToast';
+            toast.className = 'toast';
+            (contactSection || document.body).appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2200);
+    }
 
     if (contactForm) {
         contactForm.addEventListener('submit', handleFormSubmit);
@@ -27,10 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Get form data
         const formData = new FormData(contactForm);
-        const name = formData.get('name').trim();
-        const email = formData.get('email').trim();
-        const subject = formData.get('subject').trim();
-        const message = formData.get('message').trim();
+        const name = (formData.get('name') || '').toString().trim();
+        const email = (formData.get('email') || '').toString().trim();
+        const subject = (formData.get('subject') || '').toString().trim();
+        const message = (formData.get('message') || '').toString().trim();
 
         // Clear previous errors
         clearFormErrors();
@@ -40,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Loading state is now handled in sendToGoogleAppsScript function
+        // Set submitting state
+        setSubmitting(true);
 
         // Send to Google Apps Script
         sendToGoogleAppsScript(formData);
@@ -53,6 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (statusEl) { 
                 statusEl.textContent = 'Sending...'; 
                 statusEl.style.color = '#777'; 
+            }
+            if (defaultStateEl && sentStateEl) {
+                defaultStateEl.style.opacity = '0.7';
+                sentStateEl.style.opacity = '0.35';
             }
 
             console.log('Sending form data to Google Apps Script...');
@@ -80,22 +113,41 @@ document.addEventListener('DOMContentLoaded', function() {
                     statusEl.textContent = 'Submitted Successfully ✅'; 
                     statusEl.style.color = '#078b4f'; 
                 }
+                // Toggle button state to "sent" briefly
+                if (defaultStateEl && sentStateEl) {
+                    defaultStateEl.style.display = 'none';
+                    sentStateEl.style.display = 'flex';
+                }
                 contactForm.reset();
+                showToast('Message sent successfully');
                 setTimeout(function(){ 
                     if (statusEl) statusEl.textContent = ''; 
-                }, 5000);
+                    if (defaultStateEl && sentStateEl) {
+                        sentStateEl.style.display = '';
+                        defaultStateEl.style.display = '';
+                    }
+                }, 2200);
             } else {
                 console.log('Form submission failed');
                 if (statusEl) { 
                     statusEl.textContent = 'An Error Occurred ❌'; 
                     statusEl.style.color = '#c62828'; 
                 }
+                showToast('Sending failed. Try again.');
             }
         } catch (err) {
             console.error('Form submission error:', err);
             if (statusEl) { 
                 statusEl.textContent = 'An Error Occurred ❌'; 
                 statusEl.style.color = '#c62828'; 
+            }
+            showToast('An error occurred. Please try again.');
+        } finally {
+            // Reset submitting state and visual indicators
+            setSubmitting(false);
+            if (defaultStateEl && sentStateEl) {
+                defaultStateEl.style.opacity = '';
+                sentStateEl.style.opacity = '';
             }
         }
     }
@@ -276,6 +328,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     this.style.transform = 'scale(1)';
                 }, 150);
+            });
+        });
+    }
+
+    // Copy-to-clipboard for contact items
+    const copyBtns = document.querySelectorAll('.contact-section .copy-btn');
+    if (copyBtns.length > 0){
+        copyBtns.forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const text = btn.getAttribute('data-text') || '';
+                try {
+                    if (navigator.clipboard && navigator.clipboard.writeText){
+                        await navigator.clipboard.writeText(text);
+                    } else {
+                        const ta = document.createElement('textarea');
+                        ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+                    }
+                    const what = btn.dataset.copy ? btn.dataset.copy.charAt(0).toUpperCase()+btn.dataset.copy.slice(1) : 'Copied';
+                    showToast(`${what} copied to clipboard`);
+                } catch (_) {
+                    showToast('Unable to copy');
+                }
+                btn.animate([{ transform:'scale(0.96)' },{ transform:'scale(1)' }], { duration:180, easing:'ease-out' });
             });
         });
     }

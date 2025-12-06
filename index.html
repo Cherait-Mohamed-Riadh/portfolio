@@ -86,6 +86,401 @@
     <link rel="stylesheet" href="css/new-button.css">
     <link rel="stylesheet" href="css/rtl.css">
 
+    <!-- Mobile sizing and layout tuning (phone mode) -->
+    <style id="mobile-tuning">
+      /* Consistent mobile scale and spacing */
+      @media (max-width: 768px) {
+        :root {
+          --mobile-spacing-1: 12px;
+          --mobile-spacing-2: 16px;
+          --mobile-spacing-3: 20px;
+          --mobile-radius: 14px;
+          --mobile-font-sm: 14px;
+          --mobile-font-md: 16px;
+          --mobile-font-lg: 22px;
+          --mobile-font-xl: 28px;
+          --mobile-font-xxl: 34px;
+        }
+
+        /* Navigation */
+        .navbar { height: 64px; padding: 8px 0 !important; }
+        .nav-container { gap: 8px !important; }
+
+        /* Hero */
+        .hero-section { padding: 0 !important; }
+        .hero-container { grid-template-columns: 1fr !important; gap: var(--mobile-spacing-3) !important; padding: 16px !important; }
+        .hero-content { order: 2; text-align: left; }
+        .hero-badge { font-size: 12px; padding: 6px 10px; margin-bottom: var(--mobile-spacing-2); }
+        .hero-title { margin: 0 0 var(--mobile-spacing-2) 0; }
+        .hero-title .title-line { font-size: var(--mobile-font-md); }
+        .hero-title .title-highlight { font-size: var(--mobile-font-xxl); line-height: 1.05; }
+        .hero-description { font-size: var(--mobile-font-sm); line-height: 1.6; margin-bottom: var(--mobile-spacing-3); max-width: 100%; }
+        .hero-actions .btn { min-height: 52px; font-size: 15px; border-radius: 12px; }
+        .hero-visual { order: 1; margin: 8px 0 var(--mobile-spacing-2); }
+        .image-frame { width: 220px; height: 220px; border-radius: 16px; }
+        .floating-elements { gap: 10px; }
+        .floating-card { font-size: 13px; padding: 8px 12px; border-radius: 999px; }
+        .scroll-indicator { display: none !important; }
+
+        /* Sections */
+        .section { padding: 40px 16px !important; }
+        .section-header { margin-bottom: var(--mobile-spacing-3); }
+        .section-title { font-size: var(--mobile-font-xl) !important; }
+        .section-subtitle { font-size: var(--mobile-font-sm) !important; }
+
+        /* About */
+        .about-content { gap: var(--mobile-spacing-3); }
+        .about-image { max-width: 320px; margin: 0 auto; }
+        .about-intro h3 { font-size: var(--mobile-font-lg) !important; }
+        .about-intro p { font-size: var(--mobile-font-sm) !important; }
+
+        /* Expertise - Enhanced Mobile Layout */
+        .expertise-section { padding: 40px 16px !important; }
+        .expertise-section .expertise-grid { 
+          display: grid !important; 
+          grid-template-columns: 1fr !important; 
+          gap: 24px !important; 
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+        .expertise-section .expertise-card { 
+          width: 100% !important; 
+          max-width: 100% !important; 
+          padding: 20px !important; 
+          border-radius: var(--mobile-radius) !important;
+          margin: 0 !important;
+          box-sizing: border-box !important;
+          overflow: visible !important;
+        }
+        .expertise-section .card-header { 
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          gap: 12px !important;
+          margin-bottom: 16px !important;
+        }
+        .expertise-section .card-icon { 
+          width: 56px !important; 
+          height: 56px !important; 
+          font-size: 1.5rem !important;
+        }
+        .expertise-card .card-header h3 { 
+          font-size: var(--mobile-font-lg) !important; 
+          line-height: 1.3 !important;
+          margin: 0 !important;
+        }
+        .expertise-section .card-content { 
+          margin: 0 !important;
+        }
+        .expertise-section .card-content p { 
+          font-size: 14px !important; 
+          line-height: 1.6 !important; 
+          margin-bottom: 16px !important;
+        }
+        .expertise-section .pill-list { 
+          display: flex !important;
+          flex-wrap: wrap !important; 
+          gap: 8px !important;
+          margin: 0 0 16px 0 !important;
+          padding: 0 !important;
+          list-style: none !important;
+        }
+        .expertise-card .skill-list .pill { 
+          font-size: 12px !important; 
+          padding: 8px 12px !important; 
+          white-space: normal !important;
+          word-break: break-word !important;
+          line-height: 1.4 !important;
+          margin: 0 !important;
+          display: inline-block !important;
+        }
+        .expertise-section .card-meta { 
+          margin-top: 16px !important;
+        }
+        .expertise-section .kpi { 
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important; 
+          gap: 10px !important;
+          margin: 12px 0 !important;
+        }
+        .expertise-section .kpi-item { 
+          font-size: 13px !important; 
+          padding: 12px 8px !important;
+          text-align: center !important;
+        }
+        .expertise-section .kpi-item small { 
+          font-size: 11px !important;
+          display: block !important;
+          margin-top: 4px !important;
+        }
+        .expertise-section .toolstack { 
+          display: flex !important;
+          flex-wrap: wrap !important;
+          gap: 8px !important;
+          margin: 12px 0 !important;
+        }
+        .expertise-section .tool-chip { 
+          font-size: 11px !important;
+          padding: 6px 10px !important;
+          white-space: nowrap !important;
+        }
+        .expertise-section .cta-link { 
+          margin-top: 12px !important;
+          font-size: 14px !important;
+        }
+        .expertise-section .card-footer { 
+          margin-top: 16px !important;
+          padding-top: 16px !important;
+        }
+        .expertise-section .skill-level { 
+          margin: 0 !important;
+        }
+        .expertise-section .card-badge { 
+          font-size: 11px !important;
+          padding: 5px 10px !important;
+          top: 10px !important;
+          right: 10px !important;
+        }
+
+        /* Hero particles and floating elements on mobile */
+        .hero-background .hero-particles { display: block !important; position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .hero-section .hero-container { position: relative; z-index: 1; }
+        .hero-image-container { position: relative; }
+        .floating-elements { display: flex !important; position: absolute; inset: 0; pointer-events: none; }
+        .floating-card { display: inline-flex !important; }
+
+        /* Projects - Enhanced Mobile Layout */
+        .projects-section { 
+          padding: 40px 16px !important; 
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+          overflow-x: hidden !important;
+        }
+        .projects-section .container { 
+          width: 100% !important;
+          max-width: 100% !important;
+          padding: 0 !important;
+          margin: 0 auto !important;
+          box-sizing: border-box !important;
+        }
+        .projects-section .section-header { 
+          text-align: center !important;
+          margin-bottom: 24px !important;
+        }
+        .projects-section .section-title { 
+          font-size: var(--mobile-font-xl) !important; 
+          margin-bottom: 8px !important;
+        }
+        .projects-section .section-subtitle { 
+          font-size: var(--mobile-font-sm) !important; 
+          line-height: 1.5 !important;
+        }
+        .projects-section .projects-controls { 
+          margin-bottom: 20px !important;
+        }
+        .projects-section .filters { 
+          display: flex !important; 
+          gap: 8px !important; 
+          overflow-x: auto !important; 
+          padding: 8px 0 12px 0 !important; 
+          -webkit-overflow-scrolling: touch !important; 
+          scroll-snap-type: x proximity !important;
+          scrollbar-width: thin !important;
+        }
+        .projects-section .filters::-webkit-scrollbar { 
+          height: 4px !important;
+        }
+        .projects-section .filters::-webkit-scrollbar-thumb { 
+          background: rgba(125,125,125,.3) !important;
+          border-radius: 2px !important;
+        }
+        .projects-section .filters .filter-btn { 
+          flex: 0 0 auto !important; 
+          scroll-snap-align: start !important;
+          padding: 10px 16px !important;
+          font-size: 14px !important;
+          white-space: nowrap !important;
+          border-radius: 999px !important;
+        }
+        .projects-grid { 
+          display: grid !important; 
+          grid-template-columns: 1fr !important; 
+          gap: 20px !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+        .project-card { 
+          display: flex !important; 
+          flex-direction: column !important; 
+          gap: 14px !important; 
+          overflow: hidden !important; 
+          padding: 16px !important; 
+          border: 1px solid rgba(125,125,125,.15) !important; 
+          background: linear-gradient(180deg, rgba(125,125,125,.06), rgba(125,125,125,.04)) !important;
+          border-radius: var(--mobile-radius) !important;
+          box-sizing: border-box !important;
+          position: relative !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 !important;
+        }
+        .project-card.featured { 
+          border: 1px solid rgba(37, 99, 235, .2) !important;
+          background: linear-gradient(180deg, rgba(37, 99, 235, .08), rgba(37, 99, 235, .04)) !important;
+        }
+        .project-image { 
+          width: 100% !important; 
+          height: auto !important; 
+          aspect-ratio: 16/10 !important; 
+          border-radius: var(--mobile-radius) !important; 
+          overflow: hidden !important;
+          position: relative !important;
+          margin: 0 !important;
+        }
+        .project-image img { 
+          width: 100% !important; 
+          height: 100% !important; 
+          object-fit: cover !important; 
+          display: block !important;
+        }
+        .project-image .project-overlay { 
+          display: none !important; 
+        }
+        .project-ribbon { 
+          position: absolute !important;
+          top: 12px !important; 
+          left: 12px !important; 
+          font-size: 11px !important; 
+          padding: 6px 12px !important; 
+          z-index: 2 !important; 
+          border-radius: 999px !important;
+          font-weight: 600 !important;
+          backdrop-filter: blur(8px) !important;
+        }
+        .project-content { 
+          padding: 0 !important; 
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 10px !important;
+          width: 100% !important;
+          min-width: 0 !important;
+        }
+        .project-category { 
+          font-size: 12px !important; 
+          opacity: .85 !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.5px !important;
+          font-weight: 600 !important;
+          margin: 0 !important;
+        }
+        .project-title { 
+          font-size: 20px !important; 
+          margin: 0 0 8px 0 !important;
+          line-height: 1.3 !important;
+          font-weight: 700 !important;
+          word-wrap: break-word !important;
+          overflow-wrap: break-word !important;
+          hyphens: auto !important;
+        }
+        .project-meta { 
+          display: flex !important;
+          flex-wrap: wrap !important;
+          gap: 8px !important;
+          list-style: none !important;
+          padding: 0 !important;
+          margin: 0 0 10px 0 !important;
+        }
+        .project-meta li { 
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 6px !important;
+          padding: 6px 12px !important;
+          border-radius: 999px !important;
+          background: rgba(125,125,125,.08) !important;
+          border: 1px solid rgba(125,125,125,.15) !important;
+          font-size: 12px !important;
+          white-space: nowrap !important;
+        }
+        .project-meta li i { 
+          font-size: 11px !important;
+          opacity: .7 !important;
+        }
+        .project-description, .project-outcome { 
+          margin: 0 !important; 
+          font-size: 14px !important; 
+          line-height: 1.6 !important;
+          color: inherit !important;
+          opacity: .9 !important;
+          word-wrap: break-word !important;
+          overflow-wrap: break-word !important;
+          hyphens: auto !important;
+        }
+        .project-outcome { 
+          margin-top: 8px !important;
+          padding-top: 8px !important;
+          border-top: 1px solid rgba(125,125,125,.1) !important;
+          font-weight: 500 !important;
+        }
+        .project-tech { 
+          display: flex !important;
+          flex-wrap: wrap !important;
+          gap: 8px !important;
+          margin-top: 8px !important;
+        }
+        .project-tech .tech-tag { 
+          padding: 6px 12px !important; 
+          font-size: 12px !important; 
+          border-radius: 999px !important;
+          background: rgba(125,125,125,.08) !important;
+          border: 1px solid rgba(125,125,125,.15) !important;
+          white-space: nowrap !important;
+        }
+        .projects-grid [data-aos] { 
+          opacity: 1 !important;
+          transform: none !important; 
+        }
+        .projects-cta { 
+          margin-top: 32px !important;
+          text-align: center !important;
+        }
+        .projects-cta .button { 
+          width: 100% !important;
+          max-width: 320px !important;
+          margin: 0 auto !important;
+        }
+
+        /* Contact */
+        .contact-content { gap: var(--mobile-spacing-3) !important; }
+        .contact-item { padding: 14px !important; border-radius: var(--mobile-radius) !important; }
+        .contact-form { padding: 16px !important; border-radius: var(--mobile-radius) !important; }
+        .form-group input, .form-group textarea { font-size: 15px !important; padding: 12px !important; border-radius: 12px !important; }
+        .button, .btn { min-height: 52px !important; border-radius: 12px !important; }
+        .social-link { width: 44px !important; height: 44px !important; font-size: 18px !important; }
+
+        /* Floating actions */
+        #scrollToTopBtn { bottom: calc(16px + env(safe-area-inset-bottom) + 140px) !important; right: 16px !important; width: 50px !important; height: 50px !important; }
+        .whatsapp-button { left: 16px !important; right: auto !important; bottom: calc(16px + env(safe-area-inset-bottom)) !important; width: 60px !important; height: 60px !important; }
+        .whatsapp-button .whatsapp-text, .whatsapp-tooltip { display: none !important; }
+        .chatbot-icon { right: 16px !important; left: auto !important; bottom: calc(16px + env(safe-area-inset-bottom)) !important; }
+      }
+
+      /* Extra-small phones */
+      @media (max-width: 380px) {
+        .image-frame { width: 200px; height: 200px; }
+        .hero-title .title-highlight { font-size: 30px; }
+        .projects-section { padding: 32px 12px !important; }
+        .projects-section .section-title { font-size: 24px !important; }
+        .project-card { padding: 12px !important; gap: 12px !important; }
+        .project-title { font-size: 18px !important; }
+        .project-description, .project-outcome { font-size: 13px !important; }
+        .project-meta li { font-size: 11px !important; padding: 5px 10px !important; }
+        .project-tech .tech-tag { font-size: 11px !important; padding: 5px 10px !important; }
+        .projects-section .filters .filter-btn { padding: 8px 14px !important; font-size: 13px !important; }
+      }
+    </style>
+
     <!-- SEO: JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
@@ -263,9 +658,11 @@
                 <!-- Mobile Menu Toggle -->
                 <label class="burger" for="burger">
                     <input type="checkbox" id="burger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <div class="burger-lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </label>
 
                 <!-- Mobile Menu Close Button -->
@@ -542,22 +939,154 @@
 
                 <style>
                     /* Scoped styles to enhance the expertise cards without touching global CSS */
-                    .expertise-section .expertise-grid.enhanced .expertise-card { position: relative; overflow: hidden; }
-                    .expertise-section .card-badge{ position:absolute; top:12px; right:12px; background:linear-gradient(135deg,#2563eb,#3b82f6); color:#fff; padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; letter-spacing:.2px; box-shadow:0 6px 14px rgba(37,99,235,.25) }
-                    .expertise-section .pill-list{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px }
-                    .expertise-section .pill{ border:1px solid rgba(125,125,125,.25); padding:6px 10px; border-radius:999px; font-size:12px; opacity:.95 }
-                    .expertise-section .card-meta{ margin-top:12px }
-                    .expertise-section .kpi{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:12px 0 }
-                    .expertise-section .kpi-item{ background:rgba(125,125,125,.08); backdrop-filter:saturate(120%); padding:10px; border-radius:12px; text-align:center; font-weight:700; font-size:12px }
-                    .expertise-section .kpi-item small{ display:block; font-weight:500; opacity:.8; margin-top:2px }
-                    .expertise-section .toolstack{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px }
-                    .expertise-section .tool-chip{ border:1px dashed rgba(125,125,125,.25); background:rgba(125,125,125,.06); padding:6px 10px; border-radius:10px; font-size:12px; display:inline-flex; align-items:center; gap:6px }
-                    .expertise-section .tool-chip i{ opacity:.9 }
-                    .expertise-section .cta-link{ display:inline-flex; align-items:center; gap:8px; margin-top:10px; font-weight:700; color:#2563eb; text-decoration:none }
-                    .expertise-section .cta-link i{ transition:transform .2s ease }
-                    .expertise-section .cta-link:hover i{ transform:translateX(4px) }
-                    @media (max-width: 640px){
-                      .expertise-section .kpi{ grid-template-columns:repeat(2,minmax(0,1fr)) }
+                    .expertise-section .expertise-grid.enhanced .expertise-card {
+                        position: relative;
+                        overflow: hidden;
+                    }
+
+                    .expertise-section .card-badge {
+                        position: absolute;
+                        top: 12px;
+                        right: 12px;
+                        background: linear-gradient(135deg, #2563eb, #3b82f6);
+                        color: #fff;
+                        padding: 6px 10px;
+                        border-radius: 999px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        letter-spacing: .2px;
+                        box-shadow: 0 6px 14px rgba(37, 99, 235, .25)
+                    }
+
+                    .expertise-section .pill-list {
+                        list-style: none;
+                        padding: 0;
+                        margin: 10px 0 0 0;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 8px
+                    }
+
+                    .expertise-section .pill {
+                        border: 1px solid rgba(125, 125, 125, .25);
+                        padding: 6px 10px;
+                        border-radius: 999px;
+                        font-size: 12px;
+                        opacity: .95
+                    }
+
+                    .expertise-section .card-meta {
+                        margin-top: 12px
+                    }
+
+                    .expertise-section .kpi {
+                        display: grid;
+                        grid-template-columns: repeat(3, minmax(0, 1fr));
+                        gap: 8px;
+                        margin: 12px 0
+                    }
+
+                    .expertise-section .kpi-item {
+                        background: rgba(125, 125, 125, .08);
+                        backdrop-filter: saturate(120%);
+                        padding: 10px;
+                        border-radius: 12px;
+                        text-align: center;
+                        font-weight: 700;
+                        font-size: 12px
+                    }
+
+                    .expertise-section .kpi-item small {
+                        display: block;
+                        font-weight: 500;
+                        opacity: .8;
+                        margin-top: 2px
+                    }
+
+                    .expertise-section .toolstack {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 8px;
+                        margin-top: 6px
+                    }
+
+                    .expertise-section .tool-chip {
+                        border: 1px dashed rgba(125, 125, 125, .25);
+                        background: rgba(125, 125, 125, .06);
+                        padding: 6px 10px;
+                        border-radius: 10px;
+                        font-size: 12px;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px
+                    }
+
+                    .expertise-section .tool-chip i {
+                        opacity: .9
+                    }
+
+                    .expertise-section .cta-link {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        margin-top: 10px;
+                        font-weight: 700;
+                        color: #2563eb;
+                        text-decoration: none
+                    }
+
+                    .expertise-section .cta-link i {
+                        transition: transform .2s ease
+                    }
+
+                    .expertise-section .cta-link:hover i {
+                        transform: translateX(4px)
+                    }
+
+                    html[dir="rtl"] .expertise-section .card-badge {
+                        left: 12px;
+                        right: auto
+                    }
+
+                    @media (max-width: 640px) {
+                        .expertise-section .kpi {
+                            grid-template-columns: repeat(2, minmax(0, 1fr))
+                        }
+                    }
+
+                    .expertise-section .expertise-card {
+                        transition: transform .25s ease, box-shadow .25s ease
+                    }
+
+                    .expertise-section .expertise-card:hover {
+                        transform: translateY(-6px);
+                        box-shadow: 0 12px 30px rgba(0, 0, 0, .12)
+                    }
+
+                    .expertise-section .expertise-card::after {
+                        content: "";
+                        position: absolute;
+                        inset: 0;
+                        border-radius: 16px;
+                        padding: 1px;
+                        background: linear-gradient(135deg, rgba(37, 99, 235, .5), rgba(59, 130, 246, .2));
+                        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                        -webkit-mask-composite: xor;
+                        mask-composite: exclude;
+                        opacity: 0;
+                        transition: opacity .25s ease
+                    }
+
+                    .expertise-section .expertise-card:hover::after {
+                        opacity: 1
+                    }
+
+                    html[dir="rtl"] .expertise-section .cta-link i {
+                        transform: scaleX(-1)
+                    }
+
+                    html[dir="rtl"] .expertise-section .cta-link:hover i {
+                        transform: translateX(-4px) scaleX(-1)
                     }
                 </style>
 
@@ -565,6 +1094,7 @@
                 <div class="expertise-grid enhanced">
                     <!-- Cybersecurity Card -->
                     <div class="expertise-card fade-in-up stagger-item" data-aos="fade-up" data-aos-delay="100">
+                        <span class="card-badge" data-translate="expertise.badge.featured">Featured</span>
                         <div class="card-header">
                             <div class="card-icon">
                                 <i class="fas fa-shield-alt"></i>
@@ -575,24 +1105,44 @@
                             <p data-translate="expertise.cybersecurity.description">Comprehensive cybersecurity
                                 solutions including professional penetration testing, vulnerability assessment, ethical
                                 hacking, and secure architecture design for enterprise clients.</p>
-                            <ul class="skill-list">
-                                <li data-translate="expertise.cybersecurity.skills.0">Penetration Testing & Ethical
-                                    Hacking</li>
-                                <li data-translate="expertise.cybersecurity.skills.1">Vulnerability Assessment &
-                                    Security Auditing</li>
-                                <li data-translate="expertise.cybersecurity.skills.2">Security Architecture & Design
-                                </li>
-                                <li data-translate="expertise.cybersecurity.skills.3">Incident Response & Threat Hunting
-                                </li>
-                                <li data-translate="expertise.cybersecurity.skills.4">Compliance & Security Consulting
-                                </li>
+                            <ul class="skill-list pill-list">
+                                <li class="pill" data-translate="expertise.cybersecurity.skills.0">Penetration Testing &
+                                    Ethical Hacking</li>
+                                <li class="pill" data-translate="expertise.cybersecurity.skills.1">Vulnerability
+                                    Assessment & Security Auditing</li>
+                                <li class="pill" data-translate="expertise.cybersecurity.skills.2">Security Architecture
+                                    & Design</li>
+                                <li class="pill" data-translate="expertise.cybersecurity.skills.3">Incident Response &
+                                    Threat Hunting</li>
+                                <li class="pill" data-translate="expertise.cybersecurity.skills.4">Compliance & Security
+                                    Consulting</li>
                             </ul>
+                            <div class="card-meta">
+                                <div class="kpi">
+                                    <div class="kpi-item">6+<small data-translate="expertise.kpi.years">Years</small>
+                                    </div>
+                                    <div class="kpi-item">100+<small
+                                            data-translate="expertise.kpi.assessments">Assessments</small></div>
+                                    <div class="kpi-item">25+<small
+                                            data-translate="expertise.kpi.enterprise">Enterprise</small></div>
+                                </div>
+                                <div class="toolstack">
+                                    <span class="tool-chip"><i class="fas fa-bug"></i>Burp Suite</span>
+                                    <span class="tool-chip"><i class="fas fa-radiation"></i>Metasploit</span>
+                                    <span class="tool-chip"><i class="fas fa-project-diagram"></i>Nmap</span>
+                                    <span class="tool-chip"><i class="fas fa-shield-virus"></i>OWASP ZAP</span>
+                                    <span class="tool-chip"><i class="fas fa-wave-square"></i>Wireshark</span>
+                                </div>
+                                <a class="cta-link" href="cybersecurity.html"><span
+                                        data-translate="expertise.cta.security">View detailed services</span><i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="skill-level">
                                 <span data-translate="expertise.cybersecurity.level">Expert Level</span>
                                 <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
+                                    <div class="skill-progress" data-progress="95"></div>
                                 </div>
                             </div>
                         </div>
@@ -600,6 +1150,7 @@
 
                     <!-- Financial Analysis Card -->
                     <div class="expertise-card fade-in-up stagger-item" data-aos="fade-up" data-aos-delay="200">
+                        <span class="card-badge" data-translate="expertise.badge.demand">In-Demand</span>
                         <div class="card-header">
                             <div class="card-icon">
                                 <i class="fas fa-chart-line"></i>
@@ -609,19 +1160,40 @@
                         <div class="card-content">
                             <p data-translate="expertise.financial.description">Advanced market analysis and algorithmic
                                 trading strategies for forex, crypto, and traditional markets.</p>
-                            <ul class="skill-list">
-                                <li data-translate="expertise.financial.skills.0">Technical Analysis</li>
-                                <li data-translate="expertise.financial.skills.1">Algorithmic Trading</li>
-                                <li data-translate="expertise.financial.skills.2">Risk Management</li>
-                                <li data-translate="expertise.financial.skills.3">Portfolio Optimization</li>
-                                <li data-translate="expertise.financial.skills.4">Market Research</li>
+                            <ul class="skill-list pill-list">
+                                <li class="pill" data-translate="expertise.financial.skills.0">Technical Analysis</li>
+                                <li class="pill" data-translate="expertise.financial.skills.1">Algorithmic Trading</li>
+                                <li class="pill" data-translate="expertise.financial.skills.2">Risk Management</li>
+                                <li class="pill" data-translate="expertise.financial.skills.3">Portfolio Optimization
+                                </li>
+                                <li class="pill" data-translate="expertise.financial.skills.4">Market Research</li>
                             </ul>
+                            <div class="card-meta">
+                                <div class="kpi">
+                                    <div class="kpi-item">5+<small data-translate="expertise.kpi.years">Years</small>
+                                    </div>
+                                    <div class="kpi-item">20+<small
+                                            data-translate="expertise.kpi.algorithms">Algorithms</small></div>
+                                    <div class="kpi-item">3<small data-translate="expertise.kpi.markets">Markets</small>
+                                    </div>
+                                </div>
+                                <div class="toolstack">
+                                    <span class="tool-chip"><i class="fas fa-chart-line"></i>TradingView</span>
+                                    <span class="tool-chip"><i class="fab fa-python"></i>Python</span>
+                                    <span class="tool-chip"><i class="fas fa-robot"></i>MetaTrader 5</span>
+                                    <span class="tool-chip"><i class="fas fa-sitemap"></i>QuantConnect</span>
+                                    <span class="tool-chip"><i class="fas fa-table"></i>Excel / Power BI</span>
+                                </div>
+                                <a class="cta-link" href="analysis.html"><span
+                                        data-translate="expertise.cta.analysis">View market insights</span><i
+                                        class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="skill-level">
                                 <span data-translate="expertise.financial.level">Advanced Level</span>
                                 <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
+                                    <div class="skill-progress" data-progress="90"></div>
                                 </div>
                             </div>
                         </div>
@@ -629,6 +1201,7 @@
 
                     <!-- Web Development Card -->
                     <div class="expertise-card fade-in-up stagger-item" data-aos="fade-up" data-aos-delay="300">
+                        <span class="card-badge" data-translate="expertise.badge.speed">7 Days</span>
                         <div class="card-header">
                             <div class="card-icon">
                                 <i class="fas fa-code"></i>
@@ -639,19 +1212,40 @@
                             <p data-translate="expertise.web.description">Full-stack web development with focus on
                                 secure, scalable applications, e-commerce platforms, and modern web technologies.
                                 Delivering high-impact websites in 7 days.</p>
-                            <ul class="skill-list">
-                                <li data-translate="expertise.web.skills.0">React & Node.js Development</li>
-                                <li data-translate="expertise.web.skills.1">Python & JavaScript Programming</li>
-                                <li data-translate="expertise.web.skills.2">Secure Database Design</li>
-                                <li data-translate="expertise.web.skills.3">API Development & Security</li>
-                                <li data-translate="expertise.web.skills.4">DevOps & CI/CD Implementation</li>
+                            <ul class="skill-list pill-list">
+                                <li class="pill" data-translate="expertise.web.skills.0">React & Node.js Development
+                                </li>
+                                <li class="pill" data-translate="expertise.web.skills.1">Python & JavaScript Programming
+                                </li>
+                                <li class="pill" data-translate="expertise.web.skills.2">Secure Database Design</li>
+                                <li class="pill" data-translate="expertise.web.skills.3">API Development & Security</li>
+                                <li class="pill" data-translate="expertise.web.skills.4">DevOps & CI/CD Implementation
+                                </li>
                             </ul>
+                            <div class="card-meta">
+                                <div class="kpi">
+                                    <div class="kpi-item">50+<small
+                                            data-translate="expertise.kpi.projects">Projects</small></div>
+                                    <div class="kpi-item">7<small data-translate="expertise.kpi.delivery">Days
+                                            Delivery</small></div>
+                                    <div class="kpi-item">99.9%<small>Uptime</small></div>
+                                </div>
+                                <div class="toolstack">
+                                    <span class="tool-chip"><i class="fab fa-react"></i>React</span>
+                                    <span class="tool-chip"><i class="fab fa-node-js"></i>Node.js</span>
+                                    <span class="tool-chip"><i class="fas fa-database"></i>MongoDB</span>
+                                    <span class="tool-chip"><i class="fab fa-aws"></i>AWS</span>
+                                    <span class="tool-chip"><i class="fab fa-docker"></i>Docker</span>
+                                </div>
+                                <a class="cta-link" href="sites.html"><span data-translate="expertise.cta.web">View web
+                                        packages</span><i class="fas fa-arrow-right"></i></a>
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="skill-level">
                                 <span data-translate="expertise.web.level">Proficient Level</span>
                                 <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
+                                    <div class="skill-progress" data-progress="85"></div>
                                 </div>
                             </div>
                         </div>
@@ -670,10 +1264,29 @@
                         security, finance, and development</p>
                 </div>
 
+                <!-- Projects Controls -->
+                <div class="projects-controls" data-aos="fade-up">
+                    <div class="filters" role="tablist" aria-label="Filter projects">
+                        <button class="filter-btn active" data-filter="all" aria-pressed="true">
+                            <i class="fas fa-layer-group"></i>
+                            <span data-translate="projects.filters.all">All</span>
+                        </button>
+                        <button class="filter-btn" data-filter="web" aria-pressed="false">
+                            <i class="fas fa-code"></i>
+                            <span data-translate="projects.filters.web">Web</span>
+                        </button>
+                        <button class="filter-btn" data-filter="security" aria-pressed="false">
+                            <i class="fas fa-shield-alt"></i>
+                            <span data-translate="projects.filters.security">Security</span>
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Projects Grid -->
                 <div class="projects-grid">
                     <!-- Featured Project - Web Development -->
-                    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-card featured" data-category="web" data-aos="fade-up" data-aos-delay="100">
+                        <span class="project-ribbon" data-translate="projects.ribbon">Featured</span>
                         <div class="project-image">
                             <img src="image/Programming.png"
                                 alt="Professional Web Development Services - Website Development" loading="lazy"
@@ -682,7 +1295,7 @@
                                 <div class="project-links">
                                     <a href="sites.html" class="project-link" rel="noopener noreferrer">
                                         <i class="fas fa-external-link-alt"></i>
-                                        <!-- Decorative Stars -->
+                                        <span data-translate="projects.view">View Project</span>
                                     </a>
                                 </div>
                             </div>
@@ -690,6 +1303,14 @@
                         <div class="project-content">
                             <div class="project-category" data-translate="projects.web.category">Web Development</div>
                             <h3 class="project-title" data-translate="projects.web.title">Website Development</h3>
+                            <ul class="project-meta">
+                                <li><i class="far fa-clock"></i><span data-translate="projects.meta.duration7">7
+                                        Days</span></li>
+                                <li><i class="fas fa-user-tie"></i><span
+                                        data-translate="projects.meta.roleFullstack">Full‑stack</span></li>
+                                <li><i class="fas fa-shield-halved"></i><span
+                                        data-translate="projects.meta.secure">Secure Build</span></li>
+                            </ul>
                             <p class="project-description" data-translate="projects.web.description">A comprehensive
                                 platform for managing and developing websites for individuals and companies. Built with
                                 secure web development practices and ethical hacking principles.</p>
@@ -708,7 +1329,7 @@
 
 
                     <!-- Cybersecurity Project -->
-                    <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-card" data-category="security" data-aos="fade-up" data-aos-delay="300">
                         <div class="project-image">
                             <img src="image/cybersecurity.png"
                                 alt="Professional Cybersecurity Services and Penetration Testing" loading="lazy"
@@ -808,7 +1429,7 @@
         </section>
 
         <!-- Section: Contact Information -->
-        <section id="contact" class="contact-section">
+        <section id="contact" class="contact-section enhanced">
             <div class="container">
                 <!-- Section Header -->
                 <div class="section-header" data-aos="fade-up">
@@ -819,6 +1440,236 @@
                         Whether it's securing systems through professional penetration testing, developing high-impact
                         websites with secure coding practices, or implementing comprehensive cybersecurity solutions,
                         I'm ready to deliver excellence. Let's connect and get started on your project.</p>
+                </div>
+
+                <!-- Scoped styles for enhanced Contact section -->
+                <style>
+                    .contact-section.enhanced .section-header {
+                        text-align: center;
+                        max-width: 900px;
+                        margin-inline: auto
+                    }
+
+                    .contact-section.enhanced .contact-badges {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        justify-content: center;
+                        margin: 20px 0 34px
+                    }
+
+                    .contact-section.enhanced .badge {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        padding: 8px 12px;
+                        border-radius: 999px;
+                        background: rgba(125, 125, 125, .08);
+                        border: 1px solid rgba(125, 125, 125, .15);
+                        font-size: 12px
+                    }
+
+                    .contact-section.enhanced .badge i {
+                        color: #3b82f6
+                    }
+
+                    .contact-section.enhanced .contact-content {
+                        display: grid;
+                        grid-template-columns: 1.1fr 1fr;
+                        gap: 28px
+                    }
+
+                    .contact-section.enhanced .contact-info {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 14px
+                    }
+
+                    .contact-section.enhanced .contact-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 14px;
+                        padding: 14px;
+                        border: 1px solid rgba(125, 125, 125, .15);
+                        background: linear-gradient(180deg, rgba(125, 125, 125, .06), rgba(125, 125, 125, .04));
+                        border-radius: 16px;
+                        position: relative
+                    }
+
+                    .contact-section.enhanced .contact-icon {
+                        width: 42px;
+                        height: 42px;
+                        display: grid;
+                        place-items: center;
+                        border-radius: 12px;
+                        background: linear-gradient(135deg, #2563eb, #3b82f6);
+                        color: #fff;
+                        box-shadow: 0 8px 18px rgba(37, 99, 235, .35)
+                    }
+
+                    .contact-section.enhanced .contact-details h4 {
+                        margin: 0 0 4px;
+                        font-weight: 700
+                    }
+
+                    .contact-section.enhanced .contact-link {
+                        font-weight: 600
+                    }
+
+                    .contact-section.enhanced .copy-btn {
+                        position: absolute;
+                        right: 12px;
+                        inset-inline-end: 12px;
+                        inset-inline-start: auto;
+                        top: 12px;
+                        border: 1px solid rgba(125, 125, 125, .2);
+                        background: rgba(125, 125, 125, .08);
+                        color: inherit;
+                        border-radius: 10px;
+                        padding: 6px 8px;
+                        cursor: pointer;
+                        transition: transform .15s ease, background .2s ease
+                    }
+
+                    html[dir="rtl"] .contact-section.enhanced .copy-btn {
+                        left: 12px;
+                        right: auto
+                    }
+
+                    .contact-section.enhanced .copy-btn:hover {
+                        transform: translateY(-1px);
+                        background: rgba(125, 125, 125, .12)
+                    }
+
+                    .contact-section.enhanced .social-links {
+                        display: flex;
+                        gap: 10px;
+                        margin-top: 8px
+                    }
+
+                    .contact-section.enhanced .social-link {
+                        width: 40px;
+                        height: 40px;
+                        display: grid;
+                        place-items: center;
+                        border: 1px solid rgba(125, 125, 125, .15);
+                        border-radius: 12px;
+                        background: rgba(125, 125, 125, .06)
+                    }
+
+                    .contact-section.enhanced .contact-form {
+                        border: 1px solid rgba(125, 125, 125, .15);
+                        border-radius: 16px;
+                        padding: 20px;
+                        background: linear-gradient(180deg, rgba(125, 125, 125, .06), rgba(125, 125, 125, .04))
+                    }
+
+                    .contact-section.enhanced .form-group {
+                        position: relative;
+                        margin-bottom: 14px
+                    }
+
+                    .contact-section.enhanced .form-group input,
+                    .contact-section.enhanced .form-group textarea {
+                        width: 100%;
+                        border: 1px solid rgba(125, 125, 125, .2);
+                        background: rgba(125, 125, 125, .06);
+                        color: inherit;
+                        padding: 14px 12px;
+                        border-radius: 10px
+                    }
+
+                    .contact-section.enhanced .form-group label {
+                        position: absolute;
+                        left: 12px;
+                        top: -8px;
+                        background: var(--bg, #0b0b0b);
+                        padding: 0 6px;
+                        font-size: 12px;
+                        opacity: .9
+                    }
+
+                    .contact-section.enhanced .form-error {
+                        color: #ef4444;
+                        font-size: 12px;
+                        margin-top: 6px;
+                        display: none
+                    }
+
+                    .contact-section.enhanced .form-error.show {
+                        display: block
+                    }
+
+                    .contact-section.enhanced .form-meta {
+                        margin-top: 10px;
+                        font-size: 12px;
+                        opacity: .85
+                    }
+
+                    .contact-section.enhanced .form-meta .privacy a {
+                        color: #3b82f6;
+                        text-decoration: none
+                    }
+
+                    .contact-section.enhanced button[aria-busy="true"] {
+                        opacity: .8;
+                        pointer-events: none
+                    }
+
+                    .contact-section.enhanced .loading-spinner {
+                        display: none;
+                        width: 16px;
+                        height: 16px;
+                        border: 2px solid rgba(255, 255, 255, .35);
+                        border-top-color: #fff;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                        margin-inline: 8px
+                    }
+
+                    .contact-section.enhanced button[aria-busy="true"] .loading-spinner {
+                        display: inline-block
+                    }
+
+                    @keyframes spin {
+                        to {
+                            transform: rotate(360deg)
+                        }
+                    }
+
+                    .contact-section.enhanced .toast {
+                        position: fixed;
+                        z-index: 60;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        bottom: 24px;
+                        background: rgba(20, 20, 20, .95);
+                        color: #fff;
+                        padding: 10px 14px;
+                        border-radius: 10px;
+                        border: 1px solid rgba(125, 125, 125, .25);
+                        display: none;
+                        box-shadow: 0 12px 28px rgba(0, 0, 0, .35)
+                    }
+
+                    .contact-section.enhanced .toast.show {
+                        display: block
+                    }
+
+                    @media (max-width: 992px) {
+                        .contact-section.enhanced .contact-content {
+                            grid-template-columns: 1fr
+                        }
+                    }
+                </style>
+
+                <div class="contact-badges">
+                    <span class="badge"><i class="far fa-clock"></i><span data-translate="contact.badge.response">Avg.
+                            response &lt; 2h</span></span>
+                    <span class="badge"><i class="fas fa-shield-alt"></i><span
+                            data-translate="contact.badge.secure">Secure by default</span></span>
+                    <span class="badge"><i class="fas fa-globe"></i><span
+                            data-translate="contact.badge.worldwide">Available worldwide</span></span>
                 </div>
 
                 <!-- Contact Content -->
@@ -835,6 +1686,10 @@
                                 <a href="mailto:mohamedriadhch@gmail.com"
                                     class="contact-link">mohamedriadhch@gmail.com</a>
                             </div>
+                            <button type="button" class="copy-btn" data-copy="email"
+                                data-text="mohamedriadhch@gmail.com" aria-label="Copy email">
+                                <i class="far fa-copy"></i>
+                            </button>
                         </div>
 
                         <!-- Phone Contact -->
@@ -846,6 +1701,10 @@
                                 <h4 data-translate="contact.phone">Phone</h4>
                                 <a href="tel:+213549050906" class="contact-link">+213 549050906</a>
                             </div>
+                            <button type="button" class="copy-btn" data-copy="phone" data-text="+213 549050906"
+                                aria-label="Copy phone">
+                                <i class="far fa-copy"></i>
+                            </button>
                         </div>
 
                         <!-- Location Information -->
@@ -857,6 +1716,10 @@
                                 <h4 data-translate="contact.location">Location</h4>
                                 <p data-translate="contact.location.text">Algeria, Available Worldwide</p>
                             </div>
+                            <button type="button" class="copy-btn" data-copy="location"
+                                data-text="Algeria, Available Worldwide" aria-label="Copy location">
+                                <i class="far fa-copy"></i>
+                            </button>
                         </div>
 
                         <!-- Social Media Links -->
@@ -891,7 +1754,8 @@
 
                             <!-- Name Field -->
                             <div class="form-group">
-                                <input id="contact-name" name="name" type="text" placeholder="Enter your name" required>
+                                <input id="contact-name" name="name" type="text" placeholder="Enter your name" required
+                                    autocomplete="name" aria-required="true" aria-describedby="nameError">
                                 <label for="contact-name">Your Name</label>
                                 <div class="form-error" id="nameError"></div>
                             </div>
@@ -899,7 +1763,8 @@
                             <!-- Email Field -->
                             <div class="form-group">
                                 <input id="contact-email" name="email" type="email" placeholder="Enter your email"
-                                    required>
+                                    required autocomplete="email" inputmode="email" aria-required="true"
+                                    aria-describedby="emailError">
                                 <label for="contact-email">Your Email</label>
                                 <div class="form-error" id="emailError"></div>
                             </div>
@@ -907,7 +1772,7 @@
                             <!-- Subject Field -->
                             <div class="form-group">
                                 <input id="contact-subject" name="subject" type="text" placeholder="Enter subject"
-                                    required>
+                                    required autocomplete="off" aria-required="true" aria-describedby="subjectError">
                                 <label for="contact-subject">Subject</label>
                                 <div class="form-error" id="subjectError"></div>
                             </div>
@@ -915,7 +1780,8 @@
                             <!-- Message Field -->
                             <div class="form-group">
                                 <textarea id="contact-message" name="message" placeholder="Enter your message" rows="6"
-                                    required></textarea>
+                                    required autocomplete="off" aria-required="true" aria-describedby="messageError"
+                                    maxlength="2000"></textarea>
                                 <label for="contact-message">Your Message</label>
                                 <div class="form-error" id="messageError"></div>
                             </div>
@@ -943,6 +1809,7 @@
                                             </defs>
                                         </svg>
                                     </div>
+                                    <span class="loading-spinner" aria-hidden="true"></span>
                                     <p>
                                         <span style="--i:0">S</span>
                                         <span style="--i:1">e</span>
@@ -979,11 +1846,20 @@
                                     </p>
                                 </div>
                             </button>
+
+                            <div class="form-meta" aria-live="polite">
+                                <p class="privacy">By submitting, you agree that your details will be sent to my secure
+                                    inbox via Google Apps Script. No spam, no sharing. You can request deletion anytime.
+                                </p>
+                                <p class="sla"><i class="far fa-clock"></i> Average reply time: under 2 hours. For
+                                    urgent matters, use WhatsApp.</p>
+                            </div>
                         </form>
 
                         <!-- Form Status Messages -->
                         <div id="formMessage" class="form-message" aria-live="polite"></div>
-                        <small id="form-status" style="display:block;margin-top:8px"></small>
+                        <small id="form-status" role="status" aria-live="polite"
+                            style="display:block;margin-top:8px"></small>
                     </div>
                 </div>
             </div>
@@ -1131,17 +2007,20 @@
     </footer>
 
     <!-- AI Chatbot Icon -->
-    <!-- AI Chatbot Widget -->
-    <button class="chatbot-widget" id="chatbotIcon" aria-label="Chat with AI Assistant">
-        <div class="chatbot-pulse"></div>
-        <div class="chatbot-content">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.66 6 15 7.34 15 9C15 10.66 13.66 12 12 12C10.34 12 9 10.66 9 9C9 7.34 10.34 6 12 6ZM12 18C9.33 18 7 16.67 7 14.5C7 14.22 7.22 14 7.5 14H16.5C16.78 14 17 14.22 17 14.5C17 16.67 14.67 18 12 18Z"
-                    fill="currentColor" />
+    <button class="chatbot-widget chatbot-icon" id="chatbotIcon" aria-label="Chat with AI Assistant" title="Chat with AI Assistant">
+        <span class="status-indicator" aria-hidden="true"></span>
+        <span class="chatbot-pulse" aria-hidden="true"></span>
+        <span class="chatbot-content" aria-hidden="true">
+            <!-- Professional chat bubble with subtle sparkle -->
+            <svg class="chatbot-svg" width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+                <path class="bubble" fill="currentColor" d="M6.5 3h11A3.5 3.5 0 0 1 21 6.5v6A3.5 3.5 0 0 1 17.5 16H11l-3.8 3.2c-.4.34-1.2.07-1.2-.46V16H6.5A3.5 3.5 0 0 1 3 12.5v-6A3.5 3.5 0 0 1 6.5 3Z"/>
+                <circle class="dot" cx="8.25" cy="9.75" r="1.1" fill="#ffffff"/>
+                <circle class="dot" cx="12" cy="9.75" r="1.1" fill="#ffffff"/>
+                <circle class="dot" cx="15.75" cy="9.75" r="1.1" fill="#ffffff"/>
+                <path class="sparkle" fill="#ffffff" d="M19.5 3.25l.6-1.35.6 1.35 1.35.6-1.35.6-.6 1.35-.6-1.35-1.35-.6 1.35-.6z"/>
             </svg>
-        </div>
-        <div class="chatbot-tooltip" data-translate="chatbot.tooltip">Chat with AI Assistant</div>
+        </span>
+        <span class="chatbot-tooltip" data-translate="chatbot.tooltip">Chat with AI Assistant</span>
     </button>
 
     <!-- WhatsApp Contact Button -->

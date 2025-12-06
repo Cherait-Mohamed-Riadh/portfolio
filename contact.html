@@ -70,6 +70,8 @@
     <link rel="stylesheet" href="css/responsive-nav.css">
     <!-- Enhanced Chatbot CSS - Advanced AI chatbot styling -->
     <link rel="stylesheet" href="css/enhanced-chatbot.css">
+    <!-- Professional Chatbot Icon Styles -->
+    <link rel="stylesheet" href="css/chatbot-icon.css">
     
     <!-- Custom CSS for Mobile Form Inputs -->
     <style>
@@ -712,11 +714,22 @@
         </div>
     </footer>
 
-    <!-- Chatbot Icon -->
-    <div class="chatbot-icon" id="chatbotIcon">
-        <img src="image/robot.png" alt="Chat with AI Assistant" class="chatbot-image">
-        <div class="chatbot-tooltip">Chat with AI Assistant</div>
-    </div>
+    <!-- AI Chatbot Icon -->
+    <button class="chatbot-widget chatbot-icon" id="chatbotIcon" aria-label="Chat with AI Assistant" title="Chat with AI Assistant">
+        <span class="status-indicator" aria-hidden="true"></span>
+        <span class="chatbot-pulse" aria-hidden="true"></span>
+        <span class="chatbot-content" aria-hidden="true">
+            <!-- Professional chat bubble with subtle sparkle -->
+            <svg class="chatbot-svg" width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" focusable="false">
+                <path class="bubble" fill="currentColor" d="M6.5 3h11A3.5 3.5 0 0 1 21 6.5v6A3.5 3.5 0 0 1 17.5 16H11l-3.8 3.2c-.4.34-1.2.07-1.2-.46V16H6.5A3.5 3.5 0 0 1 3 12.5v-6A3.5 3.5 0 0 1 6.5 3Z"/>
+                <circle class="dot" cx="8.25" cy="9.75" r="1.1" fill="#ffffff"/>
+                <circle class="dot" cx="12" cy="9.75" r="1.1" fill="#ffffff"/>
+                <circle class="dot" cx="15.75" cy="9.75" r="1.1" fill="#ffffff"/>
+                <path class="sparkle" fill="#ffffff" d="M19.5 3.25l.6-1.35.6 1.35 1.35.6-1.35.6-.6 1.35-.6-1.35-1.35-.6 1.35-.6z"/>
+            </svg>
+        </span>
+        <span class="chatbot-tooltip" data-translate="chatbot.tooltip">Chat with AI Assistant</span>
+    </button>
 
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">

@@ -1167,8 +1167,9 @@ html.lang-open .navbar {
     }
 
     .section-title {
-        font-size: 1.75rem;
+        font-size: 1.85rem;
         line-height: 1.3;
+        margin-bottom: var(--space-md);
     }
 
     .section-subtitle {
@@ -1182,10 +1183,13 @@ html.lang-open .navbar {
     }
 
     .btn {
-        padding: var(--space-md) var(--space-lg);
+        padding: 0.875rem 1.5rem;
         font-size: 1rem;
-        min-height: 56px;
+        min-height: 54px;
+        /* Optimal touch target */
         width: 100%;
+        margin-bottom: var(--space-sm);
+        /* Ensure stacking spacing */
     }
 
     /* Hide floating elements on very small screens */
@@ -1195,11 +1199,19 @@ html.lang-open .navbar {
 
     /* Improve spacing on very small screens */
     .hero-section {
-        padding: var(--space-xl) 0;
+        padding: var(--space-2xl) 0;
     }
 
     .section {
-        padding: var(--space-xl) 0;
+        padding: var(--space-2xl) 0;
+    }
+
+    /* Ensure nice card spacing */
+    .expertise-card,
+    .project-card,
+    .service-card,
+    .contact-item {
+        margin-bottom: var(--space-lg);
     }
 
     /* Ensure proper image sizing */
@@ -3418,10 +3430,11 @@ html.lang-open .navbar {
 /* Enhanced mobile floating elements */
 @media (max-width: 768px) {
 
-    /* Enhanced mobile WhatsApp button */
+    /* Enhanced mobile WhatsApp button - LEFT SIDE */
     .whatsapp-button {
         bottom: var(--space-lg);
-        right: var(--space-lg);
+        left: var(--space-lg);
+        right: auto;
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -3476,11 +3489,12 @@ html.lang-open .navbar {
         /* Hide tooltip on mobile */
     }
 
-    /* Enhanced mobile chatbot icon */
+    /* Enhanced mobile chatbot icon - RIGHT SIDE */
     .chatbot-icon {
-        bottom: calc(var(--space-lg) + 80px);
-        /* Position above WhatsApp button */
+        bottom: var(--space-lg);
+        /* Position on right side */
         right: var(--space-lg);
+        left: auto;
         width: 60px;
         height: 60px;
         border-radius: 50%;
@@ -3583,38 +3597,42 @@ html.lang-open .navbar {
     /* Enhanced mobile floating elements responsive positioning */
     @media (max-width: 480px) {
 
-        .whatsapp-button,
-        .chatbot-icon,
-        #scrollToTopBtn {
+        .whatsapp-button {
             bottom: var(--space-md);
-            right: var(--space-md);
+            left: var(--space-md);
+            right: auto;
         }
 
         .chatbot-icon {
-            bottom: calc(var(--space-md) + 80px);
+            bottom: var(--space-md);
+            right: var(--space-md);
+            left: auto;
         }
 
         #scrollToTopBtn {
-            bottom: calc(var(--space-md) + 160px);
+            bottom: calc(var(--space-md) + 80px);
+            right: var(--space-md);
         }
     }
 
     /* Enhanced mobile floating elements landscape orientation */
     @media (max-width: 768px) and (orientation: landscape) {
 
-        .whatsapp-button,
-        .chatbot-icon,
-        #scrollToTopBtn {
+        .whatsapp-button {
             bottom: var(--space-sm);
-            right: var(--space-sm);
+            left: var(--space-sm);
+            right: auto;
         }
 
         .chatbot-icon {
-            bottom: calc(var(--space-sm) + 60px);
+            bottom: var(--space-sm);
+            right: var(--space-sm);
+            left: auto;
         }
 
         #scrollToTopBtn {
-            bottom: calc(var(--space-sm) + 140px);
+            bottom: calc(var(--space-sm) + 80px);
+            right: var(--space-sm);
         }
     }
 }
@@ -6081,1685 +6099,125 @@ html.lang-open .navbar {
 }
 
 
-/* ================================
-   MOBILE POLISH — GLOBAL (main.css)
-   ضع هذا المقطع في آخر الملف
-================================== */
 
-/* شاشات حتى 768px */
+/* ==========================================================================
+   Mobile Optimization & Layout Consistency
+   ========================================================================== */
 @media (max-width: 768px) {
-
-    /* توزيع مسافات مريحة للموبايل عبر المتغيرات */
     :root {
-        --space-xs: 0.25rem;
-        --space-sm: 0.5rem;
-        --space-md: 0.9rem;
-        /* كان 1rem */
         --space-lg: 1.25rem;
-        /* كان 1.5rem */
-        --space-xl: 1.75rem;
-        /* كان 2rem  */
-        --space-2xl: 2.25rem;
-        /* كان 3rem  */
-        --space-3xl: 3rem;
-        /* كان 4rem  */
-        --radius-xl: 0.9rem;
-        --radius-2xl: 1.25rem;
+        --space-xl: 1.5rem;
+        --space-2xl: 2rem;
+        --radius-xl: 1rem;
     }
 
-    html,
-    body {
-        font-size: 15px;
-        /* قراءة مريحة بدون تكبير آيفون */
-        line-height: 1.7;
-    }
-
-    /* الحاوية العامة */
-    .container {
-        padding: 0 var(--space-lg);
+    /* Base Layout Adjustments */
+    .container, .nav-container {
+        padding-left: var(--space-lg);
+        padding-right: var(--space-lg);
+        width: 100%;
         max-width: 100%;
     }
 
-    /* شريط التنقل */
+    body {
+        font-size: 15px; /* Better readability */
+        overflow-x: hidden;
+    }
+
+    /* Navbar Config */
     .nav-container {
-        padding: 0 var(--space-lg);
         height: 64px;
-        /* base mobile */
+        justify-content: space-between;
     }
 
-    /* Make toggle visible on mobile */
-    .mobile-menu-toggle {
-        display: inline-flex;
-        min-width: 40px;
-        min-height: 40px;
-        padding: var(--space-sm);
-    }
-
-    .mobile-menu-toggle span {
-        width: 22px;
-        height: 2.5px;
-    }
-
-    .brand-text {
-        font-size: 1.05rem;
-        color: var(--primary-blue) !important;
-    }
-
-    .brand-subtitle {
-        font-size: 0.7rem;
-    }
-
-    /* إظهار قائمة الهاتف كلوحة كاملة عند الفتح (لو عندك تفعيل JS) */
+    /* Hide Desktop Menu explicitly */
     .nav-menu {
-        position: fixed;
-        inset: 64px 0 0 0;
-        background: var(--bg-primary);
-        border-top: 1px solid var(--border-color);
-        display: none;
-        /* تظل مخفية افتراضياً */
-        flex-direction: column;
-        gap: 0;
-        padding: var(--space-lg);
-        overflow-y: auto;
-        z-index: var(--z-sticky);
+        display: none !important;
     }
 
-    .nav-menu.open {
-        display: flex;
+    /* Ensure Mobile Controls are visible */
+    .nav-controls {
+        gap: 12px;
     }
 
-    .nav-link {
-        width: 100%;
-        padding: var(--space-md) var(--space-lg);
-        font-size: 1rem;
-        border-radius: var(--radius-md);
-    }
-
-    /* أزرار عامة */
-    .btn {
-        width: 100%;
-        min-height: 52px;
-        font-size: 1rem;
-        padding: var(--space-md) var(--space-lg);
-    }
-
-    /* عناوين وأقسام عامة */
-    .section-header {
-        margin-bottom: var(--space-2xl);
+    /* Typography Scaling */
+    .hero-title {
+        font-size: 2.25rem; /* Adjusted for smaller screens */
+        line-height: 1.2;
     }
 
     .section-title {
-        font-size: 1.85rem;
-        /* كان 2.5 */
-        line-height: 1.25;
-        margin-bottom: var(--space-md);
+        font-size: 1.75rem;
     }
-
+    
     .section-subtitle {
-        font-size: 1.05rem;
-        line-height: 1.7;
+        font-size: 1rem;
     }
 
-    /* شبكات البطاقات */
+    /* Adjust Hero Spacing */
+    .hero-content {
+        padding-top: 2rem;
+        text-align: center;
+        align-items: center;
+    }
+
+    .hero-actions {
+        justify-content: center;
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+    
+    /* Image Handling */
+    .hero-visual {
+        margin-top: 2rem;
+    }
+    
+    .hero-image-container {
+        max-width: 300px; /* Limit image size on mobile */
+        margin: 0 auto;
+    }
+
+    /* Card Grids */
     .expertise-grid,
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-lg);
+        gap: 1.5rem;
+    }
+    
+    .expertise-card, .project-card {
+        margin: 0 auto;
+        width: 100%;
     }
 
-    /* بطاقات المشروع */
-    .project-card {
-        border-radius: var(--radius-xl);
-    }
-
-    .project-image {
-        height: 210px;
-    }
-
-    /* قسم التواصل */
-    .contact-content {
-        display: grid;
+    /* Footer Adjustments */
+    .footer-content {
         grid-template-columns: 1fr;
-        gap: var(--space-xl);
-    }
-
-    .form-group input,
-    .form-group textarea {
-        font-size: 16px;
-        /* يمنع الزووم في iOS */
-        min-height: 48px;
-    }
-
-    /* الفوتر */
-    .footer-content,
-    .footer-links,
-    .footer-bottom {
-        grid-template-columns: 1fr !important;
-    }
-
-    .footer-bottom {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-lg);
         text-align: center;
-    }
-}
-
-/* شاشات حتى 480px (هواتف صغيرة) */
-@media (max-width: 480px) {
-
-    html,
-    body {
-        font-size: 14.5px;
+        gap: 2rem;
     }
 
-    .container {
-        padding: 0 var(--space-md);
+    .footer-links {
+        justify-content: center;
     }
-
-    .section-title {
-        font-size: 1.7rem;
-    }
-
-    .section-subtitle {
-        font-size: 1rem;
-    }
-
-    .project-image {
-        height: 190px;
-    }
-
-    /* إخفاء العناصر العائمة المشتتة في الهواتف الصغيرة */
+    
+    /* Hide floating elements that distract on mobile */
     .floating-card {
         display: none !important;
     }
 }
 
-/* ================================
-   MOBILE NAVBAR — drawer + toggle
-   ضع هذا المقطع في آخر main.css
-================================== */
-
-@media (max-width: 768px) {
-
-    /* ارتفاع الشريط للموبايل */
-    .nav-container {
-        height: 64px;
-        padding: 0 var(--space-lg);
-    }
-
-    /* إظهار زر المنيو في الموبايل */
-    .mobile-menu-toggle {
-        display: flex;
-        position: relative;
-        z-index: calc(var(--z-sticky) + 2);
-        padding: var(--space-sm);
-        min-width: 48px;
-        min-height: 48px;
-    }
-
-    .mobile-menu-toggle span {
-        width: 26px;
-        height: 3px;
-        background: var(--text-primary);
-        border-radius: 3px;
-        transition: transform var(--transition-normal), opacity var(--transition-normal);
-    }
-
-    /* حالة التحويل إلى X */
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-    }
-
-    /* الـ Drawer نفسه */
-    .nav-menu {
-        position: fixed;
-        top: 64px;
-        /* تحت الشريط */
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        padding: var(--space-lg);
-        background: var(--bg-primary);
-        border-top: 1px solid var(--border-color);
-        transform: translateY(-6%);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform var(--transition-normal), opacity var(--transition-normal);
-        z-index: calc(var(--z-sticky) + 1);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* خلفية تمويه خفيفة داخل القائمة */
-    .nav-menu::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        backdrop-filter: blur(4px);
-        opacity: 0.25;
-        pointer-events: none;
-    }
-
-    /* عند الفتح */
-    .nav-menu.open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* عناصر القائمة أكبر ولمسية */
-    .nav-link {
-        width: 100%;
-        padding: var(--space-md) var(--space-lg);
-        font-size: 1.05rem;
-        border-radius: var(--radius-md);
-        margin-bottom: 4px;
-    }
-
-    .nav-link i {
-        font-size: 1rem;
-    }
-
-    /* أدوات الوضع واللغة داخل القائمة بشكل مصغّر */
-    .nav-menu .theme {
-        align-self: flex-start;
-        margin-bottom: var(--space-md);
-    }
-
-    .nav-menu .language-selector {
-        align-self: flex-start;
-        margin-bottom: var(--space-md);
-    }
-
-    /* قفل تمScroll الصفحة عند فتح المنيو */
-    body.no-scroll {
-        overflow: hidden;
-        height: 100dvh;
-        touch-action: none;
-    }
-}
-
-/* شاشات أصغر شوي */
 @media (max-width: 480px) {
-    .nav-link {
-        font-size: 1rem;
-    }
-}
-
-/* ================================
-   MOBILE NAVBAR POLISH + NO-OVERFLOW
-   ضع هذا في آخر main.css
-================================== */
-
-@media (max-width: 768px) {
-
-    /* منع أي تمرير عرضي وشريط أسود جانبي */
-    html,
-    body {
-        overflow-x: hidden;
-        max-width: 100%;
-    }
-
-    .navbar,
-    .nav-container,
-    .main-content,
     .container {
-        width: 100%;
-        max-width: 100vw;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
-
-    /* زر المنيو */
-    .mobile-menu-toggle {
-        display: flex;
-        z-index: 1102;
-        /* فوق الـdrawer */
-        padding: var(--space-sm);
-        min-width: 48px;
-        min-height: 48px;
+    
+    .hero-title {
+        font-size: 1.85rem;
     }
-
-    .mobile-menu-toggle span {
-        width: 26px;
-        height: 3px;
-        background: var(--text-primary);
-        border-radius: 3px;
-        transition: transform var(--transition-normal), opacity var(--transition-normal);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-    }
-
-    /* خلفية التعتيم وراء القائمة */
-    #navOverlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, .45);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity var(--transition-normal);
-        z-index: 1100;
-    }
-
-    #navOverlay.open {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* الـ Drawer من أعلى (تحته الشريط مباشرة) */
-    .nav-menu {
-        position: fixed;
-        top: 64px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--bg-primary);
-        border-top: 1px solid var(--border-color);
-        transform: translateY(-4%);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform var(--transition-normal), opacity var(--transition-normal);
-        z-index: 1101;
-        display: flex;
-        flex-direction: column;
-        padding: var(--space-lg);
-        gap: var(--space-sm);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .nav-menu.open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* شكل الروابط: بطاقات أنيقة ومتماسكة */
-    .nav-link {
-        width: 100%;
-        padding: var(--space-md) var(--space-lg);
-        font-size: 1.05rem;
-        border-radius: var(--radius-lg);
-        color: var(--text-primary);
-        background: rgba(37, 99, 235, .08);
-        border: 1px solid rgba(96, 165, 250, .2);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-        background: rgba(37, 99, 235, .14);
-    }
-
-    /* عناصر التحويل للّيل/اللغة أعلى القائمة */
-    .nav-menu .theme,
-    .nav-menu .language-selector {
-        align-self: stretch;
-        margin-bottom: var(--space-sm);
-    }
-
-    /* اجعل قائمة اللغات داخل الدرج بدون تموضع مطلق (منع خروجها يميناً) */
-    .nav-menu .language-selector {
-        position: relative;
-    }
-
-    .nav-menu .language-dropdown {
-        position: static;
-        transform: none !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        box-shadow: none;
-        border: 1px solid var(--border-color);
-        margin-top: var(--space-sm);
-    }
-
-    .nav-menu .language-option {
-        padding: var(--space-sm) var(--space-md);
-    }
-
-    /* قفل تمرير الصفحة عند فتح المنيو */
-    body.no-scroll {
-        overflow: hidden;
-        height: 100dvh;
-        touch-action: none;
-    }
-
-    /* صور/وسائط لا تتجاوز العرض كي لا يظهر فراغ جانبي */
-    img,
-    video,
-    canvas,
-    svg {
-        max-width: 100%;
-        height: auto;
-    }
-}
-
-/* شاشات أصغر */
-@media (max-width: 480px) {
-    .nav-link {
-        font-size: 1rem;
-    }
-}
-
-/* =========================================
-   Mobile navbar = same desktop style (inline)
-   ضع هذا المقطع في آخر main.css
-========================================= */
-@media (max-width: 768px) {
-
-    /* نخلي الشريط صفَّين: 1) لوجو + أدوات / 2) روابط */
-    .nav-container {
-        height: auto;
-        padding: 0 var(--space-lg);
-        flex-wrap: wrap;
-        row-gap: var(--space-sm);
-    }
-
-    /* أخفي زر المنيو لأننا سنعرض الروابط مباشرة */
-    .mobile-menu-toggle {
-        display: none !important;
-    }
-
-    /* ترتيب العناصر */
-    .nav-brand {
-        order: 1;
-    }
-
-    .nav-controls {
-        order: 2;
-        margin-left: auto;
-        gap: var(--space-md);
-    }
-
-    .nav-menu {
-        order: 3;
-    }
-
-    /* نلغي خصائص الـdrawer السابقة */
-    .nav-menu,
-    .nav-menu.open,
-    .nav-menu.inline-nav {
-        position: static !important;
-        inset: auto !important;
-        transform: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        background: transparent !important;
-        border: 0 !important;
-        z-index: auto !important;
-        padding: 0 !important;
-        display: flex !important;
-        flex-wrap: nowrap;
-        gap: var(--space-md);
-        width: 100%;
-        overflow-x: auto;
-        /* صف روابط قابلة للتمرير الأفقي */
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        white-space: nowrap;
-        /* الروابط بجانب بعض */
-    }
-
-    /* تحسين شكل شريط التمرير (اختياري) */
-    .nav-menu::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .nav-menu::-webkit-scrollbar-thumb {
-        background: var(--gray-300);
-        border-radius: 3px;
-    }
-
-    [data-theme="dark"] .nav-menu::-webkit-scrollbar-thumb {
-        background: var(--gray-600);
-    }
-
-    /* الروابط بنفس ستايل الديسكتوب (pill + underline عند التفعيل) */
-    .nav-link {
-        background: var(--bg-tertiary);
-        color: var(--text-primary);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: var(--space-sm) var(--space-md);
-        box-shadow: var(--shadow-sm);
-        transition: transform var(--transition-fast), background var(--transition-normal), color var(--transition-normal);
-    }
-
-    .nav-link i {
-        font-size: 0.95rem;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-        background: rgba(37, 99, 235, 0.12);
-        color: var(--text-primary);
-    }
-
-    .nav-link::after {
-        /* خط سفلي متحرك كما في الديسكتوب */
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: -4px;
-        height: 2px;
-        width: 0;
-        background: var(--primary-blue);
-        transform: translateX(-50%);
-        transition: width var(--transition-normal);
-    }
-
-    .nav-link:hover::after,
-    .nav-link.active::after {
-        width: 100%;
-    }
-
-    /* أزرار اللغة/الوضع بنفس موضع الديسكتوب على اليمين */
-    .nav-controls .language-btn {
-        height: 36px;
-    }
-
-    .nav-controls .theme {
-        transform: translateY(1px);
-    }
-
-    /* منع أي فراغ/اسود يمين الشاشة */
-    html,
-    body,
-    .navbar,
-    .nav-container {
-        max-width: 100vw;
-        overflow-x: hidden;
-    }
-}
-
-/* شاشات أصغر */
-@media (max-width: 480px) {
-    .brand-text {
-        font-size: 1.1rem;
-        color: var(--primary-blue) !important;
-    }
-
-    .brand-subtitle {
-        font-size: 0.7rem;
-    }
-
-    .nav-link {
-        padding: 8px 12px;
-    }
-}
-
-/* ================================
-   MOBILE MENU BUTTON + SLIDE DRAWER
-================================== */
-@media (max-width: 768px) {
-
-    /* زر المنيو */
-    .mobile-menu-btn {
-        position: absolute;
-        top: 50%;
-        right: var(--space-lg);
-        transform: translateY(-50%);
-        width: 44px;
-        height: 44px;
-        background: var(--primary-blue);
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1102;
-        box-shadow: var(--shadow-md);
-        transition: background 0.3s ease;
-    }
-
-    .mobile-menu-btn:hover {
-        background: var(--primary-blue-hover, #2563eb);
-    }
-
-    .mobile-menu-btn span {
-        position: relative;
-        display: block;
-        width: 22px;
-        height: 2px;
-        background: #fff;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-
-    .mobile-menu-btn span::before,
-    .mobile-menu-btn span::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        width: 22px;
-        height: 2px;
-        background: #fff;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-
-    .mobile-menu-btn span::before {
-        top: -7px;
-    }
-
-    .mobile-menu-btn span::after {
-        top: 7px;
-    }
-
-    /* حالة الفتح */
-    .mobile-menu-btn.active span {
-        background: transparent;
-    }
-
-    .mobile-menu-btn.active span::before {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .mobile-menu-btn.active span::after {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* الـ Drawer */
-    .mobile-drawer {
-        position: fixed;
-        top: 0;
-        right: -260px;
-        width: 260px;
-        height: 100%;
-        background: var(--bg-primary);
-        box-shadow: -4px 0 12px rgba(0, 0, 0, .2);
-        padding: var(--space-lg);
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
-        transition: right 0.3s ease;
-        z-index: 1101;
-    }
-
-    .mobile-drawer.open {
-        right: 0;
-    }
-
-    /* روابط المنيو */
-    .mobile-drawer .nav-link {
-        display: flex;
-        align-items: center;
-        gap: var(--space-sm);
-        padding: var(--space-sm) var(--space-md);
-        border-radius: var(--radius-md);
-        font-size: 1rem;
-        background: rgba(255, 255, 255, 0.05);
-        transition: background 0.3s;
-    }
-
-    .mobile-drawer .nav-link:hover {
-        background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* Overlay */
-    .drawer-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, .4);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-        z-index: 1100;
-    }
-
-    .drawer-overlay.active {
-        opacity: 1;
-        pointer-events: auto;
-    }
-}
-
-/* ================================
-   MOBILE MENU (button + right drawer)
-   ضعّه في آخر main.css
-================================== */
-@media (max-width: 768px) {
-
-    /* منع أي تمرير عرضي */
-    html,
-    body {
-        overflow-x: hidden;
-    }
-
-    /* الشريط */
-    .nav-container {
-        position: relative;
-        height: 64px;
-        padding: 0 var(--space-lg);
-    }
-
-    /* زر المنيو الموجود في الـHTML: #mobileMenuToggle  */
-    .mobile-menu-toggle {
-        position: absolute;
-        right: var(--space-lg);
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex !important;
-        /* تأكيد إظهاره */
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-        border-radius: 12px;
-        border: none;
-        box-shadow: var(--shadow-md);
-        z-index: 1102;
-    }
-
-    .mobile-menu-toggle span {
-        width: 22px;
-        height: 2px;
-        background: #fff;
-        border-radius: 2px;
-        transition: all .25s ease;
-        position: relative;
-    }
-
-    .mobile-menu-toggle span:nth-child(1) {
-        top: -7px;
-        position: absolute;
-    }
-
-
-
-    .mobile-menu-toggle span:nth-child(3) {
-        top: 7px;
-        position: absolute;
-    }
-
-    /* Animation: Transform to X shape */
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* Reset: Mobile Navigation Styles */
-    .nav-menu {
-        display: flex !important;
-    }
-
-    /* Layout: Right-side Drawer */
-    #navMenu {
-        position: fixed !important;
-        top: 64px;
-        bottom: 0;
-        right: -320px;
-        left: auto !important;
-        width: min(78vw, 320px);
-        background: var(--bg-primary);
-        border-left: 1px solid var(--border-color);
-        padding: var(--space-lg);
-        flex-direction: column;
-        gap: var(--space-sm);
-        transition: right .3s ease, opacity .3s ease;
-        opacity: 0;
-        pointer-events: none;
-        z-index: 1101;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    #navMenu.open {
-        right: 0;
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* Visibility: Hide non-essential elements */
-    #navMenu .theme,
-    #navMenu .language-selector {
-        display: none !important;
-    }
-
-    /* Component: Drawer Link Styles */
-    #navMenu .nav-link {
-        width: 100%;
-        padding: var(--space-md) var(--space-lg);
-        background: rgba(37, 99, 235, .08);
-        border: 1px solid rgba(96, 165, 250, .2);
-        color: var(--text-primary);
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
-        position: relative;
-    }
-
-    #navMenu .nav-link::after {
-        display: none;
-    }
-
-    /* Style: Remove underline */
-
-    /* Component: Modal Overlay */
-    #navOverlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, .45);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .3s ease;
-        z-index: 1100;
-    }
-
-    #navOverlay.open {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* Interaction: Prevent Body Scroll */
-    body.no-scroll {
-        overflow: hidden;
-        height: 100dvh;
-        touch-action: none;
-    }
-}
-
-/* ================================
-   MOBILE MENU - Configuration
-================================== */
-@media (max-width: 768px) {
-
-    /* Component: Toggle Button */
-    .mobile-menu-toggle {
-        position: absolute;
-        right: var(--space-lg);
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-        border-radius: 12px;
-        border: none;
-        z-index: 1102;
-    }
-
-    .mobile-menu-toggle span {
-        width: 22px;
-        height: 2px;
-        background: #fff;
-        border-radius: 2px;
-        position: relative;
-        transition: all .25s ease;
-    }
-
-    .mobile-menu-toggle span:nth-child(1) {
-        top: -7px;
-        position: absolute;
-    }
-
-
-
-    .mobile-menu-toggle span:nth-child(3) {
-        top: 7px;
-        position: absolute;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .mobile-menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* خلفية التعتيم */
-    #navOverlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, .5);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .3s ease;
-        z-index: 1100;
-    }
-
-    #navOverlay.open {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* القائمة في المنتصف */
-    #navMenu {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.9);
-        background: var(--bg-primary);
-        padding: var(--space-xl);
-        border-radius: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
-        align-items: center;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .3s ease, transform .3s ease;
-        z-index: 1101;
-        width: 80%;
-        max-width: 320px;
-    }
-
-    #navMenu.open {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    /* الروابط */
-    #navMenu .nav-link {
-        padding: var(--space-sm) var(--space-md);
-        width: 100%;
-        text-align: center;
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--text-primary);
-        font-size: 1.1rem;
-        transition: background .3s;
-    }
-
-    #navMenu .nav-link:hover {
-        background: rgba(255, 255, 255, 0.15);
-    }
-
-    /* إخفاء عناصر غير أساسية */
-    #navMenu .theme,
-    #navMenu .language-selector {
-        display: none !important;
-    }
-
-    body.no-scroll {
-        overflow: hidden;
-        height: 100vh;
-    }
-}
-
-/* =========================================
-   FORCE CENTER MODAL FOR MOBILE NAV MENU
-========================================= */
-@media (max-width: 768px) {
-
-    /* تأكد أن النافبار لا يقص العنصر */
-    .navbar,
-    .nav-container {
-        overflow: visible !important;
-    }
-
-    /* overlay */
-    #navOverlay {
-        position: fixed !important;
-        inset: 0 !important;
-        background: rgba(0, 0, 0, .5);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .3s ease;
-        z-index: 1100;
-    }
-
-    #navOverlay.open {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* زر المنيو */
-    #mobileMenuToggle {
-        position: absolute !important;
-        right: var(--space-lg);
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex !important;
-        width: 44px;
-        height: 44px;
-        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-        border-radius: 12px;
-        border: 0;
-        align-items: center;
-        justify-content: center;
-        z-index: 1102;
-    }
-
-    #mobileMenuToggle span {
-        width: 22px;
-        height: 2px;
-        background: #fff;
-        border-radius: 2px;
-        position: relative;
-        transition: all .25s ease;
-    }
-
-    #mobileMenuToggle span:nth-child(1) {
-        top: -7px;
-        position: absolute;
-    }
-
-    #mobileMenuToggle span:nth-child(3) {
-        top: 7px;
-        position: absolute;
-    }
-
-    #mobileMenuToggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    #mobileMenuToggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    #mobileMenuToggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* IMPORTANT: الغِ أي “drawer/inline” سابق */
-    .nav-menu {
-        display: none !important;
-    }
-
-    .nav-menu.open {
-        display: flex !important;
-    }
-
-    /* نافذة منبثقة في منتصف الشاشة */
-    #navMenu {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) scale(.92) !important;
-        width: min(90vw, 340px) !important;
-        max-width: 90vw !important;
-        background: var(--bg-primary) !important;
-        padding: var(--space-xl) !important;
-        border-radius: 16px !important;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, .28) !important;
-        flex-direction: column !important;
-        gap: var(--space-md) !important;
-        align-items: stretch !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        z-index: 1101 !important;
-    }
-
-    #navMenu.open {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: translate(-50%, -50%) scale(1) !important;
-    }
-
-    /* روابط داخل المودال */
-    #navMenu .nav-link {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: var(--space-sm);
-        padding: var(--space-md);
-        border-radius: 12px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        font-size: 1.05rem;
-        text-align: center;
-        box-shadow: var(--shadow-sm);
-    }
-
-    #navMenu .nav-link::after {
-        display: none !important;
-    }
-
-    /* لا نحتاج خط سفلي هنا */
-
-    /* أخفِ عناصر غير أساسية داخل المودال */
-    #navMenu .theme,
-    #navMenu .language-selector {
-        display: none !important;
-    }
-}
-
-/* ==== VIDEO MODAL (force top z-index) ==== */
-#videoModal {
-    position: fixed;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999 !important;
-    /* أعلى من أي شيء */
-}
-
-#videoModal.active {
-    display: flex;
-}
-
-#videoModal .video-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, .65);
-    backdrop-filter: blur(4px);
-}
-
-#videoModal .video-content {
-    position: relative;
-    width: min(92vw, 860px);
-    aspect-ratio: 16/9;
-    background: #000;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
-    z-index: 1;
-}
-
-#videoModal iframe,
-#videoModal video {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-    background: #000;
-    object-fit: contain;
-}
-
-#videoModal .video-close {
-    position: absolute;
-    top: -46px;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    border: 0;
-    border-radius: 50%;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: var(--shadow-md);
-    z-index: 2;
-}
-
-@media (max-width:768px) {
-    #videoModal .video-content {
-        width: 94vw;
-    }
-
-    #videoModal .video-close {
-        top: -42px;
-    }
-}
-
-/* ===== Mobile Center Menu (Modal) ===== */
-@media (max-width: 768px) {
-
-    /* زر المنيو (الهامبرغر) الموجود أصلاً */
-    #mobileMenuToggle {
-        position: absolute !important;
-        right: var(--space-lg);
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        border: 0;
-        border-radius: 12px;
-        background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-        box-shadow: var(--shadow-md);
-        z-index: 1102;
-    }
-
-    #mobileMenuToggle span {
-        width: 22px;
-        height: 2px;
-        background: #fff;
-        border-radius: 2px;
-        position: relative;
-        transition: all .25s
-    }
-
-    #mobileMenuToggle span:nth-child(1) {
-        position: absolute;
-        top: -7px
-    }
-
-    #mobileMenuToggle span:nth-child(3) {
-        position: absolute;
-        top: 7px
-    }
-
-    #mobileMenuToggle.active span:nth-child(2) {
-        opacity: 0
-    }
-
-    #mobileMenuToggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px)
-    }
-
-    #mobileMenuToggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px)
-    }
-
-    /* الخلفية المعتمة */
-    #navOverlay {
-        position: fixed !important;
-        inset: 0 !important;
-        background: rgba(0, 0, 0, .5);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity .25s ease;
-        z-index: 1100;
-    }
-
-    #navOverlay.open {
-        opacity: 1;
-        pointer-events: auto
-    }
-
-    /* إلغاء أي أنماط سابقة للدروَير/الإنلاين */
-    .nav-menu {
-        display: none !important
-    }
-
-    .nav-menu.open {
-        display: flex !important
-    }
-
-    /* المودال في الوسط */
-    #navMenu {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) scale(.92) !important;
-        width: min(90vw, 360px) !important;
-        max-width: 90vw !important;
-        background: var(--bg-primary) !important;
-        border: 1px solid var(--border-color) !important;
-        padding: var(--space-xl) !important;
-        border-radius: 16px !important;
-        box-shadow: 0 14px 50px rgba(0, 0, 0, .28) !important;
-        flex-direction: column !important;
-        gap: var(--space-md) !important;
-        align-items: stretch !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        z-index: 1101 !important;
-    }
-
-    #navMenu.open {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: translate(-50%, -50%) scale(1) !important
-    }
-
-    /* عناصر القائمة */
-    #navMenu .nav-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 12px;
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        background: rgba(255, 255, 255, .06);
-        color: var(--text-primary);
-        font-size: 1.05rem;
-        box-shadow: var(--shadow-sm);
-        position: relative;
-    }
-
-    #navMenu .nav-link::after {
-        display: none !important
-    }
-
-    /* لا حاجة للخط السفلي داخل المودال */
-
-    /* اخفِ غير الأساسي داخل المودال */
-    #navMenu .theme,
-    #navMenu .language-selector {
-        display: none !important
-    }
-
-    /* منع تمرير الصفحة عند الفتح */
-    body.no-scroll {
-        overflow: hidden;
-        height: 100dvh;
-        touch-action: none
-    }
-}
-
-/* ===== Mobile image fix (projects/expertise) ===== */
-@media (max-width: 768px) {
-
-    /* لو الصور داخل وسم <img> */
-    .project-card img,
-    .featured-card img,
-    .expertise-card img {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        width: 100% !important;
-        height: auto !important;
-        object-fit: cover;
-    }
-
-    /* لو الصور داخل غلاف مخصص (div) */
-    .project-card .project-image,
-    .featured-card .card-media,
-    .expertise-card .card-media,
-    .expertise .image-wrapper {
-        display: block !important;
-        min-height: 180px;
-        /* يمنع انهيار الارتفاع على الهاتف */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        overflow: hidden;
-    }
-
-    /* احتياط: لا تخفي الكروت نفسها */
-    .project-card,
-    .featured-card,
-    .expertise-card {
-        overflow: visible;
-    }
-}
-
-/* Hide scroll indicator on mobile devices */
-@media (max-width: 768px) {
-    .scroll-indicator {
-        display: none !important;
-    }
-}
-
-/* ===== MOBILE FORM INPUT FIXES - WHITE TEXT ON DARK BACKGROUND ===== */
-@media (max-width: 1024px) {
-
-    /* Universal form input styling for mobile devices */
-    .form input,
-    .form textarea,
-    .contact-form input,
-    .contact-form textarea,
-    .form-group input,
-    .form-group textarea,
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    textarea {
-        color: white !important;
-        -webkit-text-fill-color: white !important;
-        background: #1a1a1a !important;
-        border-color: #3b82f6 !important;
-        -webkit-appearance: none !important;
-        -moz-appearance: none !important;
-        appearance: none !important;
-    }
-
-    /* Force placeholder text color */
-    .form input::placeholder,
-    .form textarea::placeholder,
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder,
-    .form-group input::placeholder,
-    .form-group textarea::placeholder,
-    input[type="text"]::placeholder,
-    input[type="email"]::placeholder,
-    input[type="tel"]::placeholder,
-    textarea::placeholder {
-        color: rgba(255, 255, 255, 0.7) !important;
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.7) !important;
-    }
-
-    /* Force focus state */
-    .form input:focus,
-    .form textarea:focus,
-    .contact-form input:focus,
-    .contact-form textarea:focus,
-    .form-group input:focus,
-    .form-group textarea:focus,
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="tel"]:focus,
-    textarea:focus {
-        color: white !important;
-        -webkit-text-fill-color: white !important;
-        background: #2a2a2a !important;
-        border-color: #60a5fa !important;
-        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2) !important;
-    }
-}
-
-/* Tablets (769px–1024px): slightly larger navbar and toggle */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .nav-container {
-        height: 72px;
-    }
-
-    .mobile-menu-toggle {
-        display: inline-flex;
-        min-width: 42px;
-        min-height: 42px;
-        padding: var(--space-sm);
-    }
-
-    .mobile-menu-toggle span {
-        width: 22px;
-        height: 2.5px;
-    }
-
-    .nav-menu {
-        inset: 72px 0 0 0;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-
-    /* Force white text on very small screens */
-    .form input,
-    .form textarea,
-    .contact-form input,
-    .contact-form textarea,
-    .form-group input,
-    .form-group textarea,
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    textarea {
-        color: white !important;
-        -webkit-text-fill-color: white !important;
-        background: #1a1a1a !important;
-        border-color: #3b82f6 !important;
-        -webkit-appearance: none !important;
-        -moz-appearance: none !important;
-        appearance: none !important;
-    }
-}
-
-/* iOS Safari specific fixes */
-@supports (-webkit-touch-callout: none) {
-    @media (max-width: 1024px) {
-
-        .form input,
-        .form textarea,
-        .contact-form input,
-        .contact-form textarea,
-        .form-group input,
-        .form-group textarea,
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        textarea {
-            -webkit-text-fill-color: white !important;
-            color: white !important;
-            background: #1a1a1a !important;
-            border-color: #3b82f6 !important;
-        }
-    }
-}
-
-/* Android Chrome specific fixes */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-    @media (max-width: 1024px) {
-
-        .form input,
-        .form textarea,
-        .contact-form input,
-        .contact-form textarea,
-        .form-group input,
-        .form-group textarea,
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        textarea {
-            -webkit-text-fill-color: white !important;
-            color: white !important;
-            background: #1a1a1a !important;
-            border-color: #3b82f6 !important;
-        }
-    }
-}
-
-/* ===== CHATBOT WIDGET ===== */
-.chatbot-widget {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    padding: 0;
-}
-
-.chatbot-widget:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
-}
-
-.chatbot-content {
-    position: relative;
-    z-index: 2;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.chatbot-pulse {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: inherit;
-    opacity: 0.6;
-    z-index: 1;
-    animation: pulse-animation 2s infinite;
-}
-
-@keyframes pulse-animation {
-    0% {
-        transform: scale(1);
-        opacity: 0.6;
-    }
-
-    70% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
-}
-
-.chatbot-tooltip {
-    position: absolute;
-    right: 75px;
-    top: 50%;
-    transform: translateY(-50%) translateX(10px);
-    background: white;
-    color: var(--gray-900);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    white-space: nowrap;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
-
-.chatbot-tooltip::after {
-    content: '';
-    position: absolute;
-    right: -6px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-width: 6px 0 6px 6px;
-    border-style: solid;
-    border-color: transparent transparent transparent white;
-}
-
-.chatbot-widget:hover .chatbot-tooltip {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%) translateX(0);
-}
-
-[data-theme="dark"] .chatbot-tooltip {
-    background: var(--gray-800);
-    color: white;
-}
-
-[data-theme="dark"] .chatbot-tooltip::after {
-    border-color: transparent transparent transparent var(--gray-800);
 }

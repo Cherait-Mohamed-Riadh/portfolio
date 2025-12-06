@@ -153,6 +153,9 @@
             this.setupChatbot();
             this.setupNavigationHelp();
             this.setupImageLightbox();
+            this.setupProjectFilters();
+            this.setupSkillBars();
+            this.setupSkillBars();
         }
 
         /**
@@ -217,6 +220,66 @@
                     closeLightbox();
                 }
             });
+        }
+
+        /**
+         * Projects filters (Featured Projects)
+         */
+        setupProjectFilters() {
+            const buttons = document.querySelectorAll('.projects-controls .filter-btn');
+            const cards = document.querySelectorAll('.projects-grid .project-card');
+            if (!buttons.length || !cards.length) return;
+
+            const applyFilter = (filter) => {
+                buttons.forEach(btn => {
+                    const isActive = btn.dataset.filter === filter;
+                    btn.classList.toggle('active', isActive);
+                    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+                cards.forEach(card => {
+                    const match = filter === 'all' || card.dataset.category === filter;
+                    card.classList.toggle('hidden', !match);
+                });
+            };
+
+            const saved = localStorage.getItem('projectsFilter') || 'all';
+            applyFilter(saved);
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    localStorage.setItem('projectsFilter', filter);
+                    applyFilter(filter);
+                });
+            });
+        }
+
+        /**
+         * Animate skill bars in Expertise section when visible
+         */
+        setupSkillBars() {
+            const bars = document.querySelectorAll('.expertise-section .skill-progress');
+            if (!bars.length) return;
+
+            // Prepare initial state
+            bars.forEach(bar => {
+                const pct = parseInt(bar.getAttribute('data-progress') || '0', 10);
+                bar.style.width = '0%';
+                bar.style.transition = 'width .9s ease';
+                bar.__targetPct = Math.max(0, Math.min(100, pct));
+            });
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        el.style.width = `${el.__targetPct}%`;
+                        io.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            bars.forEach(bar => io.observe(bar));
         }
 
         /**
@@ -624,6 +687,14 @@
                     'projects.security.title': 'Penetration Testing Framework',
                     'projects.security.description': 'Automated security testing platform with comprehensive vulnerability scanning and reporting tools.',
                     'projects.cta': 'Launch Your Professional Website Today',
+                    'projects.filters.all': 'All',
+                    'projects.filters.web': 'Web',
+                    'projects.filters.security': 'Security',
+                    'projects.ribbon': 'Featured',
+                    'projects.meta.duration7': '7 Days',
+                    'projects.meta.roleFullstack': 'Full‑stack',
+                    'projects.meta.secure': 'Secure Build',
+                    'projects.view': 'View Project',
                     
                     // Contact Section
                     'contact.intro': 'Tell us your idea, and get a clear plan & price within 24 hours.',
@@ -763,6 +834,14 @@
                     'projects.security.title': 'إطار اختبار الاختراق',
                     'projects.security.description': 'منصة اختبار أمان آلية مع أدوات فحص الثغرات وإعداد التقارير الشاملة.',
                     'projects.cta': 'أطلق موقعك المهني اليوم',
+                    'projects.filters.all': 'الكل',
+                    'projects.filters.web': 'ويب',
+                    'projects.filters.security': 'الأمن',
+                    'projects.ribbon': 'مميز',
+                    'projects.meta.duration7': '7 أيام',
+                    'projects.meta.roleFullstack': 'متكامل',
+                    'projects.meta.secure': 'بناء آمن',
+                    'projects.view': 'عرض المشروع',
                     
                     // Contact Section
                     'contact.intro': 'أخبرنا بفكرتك، واحصل على خطة واضحة وسعر خلال 24 ساعة.',
@@ -902,6 +981,14 @@
                     'projects.security.title': 'Framework de tests de pénétration',
                     'projects.security.description': 'Plateforme de tests de sécurité automatisée avec outils de scan de vulnérabilités et de génération de rapports complets.',
                     'projects.cta': 'Lancez votre site web professionnel aujourd\'hui',
+                    'projects.filters.all': 'Tous',
+                    'projects.filters.web': 'Web',
+                    'projects.filters.security': 'Sécurité',
+                    'projects.ribbon': 'En vedette',
+                    'projects.meta.duration7': '7 jours',
+                    'projects.meta.roleFullstack': 'Full‑stack',
+                    'projects.meta.secure': 'Construction sécurisée',
+                    'projects.view': 'Voir le projet',
                     
                     // Contact Section
                     'contact.intro': 'Dites-nous votre idée et obtenez un plan clair et un prix en 24 heures.',
@@ -1041,13 +1128,12 @@
             // Apply translations to projects section
             this.translateElement('.projects-section .section-title', translations['projects.title']);
             this.translateElement('.projects-section .section-subtitle', translations['projects.subtitle']);
-            this.translateElement('.project-card:nth-child(1) .project-category', translations['projects.web.category']);
-            this.translateElement('.project-card:nth-child(1) .project-title', translations['projects.web.title']);
-            this.translateElement('.project-card:nth-child(1) .project-description', translations['projects.web.description']);
-            /* Financial project removed from homepage */
-            this.translateElement('.project-card:nth-child(3) .project-category', translations['projects.security.category']);
-            this.translateElement('.project-card:nth-child(3) .project-title', translations['projects.security.title']);
-            this.translateElement('.project-card:nth-child(3) .project-description', translations['projects.security.description']);
+            this.translateElement('.project-card[data-category="web"] .project-category', translations['projects.web.category']);
+            this.translateElement('.project-card[data-category="web"] .project-title', translations['projects.web.title']);
+            this.translateElement('.project-card[data-category="web"] .project-description', translations['projects.web.description']);
+            this.translateElement('.project-card[data-category="security"] .project-category', translations['projects.security.category']);
+            this.translateElement('.project-card[data-category="security"] .project-title', translations['projects.security.title']);
+            this.translateElement('.project-card[data-category="security"] .project-description', translations['projects.security.description']);
             this.translateElement('.projects-cta .btn span', translations['projects.cta']);
 
             // Apply translations to contact section
@@ -1107,6 +1193,22 @@
             this.translateElement('.nav-help-tooltip h4', translations['nav.help.title']);
             this.translateElement('.nav-help-tooltip p:first-of-type', translations['nav.help.sections']);
             this.translateElement('.nav-help-tooltip p:last-of-type', translations['nav.help.navigation']);
+
+            // Projects: Filters, Ribbon, Meta and View text
+            const translateKeys = [
+                'projects.filters.all',
+                'projects.filters.web',
+                'projects.filters.security',
+                'projects.ribbon',
+                'projects.meta.duration7',
+                'projects.meta.roleFullstack',
+                'projects.meta.secure',
+                'projects.view'
+            ];
+            translateKeys.forEach(key => {
+                const nodes = document.querySelectorAll(`[data-translate="${key}"]`);
+                nodes.forEach(n => n.textContent = translations[key] || n.textContent);
+            });
         }
 
         translateElement(selector, translation) {
@@ -1304,7 +1406,8 @@
         }
 
         createParticles(container) {
-            const particleCount = 50;
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            const particleCount = isMobile ? 24 : 50;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');

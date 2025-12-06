@@ -1,80 +1,151 @@
-/* Chatbot Icon Styles */
-.chatbot-icon {
+/* Chatbot Icon Styles - Professional, modern FAB design */
+:root {
+    --chatbot-size: 65px;
+    --chatbot-radius: 50%;
+    --chatbot-bg-1: #1e40af; /* indigo-800 */
+    --chatbot-bg-2: #3b82f6; /* blue-500 */
+    --chatbot-bg-3: #60a5fa; /* blue-400 */
+    --chatbot-ring: rgba(255, 255, 255, 0.18);
+    --chatbot-ring-strong: rgba(255, 255, 255, 0.28);
+    --chatbot-shadow-1: 0 10px 30px rgba(30, 64, 175, 0.28);
+    --chatbot-shadow-2: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --chatbot-inset: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+/* Floating Action Button container */
+.chatbot-icon,
+.chatbot-widget.chatbot-icon,
+button.chatbot-icon,
+button.chatbot-widget.chatbot-icon,
+#chatbotIcon {
     position: fixed !important;
     bottom: 30px !important;
     right: 30px !important;
-    width: 65px !important;
-    height: 65px !important;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%) !important;
-    border-radius: 20px !important;
+    width: var(--chatbot-size) !important;
+    height: var(--chatbot-size) !important;
+    border-radius: var(--chatbot-radius) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
-    box-shadow: 
-        0 10px 30px rgba(30, 64, 175, 0.3),
-        0 4px 15px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    z-index: 997 !important; /* أقل من زر العودة للأعلى وزر WhatsApp */
-    border: 2px solid rgba(255, 255, 255, 0.15) !important;
-    backdrop-filter: blur(10px) !important;
+    /* Layered, modern gradient with subtle lighting - Force bright blue colors */
+    background: 
+        radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%) ,
+        linear-gradient(135deg, #1e40af 0%, #3b82f6 55%, #60a5fa 100%) !important;
+    /* Override any dark backgrounds from other CSS files */
+    background-color: transparent !important;
+    color: #ffffff !important; /* SVG currentColor */
+    box-shadow: var(--chatbot-shadow-1), var(--chatbot-shadow-2), var(--chatbot-inset) !important;
+    transition: transform .35s cubic-bezier(.2,.7,.3,1), box-shadow .35s ease, background .35s ease, border-color .35s ease !important;
+    z-index: 100000 !important; /* فوق أي طبقات تظليل غير مقصودة، مع بقاء المودالات ذات z-index أعلى تتقدم عند الفتح */
+    border: 1.5px solid var(--chatbot-ring) !important;
+    /* backdrop-filter removed to prevent black layer overlay issue */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     overflow: hidden !important;
     pointer-events: auto !important;
+    /* Prevent any darkening effects */
+    filter: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
+/* Moving sheen */
 .chatbot-icon::before {
     content: '' !important;
     position: absolute !important;
-    top: 0 !important;
-    left: -100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
-    transition: left 0.6s !important;
+    inset: 0 !important;
+    border-radius: inherit !important;
+    background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.22) 50%, transparent 100%) !important;
+    transform: translateX(-120%) !important;
+    transition: transform .7s ease !important;
+    pointer-events: none !important;
 }
 
-.chatbot-icon:hover::before {
-    left: 100% !important;
+.chatbot-icon:hover::before { transform: translateX(120%) !important; }
+
+/* Breathing halo ring */
+.chatbot-icon::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: -5px !important;
+    border-radius: inherit !important;
+    background: radial-gradient(60% 60% at 50% 50%, rgba(96,165,250,.25) 0%, rgba(37,99,235,.12) 45%, rgba(37,99,235,0) 70%) !important;
+    opacity: .18 !important;
+    animation: professionalPulse 3.2s ease-in-out infinite !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
 }
 
-.chatbot-icon:hover {
-    transform: scale(1.05) translateY(-3px) !important;
-    box-shadow: 
-        0 15px 40px rgba(30, 64, 175, 0.4),
-        0 8px 25px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-    border-color: rgba(255, 255, 255, 0.25) !important;
-    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #3b82f6 100%) !important;
+@keyframes professionalPulse {
+    0%, 100% { transform: scale(1); opacity: .18; }
+    50% { transform: scale(1.15); opacity: .10; }
+}
+
+/* Hover/active interactions */
+.chatbot-icon:hover,
+.chatbot-widget.chatbot-icon:hover,
+button.chatbot-icon:hover,
+button.chatbot-widget.chatbot-icon:hover,
+#chatbotIcon:hover {
+    transform: translateY(-3px) scale(1.04) !important;
+    box-shadow: 0 16px 42px rgba(30,64,175,.38), 0 8px 24px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.28) !important;
+    border-color: var(--chatbot-ring-strong) !important;
+    background: 
+        radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.17) 0%, rgba(255,255,255,0) 42%) ,
+        linear-gradient(135deg, #1d4ed8 0%, #2563eb 55%, #3b82f6 100%) !important;
+    background-color: transparent !important;
+    filter: none !important;
 }
 
 .chatbot-icon:active {
-    transform: scale(0.98) translateY(-1px) !important;
-    box-shadow: 
-        0 8px 25px rgba(30, 64, 175, 0.3),
-        0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-1px) scale(.98) !important;
+    box-shadow: 0 10px 28px rgba(30,64,175,.30), 0 6px 18px rgba(0,0,0,.12) !important;
 }
 
+/* Optional interior pulse layer (kept but refined) */
+.chatbot-pulse {
+    position: absolute !important;
+    inset: -6px !important;
+    border-radius: inherit !important;
+    background: radial-gradient(60% 60% at 50% 50%, rgba(96,165,250,.22) 0%, rgba(37,99,235,.10) 45%, rgba(37,99,235,0) 70%) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity .35s ease !important;
+}
+
+.chatbot-icon:hover .chatbot-pulse { opacity: 1 !important; }
+
+/* SVG icon refinements */
+.chatbot-svg { display: block !important; }
+.chatbot-svg .bubble { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18)); }
+.chatbot-svg .dot { opacity: 0.95; }
+.chatbot-svg .sparkle {
+    opacity: 0;
+    transform: scale(0.85);
+    transform-origin: center;
+    transition: opacity .25s ease, transform .25s ease;
+}
+.chatbot-icon:hover .chatbot-svg .sparkle { opacity: .9; transform: scale(1); animation: chatbotTwinkle 1.8s ease-in-out infinite; }
+@keyframes chatbotTwinkle { 0%, 100% { opacity: .3; transform: scale(0.9) rotate(0deg); } 50% { opacity: 1; transform: scale(1.1) rotate(12deg); } }
+
+/* Fallback PNG/SVG image element support */
 .chatbot-image {
     width: 28px !important;
     height: 28px !important;
     filter: brightness(0) invert(1) !important;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: transform .35s cubic-bezier(.2,.7,.3,1), filter .35s ease !important;
     position: relative !important;
     z-index: 2 !important;
 }
-
-.chatbot-icon:hover .chatbot-image {
-    transform: scale(1.1) rotate(8deg) !important;
-    filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) !important;
-}
+.chatbot-icon:hover .chatbot-image { transform: scale(1.08) rotate(6deg) !important; filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0,0,0,.22)) !important; }
 
 /* Professional tooltip */
 .chatbot-tooltip {
     position: absolute !important;
     right: 80px !important;
     top: 50% !important;
-    transform: translateY(-50%) !important;
+    transform: translateY(-50%) scale(.98) !important;
     background: linear-gradient(135deg, #1f2937 0%, #374151 100%) !important;
     color: #f9fafb !important;
     padding: 10px 16px !important;
@@ -84,137 +155,204 @@
     white-space: nowrap !important;
     opacity: 0 !important;
     visibility: hidden !important;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.2),
-        0 4px 15px rgba(0, 0, 0, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all .35s cubic-bezier(.2,.7,.3,1) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.22), 0 4px 14px rgba(0,0,0,.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
     backdrop-filter: blur(10px) !important;
     z-index: 996 !important;
 }
-
 .chatbot-tooltip::before {
     content: '' !important;
     position: absolute !important;
     right: -8px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
-    width: 0 !important;
-    height: 0 !important;
+    width: 0 !important; height: 0 !important;
     border-left: 8px solid #374151 !important;
     border-top: 8px solid transparent !important;
     border-bottom: 8px solid transparent !important;
 }
 
-.chatbot-icon:hover .chatbot-tooltip {
-    opacity: 1 !important;
-    visibility: visible !important;
-    right: 85px !important;
-    transform: translateY(-50%) scale(1) !important;
-}
+/* RTL support */
+html[dir="rtl"] .chatbot-tooltip { left: 80px !important; right: auto !important; }
+html[dir="rtl"] .chatbot-tooltip::before { left: -8px !important; right: auto !important; border-right: 8px solid #374151 !important; border-left: none !important; }
 
-/* Professional pulse animation */
-.chatbot-icon::after {
-    content: '' !important;
-    position: absolute !important;
-    top: -4px !important;
-    left: -4px !important;
-    right: -4px !important;
-    bottom: -4px !important;
-    border-radius: 24px !important;
-    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%) !important;
-    opacity: 0.2 !important;
-    animation: professionalPulse 3s ease-in-out infinite !important;
-    z-index: -1 !important;
-}
-
-@keyframes professionalPulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.2;
-    }
-    50% {
-        transform: scale(1.15);
-        opacity: 0.1;
-    }
-}
+.chatbot-icon:hover .chatbot-tooltip { opacity: 1 !important; visibility: visible !important; right: 85px !important; transform: translateY(-50%) scale(1) !important; }
 
 /* Status indicator */
 .chatbot-icon .status-indicator {
     position: absolute !important;
     top: 8px !important;
     right: 8px !important;
-    width: 8px !important;
-    height: 8px !important;
-    background: #10b981 !important;
+    width: 9px !important;
+    height: 9px !important;
+    background: linear-gradient(180deg, #34d399 0%, #10b981 100%) !important; /* emerald */
     border-radius: 50% !important;
-    border: 2px solid rgba(255, 255, 255, 0.9) !important;
-    animation: statusBlink 2s ease-in-out infinite !important;
+    border: 2px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 0 0 3px rgba(16,185,129,.15), 0 0 10px rgba(16,185,129,.35) !important;
+    animation: statusBlink 2.4s ease-in-out infinite !important;
+}
+@keyframes statusBlink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .75; transform: scale(.86); } }
+
+/* Accessibility and preferences */
+.chatbot-icon:focus,
+.chatbot-icon:focus-visible {
+    outline: 3px solid #3b82f6 !important;
+    outline-offset: 3px !important;
+    box-shadow: var(--chatbot-shadow-1), var(--chatbot-shadow-2), 0 0 0 3px rgba(59,130,246,.3) !important;
 }
 
-@keyframes statusBlink {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1);
+@media (prefers-contrast: high) {
+    .chatbot-icon { border: 3px solid #000 !important; background: linear-gradient(135deg, #000 0%, #1f2937 50%, #374151 100%) !important; color: #fff !important; }
+    .chatbot-tooltip { border: 2px solid #000 !important; background: #000 !important; color: #fff !important; }
+    .chatbot-icon .status-indicator { background: #00ff00 !important; border-color: #000 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .chatbot-icon,
+    .chatbot-svg .sparkle,
+    .chatbot-pulse,
+    .chatbot-icon::before,
+    .chatbot-icon::after,
+    .chatbot-icon .status-indicator { animation: none !important; transition: none !important; }
+}
+
+@media (prefers-color-scheme: dark) {
+    .chatbot-icon,
+    .chatbot-widget.chatbot-icon,
+    button.chatbot-icon,
+    button.chatbot-widget.chatbot-icon,
+    #chatbotIcon {
+        background: radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 40%), linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 55%, #2563eb 100%) !important;
+        background-color: transparent !important;
+        box-shadow: 0 10px 30px rgba(30,64,175,.40), 0 4px 15px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.15) !important;
+        filter: none !important;
     }
-    50% {
-        opacity: 0.7;
-        transform: scale(0.8);
+    .chatbot-icon:hover,
+    .chatbot-widget.chatbot-icon:hover,
+    button.chatbot-icon:hover,
+    button.chatbot-widget.chatbot-icon:hover,
+    #chatbotIcon:hover {
+        background: radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 42%), linear-gradient(135deg, #1e40af 0%, #2563eb 55%, #3b82f6 100%) !important;
+        background-color: transparent !important;
+        filter: none !important;
     }
 }
 
 /* Enhanced Professional Mobile Styles */
 @media (max-width: 768px) {
-    .chatbot-icon {
-        bottom: 20px !important;
-        right: 20px !important;
+    .chatbot-icon,
+    .chatbot-widget.chatbot-icon,
+    button.chatbot-icon,
+    button.chatbot-widget.chatbot-icon,
+    #chatbotIcon {
+        bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+        right: 16px !important;
+        left: auto !important;
         width: 60px !important;
         height: 60px !important;
-        border-radius: 18px !important;
+        border-radius: 50% !important;
+        z-index: 999 !important;
+        /* Force bright blue background on mobile - override any dark styles */
+        background: 
+            radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%) ,
+            linear-gradient(135deg, #1e40af 0%, #3b82f6 55%, #60a5fa 100%) !important;
+        background-color: transparent !important;
+        filter: none !important;
     }
-    
-    .chatbot-image {
-        width: 24px !important;
-        height: 24px !important;
-    }
-    
-    .chatbot-tooltip {
-        right: 70px !important;
-        font-size: 12px !important;
-        padding: 8px 14px !important;
-        border-radius: 10px !important;
-    }
-    
-    .chatbot-icon:hover .chatbot-tooltip {
-        right: 75px !important;
-    }
-    
-    .chatbot-icon .status-indicator {
-        top: 6px !important;
-        right: 6px !important;
-        width: 6px !important;
-        height: 6px !important;
-    }
-    
-    .chatbot-icon::after {
-        top: -3px !important;
-        left: -3px !important;
-        right: -3px !important;
-        bottom: -3px !important;
-        border-radius: 21px !important;
-    }
+    html[dir="rtl"] .chatbot-tooltip { left: 70px !important; }
+    .chatbot-image { width: 24px !important; height: 24px !important; }
+    .chatbot-tooltip { right: 70px !important; font-size: 12px !important; padding: 8px 14px !important; border-radius: 10px !important; }
+    .chatbot-icon:hover .chatbot-tooltip { right: 75px !important; }
+    .chatbot-icon .status-indicator { top: 6px !important; right: 6px !important; width: 7px !important; height: 7px !important; }
 }
 
 @media (max-width: 480px) {
-    .chatbot-icon {
-        bottom: 15px !important;
-        right: 15px !important;
+    .chatbot-icon,
+    .chatbot-widget.chatbot-icon,
+    button.chatbot-icon,
+    button.chatbot-widget.chatbot-icon,
+    #chatbotIcon {
+        bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+        right: 12px !important;
+        left: auto !important;
         width: 55px !important;
         height: 55px !important;
+        /* Force bright blue background on small mobile - override any dark styles */
+        background: 
+            radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%) ,
+            linear-gradient(135deg, #1e40af 0%, #3b82f6 55%, #60a5fa 100%) !important;
+        background-color: transparent !important;
+        filter: none !important;
     }
-    
-    .chatbot-image {
-        width: 22px !important;
-        height: 22px !important;
-    }
+    .chatbot-image { width: 22px !important; height: 22px !important; }
+}
+
+/* Prevent dimming from inactive overlays (nav/lightbox/video) */
+#navOverlay:not(.open) {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+.lightbox-overlay:not(.active):not(.show) {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+.video-overlay:not(.active):not(.show) {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    pointer-events: none !important;
+}
+
+/* Avoid backdrop-filter interaction on the launcher itself - Override all possible selectors */
+.chatbot-icon,
+.chatbot-widget.chatbot-icon,
+button.chatbot-icon,
+button.chatbot-widget.chatbot-icon,
+#chatbotIcon {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    /* Ensure no dark overlays */
+    background: 
+        radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%) ,
+        linear-gradient(135deg, #1e40af 0%, #3b82f6 55%, #60a5fa 100%) !important;
+    background-color: transparent !important;
+    filter: none !important;
+}
+
+/* Hide launcher when chatbot modal is open (optional UX) */
+body.chatbot-open #chatbotIcon { visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+
+/* Final override to prevent any black/dark overlays - Must be at the end */
+.chatbot-icon,
+.chatbot-widget.chatbot-icon,
+button.chatbot-icon,
+button.chatbot-widget.chatbot-icon,
+#chatbotIcon,
+.chatbot-icon::before,
+.chatbot-icon::after {
+    /* Ensure no dark backgrounds can override */
+    background-color: transparent !important;
+    /* Remove any filters that might darken */
+    filter: none !important;
+    -webkit-filter: none !important;
+    /* Ensure visibility */
+    opacity: 1 !important;
+    visibility: visible !important;
+    /* No dark overlays */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Ensure the main background gradient is always applied */
+.chatbot-icon,
+.chatbot-widget.chatbot-icon,
+button.chatbot-icon,
+button.chatbot-widget.chatbot-icon,
+#chatbotIcon {
+    background-image: 
+        radial-gradient(120% 120% at 70% 20%, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%) ,
+        linear-gradient(135deg, #1e40af 0%, #3b82f6 55%, #60a5fa 100%) !important;
 }

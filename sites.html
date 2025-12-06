@@ -372,11 +372,11 @@
                     <i class="fas fa-briefcase"></i>
                     <span>Projects</span>
                 </a>
-                <a href="#about" class="nav-link" data-section="about" data-keyboard-shortcut="2">
+                <a href="index.html#about" class="nav-link" data-section="about" data-keyboard-shortcut="2">
                     <i class="fas fa-user"></i>
                     <span>About</span>
                 </a>
-                <a href="#contact" class="nav-link" data-section="contact" data-keyboard-shortcut="5">
+                <a href="index.html#contact" class="nav-link" data-section="contact" data-keyboard-shortcut="5">
                     <i class="fas fa-envelope"></i>
                     <span>Contact</span>
                 </a>
@@ -485,6 +485,45 @@
 
         <!-- Projects Showcase Section -->
         <section id="projects" class="sites-section container in-view">
+            <!-- Breadcrumbs -->
+            <nav class="breadcrumbs" aria-label="Breadcrumb">
+                <ol>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li aria-current="page">Portfolio</li>
+                </ol>
+            </nav>
+
+            <!-- Projects Toolbar -->
+            <div class="projects-toolbar" role="region" aria-label="Projects controls">
+                <div class="toolbar-row">
+                    <div class="toolbar-filters" role="tablist" aria-label="Filter projects by category">
+                        <button class="filter-btn active" data-filter="all" aria-selected="true">All</button>
+                        <button class="filter-btn" data-filter="ecommerce" aria-selected="false">E-commerce</button>
+                        <button class="filter-btn" data-filter="healthcare" aria-selected="false">Healthcare</button>
+                        <button class="filter-btn" data-filter="education" aria-selected="false">Education</button>
+                        <button class="filter-btn" data-filter="services" aria-selected="false">Services</button>
+                        <button class="filter-btn" data-filter="portfolio" aria-selected="false">Portfolio</button>
+                        <button class="filter-btn" data-filter="automotive" aria-selected="false">Automotive</button>
+                        <button class="filter-btn" data-filter="media" aria-selected="false">Media</button>
+                    </div>
+                    <div class="toolbar-actions">
+                        <div class="search-input">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                            <input id="projectsSearch" type="search" placeholder="Search projects..." aria-label="Search projects">
+                        </div>
+                        <div class="sort-select">
+                            <label for="projectsSort" class="sr-only">Sort projects</label>
+                            <select id="projectsSort" aria-label="Sort projects">
+                                <option value="default">Sort: Default</option>
+                                <option value="title">Sort: Title (A–Z)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="toolbar-meta">
+                    <span id="projectsCount">All projects</span>
+                </div>
+            </div>
             <div class="sites-grid">
                 <div class="site-card featured" data-category="ecommerce" aria-labelledby="project-ecommerce">
                     <div class="card-badge"><i class="fas fa-star" aria-hidden="true"></i><span>Featured</span></div>
@@ -708,9 +747,9 @@
 
                 <div class="site-card" data-category="automotive" aria-labelledby="project-automotive">
                     <div class="projects-gallery">
-                        <video src="image/zzzz.mp4" autoplay muted loop playsinline width="600" height="400"
+                        <video src="image/Zzzz.mp4" autoplay muted loop playsinline width="600" height="400"
                             class="project-img" style="object-fit: cover; width: 100%; height: 100%; cursor: pointer;"
-                            title="Click to view video in fullscreen" data-video-src="image/zzzz.mp4">
+                            title="Click to view video in fullscreen" data-video-src="image/Zzzz.mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>

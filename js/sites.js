@@ -606,18 +606,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             // Handle index.html links
             else if (href.startsWith('index.html#')) {
-                e.preventDefault();
-                const targetId = href.split('#')[1];
-                const targetElement = document.querySelector(`#${targetId}`);
-                
-                if (targetElement) {
-                    const navHeight = document.querySelector('.navbar').offsetHeight;
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - navHeight,
-                        behavior: 'smooth'
-                    });
-                }
+                // Allow default navigation to index.html with anchor
+                return; // do not preventDefault
             }
         });
     });

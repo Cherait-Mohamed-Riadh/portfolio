@@ -118,7 +118,10 @@ class EnhancedChatbot {
         const modal = this.createChatbotModal();
         document.body.appendChild(modal);
         
-        // Add styles
+        // Mark page as chatbot-open to manage stacking/hiding of the launcher icon
+        document.body.classList.add('chatbot-open');
+        
+        // Add styles (kept for compatibility)
         this.addChatbotStyles();
         
         // Show modal with animation
@@ -216,6 +219,8 @@ class EnhancedChatbot {
 
     closeChatbot(modal) {
         modal.classList.remove('show');
+        // Remove page marker class so the launcher can return
+        document.body.classList.remove('chatbot-open');
         setTimeout(() => modal.remove(), 300);
     }
 
