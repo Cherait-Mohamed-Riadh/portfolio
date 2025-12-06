@@ -4800,8 +4800,8 @@
         }
 
         .floating-card {
-            font-size: 0.75rem;
-            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            padding: 4px 8px;
         }
 
         /* Extra small screen optimizations */
@@ -4869,8 +4869,8 @@
         }
 
         .floating-card {
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
+            padding: 4px 8px;
+            font-size: 0.7rem;
         }
     }
 
@@ -5202,37 +5202,37 @@
     .floating-card {
         display: inline-flex !important;
         align-items: center;
-        gap: 6px;
-        padding: 6px 10px;
-        font-size: 0.85rem;
-        border-radius: 12px;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+        gap: 4px;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
         opacity: 1 !important;
         animation: floatMobile 6s ease-in-out infinite;
         /* اهتزاز خفيف */
     }
 
     .floating-card i {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
 
     /* ضع كل شارة حول الصورة داخل الحدود (بدلاً من قيم سالبة كانت تطلع برا) */
     .floating-card:nth-child(1) {
         /* Security Expert */
-        top: 6%;
-        left: 6%;
+        top: 4%;
+        left: 4%;
     }
 
     .floating-card:nth-child(2) {
         /* Market Analyst */
-        top: 42%;
-        right: 6%;
+        top: 45%;
+        right: 4%;
     }
 
     .floating-card:nth-child(3) {
         /* Developer */
-        bottom: 6%;
-        left: 12%;
+        bottom: 4%;
+        left: 8%;
     }
 
     /* اهتزاز خفيف فقط على الموبايل */
@@ -5252,24 +5252,29 @@
 /* هواتف صغيرة جداً */
 @media (max-width: 480px) {
     .floating-card {
-        padding: 5px 9px;
-        font-size: 0.8rem;
-        border-radius: 10px;
+        padding: 3px 7px;
+        font-size: 0.65rem;
+        border-radius: 8px;
+        gap: 3px;
+    }
+
+    .floating-card i {
+        font-size: 0.7rem;
     }
 
     .floating-card:nth-child(1) {
-        top: 6%;
-        left: 5%;
+        top: 3%;
+        left: 3%;
     }
 
     .floating-card:nth-child(2) {
-        top: 40%;
-        right: 5%;
+        top: 45%;
+        right: 3%;
     }
 
     .floating-card:nth-child(3) {
-        bottom: 6%;
-        left: 10%;
+        bottom: 3%;
+        left: 6%;
     }
 }
 

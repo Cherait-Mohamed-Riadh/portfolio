@@ -4051,10 +4051,9 @@ html.lang-open .navbar {
         margin: 0;
     }
 
+    /* Hide theme toggle in mobile menu */
     .nav-menu.active .theme {
-        order: -1;
-        /* Place theme toggle at the top of mobile menu */
-        border-top: 1px solid var(--border-color);
+        display: none !important;
     }
 
     .nav-menu.active .language-selector {
@@ -4892,10 +4891,9 @@ html.lang-open .navbar {
         border-radius: 1px;
     }
 
-    /* Mobile theme toggle in menu */
+    /* Mobile theme toggle in menu - Hidden */
     .nav-menu.active .theme {
-        margin-top: 2rem;
-        transform: scale(1.2);
+        display: none !important;
     }
 
     .nav-menu.active .theme .toggle-track {

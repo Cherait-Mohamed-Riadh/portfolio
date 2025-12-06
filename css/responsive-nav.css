@@ -228,9 +228,9 @@
     background: linear-gradient(180deg, rgba(125,125,125,.06), rgba(125,125,125,.04));
   }
 
+  /* Hide theme toggle in mobile drawer */
   .drawer-controls .theme {
-    transform: scale(.95);
-    font-size: 13px; /* scales em-based toggle to compact size */
+    display: none !important;
   }
 
   /* Professional mobile styling for theme toggle */
